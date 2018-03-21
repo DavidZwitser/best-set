@@ -42,6 +42,9 @@ export default class Gameplay extends Phaser.State
 
     private _character: Character;
 
+    //emitters
+    private _leafEmitter: Phaser.Particles.Arcade.Emitter;
+
     constructor()
     {
         super();
@@ -58,6 +61,8 @@ export default class Gameplay extends Phaser.State
 
         this._backgroundSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'background');
         this.game.add.existing(this._backgroundSprite);
+
+        this._leafEmitter = this.createLeafEmitter();
 
         this._character = new Character(this.game, 0, 0);
 
@@ -85,12 +90,12 @@ export default class Gameplay extends Phaser.State
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 150, Images.PopUpMenuBackground);
 
         this._scoreText = new Phaser.Text(this.game, this.game.width / 2, 0, 'Score: 0', Constants.buttonTextStyle);
+        this._scoreText.anchor.set(0.5, 0);
         this.game.add.existing(this._scoreText);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
 
         this.resize();
-
     }
 
     public newPathCreated(path: GameTile[]): void
@@ -144,13 +149,16 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.x = this.game.width / 2;
 
         this._backgroundSprite.scale.set(this.game.width / GAME_WIDTH);
-        this._backgroundSprite.y = this._highscoreBackdropSprite.height;
+        this._backgroundSprite.y = 0; //this._highscoreBackdropSprite.height;
 
         this.pauseMenuButton.resize();
         this.pauseMenuButton.position.set(this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
 
         this.socialMenuButton.resize();
         this.socialMenuButton.position.set(this.game.width - this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
+
+        this._leafEmitter.x = this.game.width / 2;
+        this._leafEmitter.width = this.game.width;
 
         this._gameField.resize();
 
@@ -159,7 +167,7 @@ export default class Gameplay extends Phaser.State
             Math.min(
 
                 this.game.height
-                - this._backgroundSprite.height
+                - this._backgroundSprite.height / 2
                 - this._highscoreBackdropSprite.height
                 + this.game.height * .08 // Offset form the background
 
@@ -180,9 +188,24 @@ export default class Gameplay extends Phaser.State
     {
         super.shutdown(this.game);
 
+        this._leafEmitter.destroy(true);
+        this._leafEmitter = null;
+
         this._gameField.destroy();
         this._gameField = null;
 
     }
 
+    public createLeafEmitter(): Phaser.Particles.Arcade.Emitter{
+        let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 50);
+        emitter.makeParticles(Atlases.Interface, ['particle_leaf_test2', 'particle_leaf_test1']);
+        emitter.setXSpeed(-100, 100);
+        emitter.setYSpeed(-1, -10);
+        emitter.setRotation(0, 80);
+        emitter.setAlpha(1, 2, 2000);
+        emitter.setScale(1, 1, 1, 1, 2000);
+        emitter.width = 600;
+        emitter.start(false, 3500, 400);
+        return emitter;
+    }
 }
