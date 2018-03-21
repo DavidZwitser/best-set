@@ -14,76 +14,87 @@ export default class Timer
    public onSecond: Phaser.Signal;
    public onTimeEnd: Phaser.Signal;
 
-   get CountNumber():number
+   get CountNumber(): number
    {
        return this._countNumber;
    }
 
-   get MaxSeconds():number
+   get MaxSeconds(): number
    {
        return this._maxSeconds;
    }
 
-   get GetPaused():boolean
+   get GetPaused(): boolean
    {
        return this._isPaused;
    }
-   
+
+   set SetPaused(isPaused: boolean)
+   {
+       isPaused = this._isPaused;
+   }
 
     constructor()
     {
         this.startTimer();
     }
 
-    public startTimer():void
+    public startTimer(): void
     {
         this.onSecond = new Phaser.Signal();
 
-       this._setTimer = setInterval(() => 
+        this._setTimer = setInterval(() =>
         {
-
-            if (this._countNumber < 1)
-             {
-                 this._hasEnded = true;
-                 this.stopTimer();
-                // this.onSecond.dispose();
-             }        
-
-            if (!this._isPaused && !this._hasEnded)
+            if (this._countNumber <= 0)
+            {
+                this._hasEnded = true;
+                this.stopTimer(false);
+             // this.onSecond.dispose();
+            }
+            if (!this._isPaused || !this._hasEnded)
             {
                 this._countNumber--;
-  
                 this.onSecond.dispatch();
-             }
-             
-             
-        },1000);
-    }
+            }
+        }, 1000);
+        }
 
-    public resetTimer(resetSecond:number)
+    public resetTimer(resetSecond: number): void
     {
         this._countNumber = resetSecond;
     }
 
-    public pauseTimer():void
+    // Resets the timer to the needed count (1 to 60).
+
+    public pauseTimer(): void
     {
         clearInterval(this._setTimer);
     }
-    
-    public stopTimer():void
+    // Pauses the timer.
+    public stopTimer(pauseMenu: boolean): void
     {
         clearInterval(this._setTimer);
 
-        this.onTimeEnd = new Phaser.Signal();
-        this.onTimeEnd.dispatch();
+        if (!pauseMenu)
+        {
+            this.onTimeEnd = new Phaser.Signal();
+            this.onTimeEnd.dispatch();
+        }
     }
 
-    public addSeconds(amountAdded:number):void
+    // Function is called when the game ends.
+    // Signal is to let other scripts know that the timer has ended.
+
+    public addSeconds(amountAdded: number): void
     {
         this._countNumber += amountAdded;
     }
 
-    public shutdown():void
+    // Function that will get used to add seconds.
+    // This should be called with every succesful combination.
+    // Amount depends on the score.
+
+    public shutdown(): void
     {
         //
     }

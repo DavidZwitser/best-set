@@ -17,47 +17,47 @@ import Character from '../Objects/Character';
 export default class Gameplay extends Phaser.State
 {
     public static Name: string = 'gameplay';
- 
+
     public name: string = Gameplay.Name;
- 
+
     private _timeBar: TimeBar;
     private _timerClass: Timer;
     private _timeScalerClass: TimeBarScaler;
- 
+
     private _gameField: GameField;
- 
+
     private pauseMenuButton: ImageButton;
     private socialMenuButton: ImageButton;
- 
+
     private _pauseMenu: PauseMenu;
- 
+
     private _highscoreBackdropSprite: Phaser.Sprite;
     private _backgroundSprite: Phaser.Sprite;
- 
+
     private _character: Character;
- 
+
     constructor()
     {
         super();
     }
- 
+
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
     }
- 
+
     public create(): void
     {
         super.create(this.game);
- 
+
         this._backgroundSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'background');
         this.game.add.existing(this._backgroundSprite);
- 
+
         this._character = new Character(this.game, 0, 0);
- 
+
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
- 
+
         this._highscoreBackdropSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_ingame_highscore_backdrop');
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
         this.game.add.existing(this._highscoreBackdropSprite);
@@ -65,25 +65,23 @@ export default class Gameplay extends Phaser.State
         this._timerClass = new Timer();
         this._timeBar = new TimeBar(this.game);
         this._timeScalerClass = new TimeBarScaler(this.game);
- 
+
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
- 
+
         this._pauseMenu.onContinue.add(this.disableMenu, this);
         this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
         this.game.add.existing(this.pauseMenuButton);
- 
+
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'popupmenu_icon_twitter', this.activateSocial, this );
         this.game.add.existing(this.socialMenuButton);
         this.resize();
-
-       
     }
- 
+
     public newPathCreated(path: GameTile[]): void
     {
         console.log('new path!: ', path);
     }
- 
+
     private activateMenu(): void
     {
         //pause the game

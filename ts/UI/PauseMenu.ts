@@ -27,9 +27,6 @@ export default class PauseMenu extends Phaser.Group
     {
         super(game);
 
-        this._timerScript = new Timer();
-        
-
         this._menuBackground = new Phaser.Image(game, 0, 0, backgroundImage);
         this._menuBackground.anchor.set(0.5);
         this.addChild(this._menuBackground);
@@ -78,7 +75,10 @@ export default class PauseMenu extends Phaser.Group
         this.addChild(this._musicButton);
         this._musicButton.scale.set(scale);
 
-        this._timerScript.stopTimer(false);
+        this._timerScript = new Timer();
+
+        this._timerScript.SetPaused = true;
+        this._timerScript.stopTimer(true);
 
     }
 
