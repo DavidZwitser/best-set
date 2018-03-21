@@ -11,6 +11,9 @@ import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
 import { gridElementTypes } from '../GridObjects/GridObject';
 
+import Gameplay from '../../States/Gameplay';
+import Constants from '../../Data/Constants';
+
 export default class GameField extends Phaser.Group
 {
     public grid: Grid;
@@ -28,6 +31,8 @@ export default class GameField extends Phaser.Group
 
     private _backdropSprite: Phaser.Sprite;
     private _timerBbackdropSprite: Phaser.Sprite;
+
+    public updateScore: Phaser.Signal;
 
     constructor(game: Phaser.Game)
     {
@@ -60,6 +65,8 @@ export default class GameField extends Phaser.Group
         this._currentPath = [];
 
         this.setupGrid();
+
+        this.updateScore = new Phaser.Signal();
 
     }
 
@@ -145,6 +152,7 @@ export default class GameField extends Phaser.Group
         {
             this._currentPath[i].animateOut();
         }
+        this.updateScore.dispatch(this._currentPath.length);
 
     }
 

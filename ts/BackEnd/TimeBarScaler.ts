@@ -27,11 +27,10 @@ export default class TimeBarScaler
         // by signal (send parameter?)
 
        this._timeBarTotalSeconds = this._timerScript.MaxSeconds;
-        this._timeBarSecond = this._timerScript.CountNumber;
 
-        this._scalePercentage = (this._timeBarSecond - this._timeBarTotalSeconds) / this._timeBarTotalSeconds;
-
-        this._timeBarScript.drawMask(this._scalePercentage);
+       this._timeBarSecond = this._timerScript.CountNumber;
+       this._scalePercentage = (this._timeBarSecond - this._timeBarTotalSeconds) / this._timeBarTotalSeconds;
+       this._timeBarScript.drawMask(this._scalePercentage);
     }
 
 }

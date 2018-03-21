@@ -25,7 +25,10 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         width: number,
         height: number,
         spriteName: string,
-        maxParticles: number
+        maxParticles: number,
+        spriteSheet: boolean,
+        spriteSheetFPS: number,
+        spriteSheetLoop: boolean
     };
 
     constructor(game: Phaser.Game, x: number, y: number)
@@ -41,13 +44,25 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         console.log();
         this.code =
         'public createEmitter(): Phaser.Particles.Arcade.Emitter{' +
-        'let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, ' + this.editorValues.maxParticles + ');' +
-        'emitter.makeParticles(Atlases.Interface, "' + this.editorValues.spriteName.split(', ') + '");' +
-        'emitter.setXSpeed(' + this.editorValues.minXSpeed + ', ' + this.editorValues.maxXSpeed + ');' +
-        'emitter.setYSpeed(' + this.editorValues.minYSpeed + ', ' + this.editorValues.maxYSpeed + ');';
-
+        'let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, ' + this.editorValues.maxParticles + ');';
         this.maxParticles = this.editorValues.maxParticles;
-        this.makeParticles(Atlases.Interface, this.editorValues.spriteName.split(', '));
+
+        if (this.editorValues.spriteSheet) {
+            this.code += 'emitter.makeParticles(Atlases.Lightning);';
+            this.code += 'this.forEach( (singleParticle: Phaser.Sprite) => {singleParticle.animations.add(\'animationName\');singleParticle.animations.play(\'animationName\',' +
+            this.editorValues.spriteSheetFPS + ', ' + this.editorValues.spriteSheetLoop + ');});';
+            this.makeParticles(Atlases.Lightning);
+            this.forEach( (singleParticle: Phaser.Sprite) => {
+                singleParticle.animations.add('anim');
+                singleParticle.animations.play('anim', this.editorValues.spriteSheetFPS, this.editorValues.spriteSheetLoop);
+            });
+        } else {
+            this.code += 'emitter.makeParticles(Atlases.Interface, \'' + this.editorValues.spriteName.split(', ') + '\');';
+            this.makeParticles(Atlases.Interface, this.editorValues.spriteName.split(', '));
+        }
+
+        this.code += 'emitter.setXSpeed(' + this.editorValues.minXSpeed + ', ' + this.editorValues.maxXSpeed + ');' +
+        'emitter.setYSpeed(' + this.editorValues.minYSpeed + ', ' + this.editorValues.maxYSpeed + ');';
 
         this.setXSpeed(this.editorValues.minXSpeed, this.editorValues.maxXSpeed);
         this.setYSpeed(this.editorValues.minYSpeed, this.editorValues.maxYSpeed);

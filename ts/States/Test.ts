@@ -67,7 +67,10 @@ export default class Test extends Phaser.State
         width: Math.round((<any>document.getElementById('width')).value),
         height: Math.round((<any>document.getElementById('height')).value),
         spriteName: (<any>document.getElementById('name')).value,
-        maxParticles: (<any>document.getElementById('maxparticles')).value
+        maxParticles: (<any>document.getElementById('maxparticles')).value,
+        spriteSheet: (<any>document.getElementById('spritesheet')).checked,
+        spriteSheetFPS: Math.round((<any>document.getElementById('fps')).value),
+        spriteSheetLoop: (<any>document.getElementById('loop')).checked
         };
 
         this.emitter.setUpEmitter();

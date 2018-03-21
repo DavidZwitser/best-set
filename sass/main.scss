@@ -16,10 +16,14 @@ body, html {
     border: 5px solid black;
     background: aliceblue;
     max-height: 100vh;
-    overflow: scroll;
+    overflow-y: scroll;
     p{
         padding: 0;
         margin: 0;
+    }
+    b {
+        margin-top: 10px;
+        color: purple;
     }
 }
 #editor{

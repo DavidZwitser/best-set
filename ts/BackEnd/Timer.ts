@@ -37,6 +37,7 @@ export default class Timer
     constructor()
     {
         this.startTimer();
+        this.onTimeEnd = new Phaser.Signal();
     }
 
     public startTimer(): void
@@ -74,12 +75,7 @@ export default class Timer
     public stopTimer(pauseMenu: boolean): void
     {
         clearInterval(this._setTimer);
-
-        if (!pauseMenu)
-        {
-            this.onTimeEnd = new Phaser.Signal();
-            this.onTimeEnd.dispatch();
-        }
+        this.onTimeEnd.dispatch();
     }
 
     // Function is called when the game ends.

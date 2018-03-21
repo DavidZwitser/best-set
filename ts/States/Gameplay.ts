@@ -1,12 +1,12 @@
 import 'phaser-ce';
- 
+
 import Images from '../Data/Images';
- 
+
 import GameField from '../Objects/GameObjects/GameField';
 import GameTile from '../Objects/GridObjects/GameTile';
- 
-import PauseMenu from '../UI/PauseMenu';
 
+import PauseMenu from '../UI/PauseMenu';
+import GameOverScreen from '../UI/GameOverScreen';
 import Timer from '../BackEnd/Timer';
 import TimeBar from '../UI/TimeBar';
 import TimeBarScaler from '../BackEnd/TimeBarScaler';
@@ -14,6 +14,7 @@ import TimeBarScaler from '../BackEnd/TimeBarScaler';
 import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
 import Character from '../Objects/Character';
+import Constants from '../Data/Constants';
 export default class Gameplay extends Phaser.State
 {
     public static Name: string = 'gameplay';
@@ -30,10 +31,21 @@ export default class Gameplay extends Phaser.State
     private socialMenuButton: ImageButton;
 
     private _pauseMenu: PauseMenu;
+<<<<<<< HEAD
+=======
+    private _gameOverScreen: GameOverScreen;
+>>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
 
     private _highscoreBackdropSprite: Phaser.Sprite;
     private _backgroundSprite: Phaser.Sprite;
 
+<<<<<<< HEAD
+=======
+    public currentScore: number = 0;
+
+    private _scoreText: Phaser.Text;
+
+>>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     private _character: Character;
 
     constructor()
@@ -57,6 +69,10 @@ export default class Gameplay extends Phaser.State
 
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
+<<<<<<< HEAD
+=======
+        this._gameField.updateScore.add(this.updateScoreText, this);
+>>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
 
         this._highscoreBackdropSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_ingame_highscore_backdrop');
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
@@ -74,7 +90,19 @@ export default class Gameplay extends Phaser.State
 
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'popupmenu_icon_twitter', this.activateSocial, this );
         this.game.add.existing(this.socialMenuButton);
+
+        this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 150, Images.PopUpMenuBackground);
+
+        this._scoreText = new Phaser.Text(this.game, this.game.width / 2, 0, 'Score: 0', Constants.buttonTextStyle);
+        this.game.add.existing(this._scoreText);
+
+        this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
+
         this.resize();
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     }
 
     public newPathCreated(path: GameTile[]): void
@@ -82,6 +110,15 @@ export default class Gameplay extends Phaser.State
         console.log('new path!: ', path);
     }
 
+<<<<<<< HEAD
+=======
+    private updateScoreText(scoreIncrease: number): void
+    {
+        this.currentScore +=  scoreIncrease;
+        this._scoreText.text = 'Score: ' + this.currentScore.toString();
+    }
+
+>>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     private activateMenu(): void
     {
         //pause the game
@@ -89,68 +126,78 @@ export default class Gameplay extends Phaser.State
         this.pause(true);
         this._pauseMenu.visible = true;
         this.pauseMenuButton.visible = false;
- 
+
+    }
+    private gameOverScreen(): void
+    {
+        if (Constants.CurrentScore > Constants.HighScore)
+        {
+            Constants.HighScore = Constants.CurrentScore;
+        }
+        this.pause(true);
+        this._gameOverScreen.visible = true;
     }
     private activateSocial(): void
     {
         console.log('socialiceren? NANI!');
     }
- 
+
     private disableMenu(): void
     {
         this.pause(false);
         this.pauseMenuButton.visible = true;
     }
- 
+
     public resize(): void {
- 
+
         let vmin: number = Math.min(this.game.width, this.game.height);
- 
+
         this._pauseMenu.resize();
- 
+        this._gameOverScreen.resize();
+
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
- 
+
         this._backgroundSprite.scale.set(this.game.width / GAME_WIDTH);
         this._backgroundSprite.y = this._highscoreBackdropSprite.height;
- 
+
         this.pauseMenuButton.resize();
         this.pauseMenuButton.position.set(this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
- 
+
         this.socialMenuButton.resize();
         this.socialMenuButton.position.set(this.game.width - this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
- 
+
         this._gameField.resize();
- 
+
         /* How much the space the grid can use on the screen in pixels */
         let gridHeightSpace: number =
             Math.min(
- 
+
                 this.game.height
                 - this._backgroundSprite.height
                 - this._highscoreBackdropSprite.height
                 + this.game.height * .08 // Offset form the background
- 
+
                 , vmin
             );
- 
+
         this._gameField.width = this._gameField.height = gridHeightSpace;
- 
+
         this._gameField.position.set(
             this.game.width / 2 - this._gameField.width / 2,
             this.game.height - this._gameField.height * .92
         );
- 
+
         this._character.position.set(this.game.width / 2, this.game.height * .3);
     }
- 
+
     public shutdown(): void
     {
         super.shutdown(this.game);
- 
+
         this._gameField.destroy();
         this._gameField = null;
- 
+
     }
- 
+
 }
