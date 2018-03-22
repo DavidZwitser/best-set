@@ -26,7 +26,7 @@ export default class TimeBarScaler
         // adjust TimeBar.ts _maskWidth with get set
         // by signal (send parameter?)
 
-       this._timeBarTotalSeconds = this._timerScript.MaxSeconds;
+        this._timeBarTotalSeconds = this._timerScript.MaxSeconds;
         this._timeBarSecond = this._timerScript.CountNumber;
 
         this._scalePercentage = (this._timeBarSecond - this._timeBarTotalSeconds) / this._timeBarTotalSeconds;

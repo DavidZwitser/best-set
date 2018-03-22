@@ -7,18 +7,16 @@ export default class TimeBar extends Phaser.Group
 {
 
     private _timeBar: Phaser.Sprite;
-    private _maxWidth: number;
-    private _maxHeight: number;
 
     private _timeMask: Phaser.Graphics;
     private _maskWidth: number;
 
-    get GetMaskWidth():number
+    get GetMaskWidth(): number
     {
         return this._maskWidth;
     }
-    
-    set SetMaskWidth(newMaskWidth:number)
+
+    set SetMaskWidth(newMaskWidth: number)
     {
         this._maskWidth = newMaskWidth;
     }
@@ -27,28 +25,25 @@ export default class TimeBar extends Phaser.Group
 
     public mask: any;
 
-    constructor(game: Phaser.Game, x?:number, y?:number, maxWidth?:number, maxHeight?:number)
+    constructor(game: Phaser.Game)
     {
         super(game);
 
-        this._maxWidth = maxWidth;
-        this._maxHeight = maxHeight;
         this.game.add.existing(this);
-        
+
         this.addSprite();
         this.addMask();
         this.scaleSprite();
 
         this._timerClass = new Timer();
+        console.log(this._timerClass);
     }
 
-    
     public addSprite(): void
     {
-        this._timeBar = this.game.add.sprite(this.game.width / 15, this.game.height / 2.275, Images.PlaceholderBar); 
+        this._timeBar = this.game.add.sprite(this.game.width / 15, this.game.height / 2.275, Images.PlaceholderBar);
     }
 
-  
     public addMask(): void
     {
         this._timeMask = this.game.add.graphics(180, this._timeBar.y / 2.32);
@@ -60,22 +55,19 @@ export default class TimeBar extends Phaser.Group
     * Might need a cleaner solution
     */
 
-    public drawMask(adjustedWidth:number): void
+    public drawMask(adjustedWidth: number): void
     {
         // Needs a cleaner solution due to constant drawing
         this._timeMask.drawRect(500, 320, this._timeBar.width * adjustedWidth, this._timeBar.height);
     }
-  
-    public scaleSprite():void
+
+    public scaleSprite(): void
     {
-        this._timeBar.scale.setTo(2,1);
+        this._timeBar.scale.setTo(2, 1);
     }
-
-
 
     public shutdown(): void
     {
-      
         this._timeBar.destroy(true);
         this._timeBar = null;
 
