@@ -1,7 +1,7 @@
 import Grid from '../Grid';
 
 import LevelGenerator from '../LevelGenerator';
-import PathChecker from '../../Backend/PathChecker';
+import PathChecker from '../../BackEnd/PathChecker';
 import LineDrawer from '../LineDrawer';
 import Input from '../Input';
 
@@ -10,9 +10,6 @@ import GridRegenerator from '../GridRegenerator';
 import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
 import { gridElementTypes } from '../GridObjects/GridObject';
-
-import Gameplay from '../../States/Gameplay';
-import Constants from '../../Data/Constants';
 
 export default class GameField extends Phaser.Group
 {
@@ -211,8 +208,11 @@ export default class GameField extends Phaser.Group
 
         this._gridMask.clear();
         this._gridMask.beginFill(0xffa500);
-        this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
+        // this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
+        this._gridMask.drawRect(0, 0, 50, 50);
         this._gridMask.endFill();
+
+        console.log(this.grid.mask);
     }
 
     public destroy(): void
@@ -234,6 +234,7 @@ export default class GameField extends Phaser.Group
 
         if (this._gridMask) { this._gridMask.destroy(true); }
         this._gridMask = null;
+
     }
 
 }
