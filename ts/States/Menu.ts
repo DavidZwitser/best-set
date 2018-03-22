@@ -31,7 +31,7 @@ export default class Menu extends Phaser.State
         super.create(this.game);
 
         this.backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
-        this.backgroundSprite.anchor.set(.5, 0);
+        this.backgroundSprite.anchor.set(.5, 1);
 
         this.title = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_ondergrond_logo');
         this.title.anchor.set(.5);
@@ -104,6 +104,7 @@ export default class Menu extends Phaser.State
         let vmin: number = Math.min(this.game.width, this.game.height);
 
         this.backgroundSprite.x = this.game.width / 2;
+        this.backgroundSprite.y = this.game.height;
         this.backgroundSprite.scale.set(vmax / GAME_WIDTH);
 
         this.title.scale.set(vmin / GAME_WIDTH);

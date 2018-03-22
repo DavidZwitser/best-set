@@ -1,5 +1,6 @@
 import 'phaser-ce';
 import IGame from '../PluginManagers/IGame';
+import Atlases from '../Data/Atlases';
 
 export default class Character extends Phaser.Group
 {
@@ -17,6 +18,12 @@ export default class Character extends Phaser.Group
             true        //If the animation should loop or not
         );
         this.addChild(this._spine);
+
+        this._spine.visible = false;
+        let tempSprite: Phaser.Sprite = new Phaser.Sprite(game, 0, 0, Atlases.Interface, 'temp_char');
+        tempSprite.anchor.set(.5);
+        tempSprite.scale.set(0.2);
+        this.addChild(tempSprite);
 
     }
 }

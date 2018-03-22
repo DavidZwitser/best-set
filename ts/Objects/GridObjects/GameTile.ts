@@ -16,7 +16,7 @@ export enum TileShapes
 {
     blue = 'blue',
     red = 'red',
-    purple = 'purple'
+    yellow = 'yellow'
 }
 
 export default class GameTile extends GridObject
