@@ -1,0 +1,286 @@
+
+chips.png
+size: 574,574
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+if_chip_01
+  rotate: false
+  xy: 306, 459
+  size: 139, 113
+  orig: 139, 113
+  offset: 0, 0
+  index: -1
+if_chip_02
+  rotate: false
+  xy: 447, 459
+  size: 102, 113
+  orig: 102, 113
+  offset: 0, 0
+  index: -1
+if_chip_03
+  rotate: true
+  xy: 154, 124
+  size: 66, 111
+  orig: 66, 111
+  offset: 0, 0
+  index: -1
+if_chip_04
+  rotate: false
+  xy: 486, 164
+  size: 19, 113
+  orig: 19, 113
+  offset: 0, 0
+  index: -1
+if_chip_05
+  rotate: true
+  xy: 306, 394
+  size: 63, 111
+  orig: 63, 111
+  offset: 0, 0
+  index: -1
+if_chip_06
+  rotate: false
+  xy: 154, 192
+  size: 101, 113
+  orig: 101, 113
+  offset: 0, 0
+  index: -1
+if_chip_07
+  rotate: false
+  xy: 154, 307
+  size: 139, 113
+  orig: 139, 113
+  offset: 0, 0
+  index: -1
+if_chip_08
+  rotate: false
+  xy: 2, 2
+  size: 103, 114
+  orig: 103, 114
+  offset: 0, 0
+  index: -1
+if_chip_09
+  rotate: false
+  xy: 212, 8
+  size: 62, 114
+  orig: 62, 114
+  offset: 0, 0
+  index: -1
+if_chip_10
+  rotate: false
+  xy: 551, 457
+  size: 21, 115
+  orig: 21, 115
+  offset: 0, 0
+  index: -1
+if_chip_11
+  rotate: false
+  xy: 257, 192
+  size: 62, 113
+  orig: 62, 113
+  offset: 0, 0
+  index: -1
+if_chip_12
+  rotate: false
+  xy: 107, 2
+  size: 103, 114
+  orig: 103, 114
+  offset: 0, 0
+  index: -1
+if_chip_glow_blue
+  rotate: false
+  xy: 2, 422
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+if_chip_glow_green
+  rotate: false
+  xy: 2, 270
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+if_chip_glow_red
+  rotate: false
+  xy: 154, 422
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+if_chip_glow_yellow
+  rotate: false
+  xy: 2, 118
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+if_chip_print_01_blue
+  rotate: false
+  xy: 295, 322
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_01_green
+  rotate: false
+  xy: 411, 207
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_01_red
+  rotate: false
+  xy: 411, 135
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_01_yellow
+  rotate: false
+  xy: 276, 70
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_02_blue
+  rotate: true
+  xy: 276, 18
+  size: 50, 70
+  orig: 50, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_02_green
+  rotate: false
+  xy: 351, 70
+  size: 50, 70
+  orig: 50, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_02_red
+  rotate: true
+  xy: 403, 83
+  size: 50, 70
+  orig: 50, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_02_yellow
+  rotate: true
+  xy: 348, 18
+  size: 50, 70
+  orig: 50, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_03_blue
+  rotate: false
+  xy: 370, 322
+  size: 29, 70
+  orig: 29, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_03_green
+  rotate: false
+  xy: 509, 387
+  size: 29, 70
+  orig: 29, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_03_red
+  rotate: false
+  xy: 540, 385
+  size: 29, 70
+  orig: 29, 70
+  offset: 0, 0
+  index: -1
+if_chip_print_03_yellow
+  rotate: false
+  xy: 420, 11
+  size: 29, 70
+  orig: 29, 70
+  offset: 0, 0
+  index: -1
+lightring_blue
+  rotate: false
+  xy: 419, 369
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+lightring_green
+  rotate: false
+  xy: 321, 232
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+lightring_red
+  rotate: false
+  xy: 321, 142
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+lightring_yellow
+  rotate: false
+  xy: 411, 279
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+particle_blue
+  rotate: false
+  xy: 267, 149
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+particle_green
+  rotate: true
+  xy: 497, 2
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+particle_red
+  rotate: false
+  xy: 501, 326
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+particle_yellow
+  rotate: false
+  xy: 501, 283
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+spark_blue
+  rotate: false
+  xy: 451, 37
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+spark_green
+  rotate: true
+  xy: 451, 2
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+spark_red
+  rotate: false
+  xy: 475, 89
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1
+spark_yellow
+  rotate: false
+  xy: 486, 43
+  size: 33, 44
+  orig: 33, 44
+  offset: 0, 0
+  index: -1

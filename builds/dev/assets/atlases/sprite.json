@@ -1,0 +1,270 @@
+{
+    "frames": {
+        "popupmenu_icon_pause": {
+            "frame": {
+                "x": 706,
+                "y": 2281,
+                "w": 82,
+                "h": 71
+            }
+        },
+        "popupmenu_icon_twitter": {
+            "frame": {
+                "x": 619,
+                "y": 2281,
+                "w": 82,
+                "h": 71
+            }
+        },
+        "ui_icon_music_off": {
+            "frame": {
+                "x": 2507,
+                "y": 2150,
+                "w": 90,
+                "h": 81
+            }
+        },
+        "ui_icon_music_on": {
+            "frame": {
+                "x": 2602,
+                "y": 2150,
+                "w": 83,
+                "h": 81
+            }
+        },
+        "ui_icon_settings": {
+            "frame": {
+                "x": 870,
+                "y": 2281,
+                "w": 63,
+                "h": 67
+            }
+        },
+        "ui_icon_sfx_off": {
+            "frame": {
+                "x": 2690,
+                "y": 2150,
+                "w": 44,
+                "h": 45
+            }
+        },
+        "ui_icon_sfx_on": {
+            "frame": {
+                "x": 938,
+                "y": 2281,
+                "w": 73,
+                "h": 57
+            }
+        },
+        "ui_icon_social": {
+            "frame": {
+                "x": 793,
+                "y": 2281,
+                "w": 72,
+                "h": 71
+            }
+        },
+        "background": {
+            "frame": {
+                "x": 2014,
+                "y": 0,
+                "w": 720,
+                "h": 1272
+            }
+        },
+        "temp_char": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 1284,
+                "h": 2276
+            }
+        },
+        "ui_ingame_button": {
+            "frame": {
+                "x": 1870,
+                "y": 1677,
+                "w": 136,
+                "h": 98
+            }
+        },
+        "ui_ingame_highscore_backdrop": {
+            "frame": {
+                "x": 2014,
+                "y": 2150,
+                "w": 488,
+                "h": 83
+            }
+        },
+        "ui_ingame_playfield_backdrop": {
+            "frame": {
+                "x": 2014,
+                "y": 1277,
+                "w": 720,
+                "h": 731
+            }
+        },
+        "ui_ingame_timer_backdrop": {
+            "frame": {
+                "x": 1289,
+                "y": 2221,
+                "w": 712,
+                "h": 53
+            }
+        },
+        "ui_ingame_timer": {
+            "frame": {
+                "x": 2014,
+                "y": 2238,
+                "w": 680,
+                "h": 22
+            }
+        },
+        "ui_menu_background": {
+            "frame": {
+                "x": 1289,
+                "y": 0,
+                "w": 720,
+                "h": 1289
+            }
+        },
+        "ui_menu_button_small": {
+            "frame": {
+                "x": 1870,
+                "y": 1294,
+                "w": 134,
+                "h": 134
+            }
+        },
+        "ui_menu_button": {
+            "frame": {
+                "x": 0,
+                "y": 2281,
+                "w": 426,
+                "h": 136
+            }
+        },
+        "ui_menu_logo": {
+            "frame": {
+                "x": 2014,
+                "y": 2013,
+                "w": 572,
+                "h": 132
+            }
+        },
+        "ui_menu_ondergrond_logo": {
+            "frame": {
+                "x": 1289,
+                "y": 1918,
+                "w": 603,
+                "h": 298
+            }
+        },
+        "ui_menu_ondergrond": {
+            "frame": {
+                "x": 1289,
+                "y": 1294,
+                "w": 576,
+                "h": 619
+            }
+        },
+        "particle_leaf_test1": {
+            "frame": {
+                "x": 1964,
+                "y": 1780,
+                "w": 24,
+                "h": 23
+            }
+        },
+        "particle_leaf_test2": {
+            "frame": {
+                "x": 2690,
+                "y": 2200,
+                "w": 31,
+                "h": 20
+            }
+        },
+        "ui_ingame_icon_blue": {
+            "frame": {
+                "x": 525,
+                "y": 2281,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_glow_blue": {
+            "frame": {
+                "x": 2591,
+                "y": 2013,
+                "w": 117,
+                "h": 117
+            }
+        },
+        "ui_ingame_icon_glow_red": {
+            "frame": {
+                "x": 1870,
+                "y": 1555,
+                "w": 117,
+                "h": 117
+            }
+        },
+        "ui_ingame_icon_glow_yellow": {
+            "frame": {
+                "x": 1870,
+                "y": 1433,
+                "w": 117,
+                "h": 117
+            }
+        },
+        "ui_ingame_icon_helmet": {
+            "frame": {
+                "x": 431,
+                "y": 2281,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_magic": {
+            "frame": {
+                "x": 1897,
+                "y": 2106,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_red": {
+            "frame": {
+                "x": 1897,
+                "y": 2012,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_shield": {
+            "frame": {
+                "x": 1897,
+                "y": 1918,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_yellow": {
+            "frame": {
+                "x": 1870,
+                "y": 1780,
+                "w": 89,
+                "h": 89
+            }
+        }
+    },
+    "meta": {
+        "app": "spritesheet-templates",
+        "version": "10.2.2",
+        "image": "~sprite.png",
+        "scale": 1,
+        "size": {
+            "w": 2734,
+            "h": 2417
+        }
+    }
+}
