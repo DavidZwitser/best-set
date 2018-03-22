@@ -1,6 +1,9 @@
 *.iml
 .idea
+
 builds
+game.js
+
 atlassian-ide-plugin.xml
 node_modules
 .tscache
