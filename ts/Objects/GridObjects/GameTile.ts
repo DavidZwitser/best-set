@@ -31,7 +31,7 @@ export default class GameTile extends GridObject
 
     constructor(game: Phaser.Game, gridX: number, gridY: number, shape: TileShapes, icon?: TileIcons)
     {
-        super(game, gridX, gridY, FrameNames.InGameIconBackdrop, gridElementTypes.tile);
+        super(game, gridX, gridY, '', gridElementTypes.tile);
 
         this._iconSprite = new Phaser.Sprite(game, 0, 0, Atlases.Interface, '');
         this._iconSprite.anchor.set(.5);

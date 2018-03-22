@@ -77,6 +77,8 @@ export default class Gameplay extends Phaser.State
         this._timerClass = new Timer();
         this._timeBar = new TimeBar(this.game);
         this._timeScalerClass = new TimeBarScaler(this.game);
+        console.log(this._timeBar);
+        console.log(this._timeScalerClass);
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
@@ -148,7 +150,6 @@ export default class Gameplay extends Phaser.State
         let vmin: number = Math.min(this.game.width, this.game.height);
 
         this._pauseMenu.resize();
-        this._gameOverScreen.resize();
 
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
@@ -164,6 +165,9 @@ export default class Gameplay extends Phaser.State
 
         this._leafEmitter.x = this.game.width / 2;
         this._leafEmitter.width = this.game.width;
+
+        this._gameOverScreen.x = this.game.width / 2;
+        this._gameOverScreen.y  = this.game.height / 2;
 
         this._gameField.resize();
 
