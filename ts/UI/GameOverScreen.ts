@@ -17,6 +17,7 @@ export default class GameOverScreen extends Phaser.Group
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
     {
         super(game);
+        this.scale.set(scale);
         this._screenBackground = new Phaser.Image(game, 0, 0, backgroundImage);
         this._screenBackground.anchor.set(0.5);
         this.addChild(this._screenBackground);

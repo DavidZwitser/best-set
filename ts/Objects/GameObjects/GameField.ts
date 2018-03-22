@@ -11,8 +11,8 @@ import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
 import { gridElementTypes } from '../GridObjects/GridObject';
 
-import Gameplay from '../../States/Gameplay';
-import Constants from '../../Data/Constants';
+//import Gameplay from '../../States/Gameplay';
+//import Constants from '../../Data/Constants';
 
 export default class GameField extends Phaser.Group
 {
