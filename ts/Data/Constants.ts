@@ -7,6 +7,6 @@ export default class Constants
     fill: '#fff',
     align: 'center' };
 
-    public static HighScore: number;
+    public static HighScore: number = 20;
     public static CurrentScore: number;
 }

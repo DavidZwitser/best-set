@@ -88,7 +88,7 @@ export default class Gameplay extends Phaser.State
         this.game.add.existing(this._scoreText);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
-
+        this.currentScore = 0;
         this.resize();
 
     }
@@ -115,9 +115,14 @@ export default class Gameplay extends Phaser.State
     }
     private gameOverScreen(): void
     {
-        if (Constants.CurrentScore > Constants.HighScore)
+        if (this.currentScore > Constants.HighScore)
         {
-            Constants.HighScore = Constants.CurrentScore;
+            Constants.HighScore = this.currentScore;
+            this._gameOverScreen.updateText(true);
+        }
+        else
+        {
+            this._gameOverScreen.updateText(false);
         }
         this.pause(true);
         this._gameOverScreen.visible = true;

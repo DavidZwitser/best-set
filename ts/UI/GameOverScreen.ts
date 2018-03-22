@@ -11,6 +11,7 @@ export default class GameOverScreen extends Phaser.Group
 
     private _screenBackground: Phaser.Image;
     private _gameOverText: Phaser.Text;
+    private _highScoreText: Phaser.Text;
 
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
     {
@@ -28,6 +29,9 @@ export default class GameOverScreen extends Phaser.Group
         this._gameOverText = new Phaser.Text(game, 0, buttonOffset - spaceBetweenButtons * 2, 'GAME OVER');
         this.addChild(this._gameOverText);
 
+        this._highScoreText = new Phaser.Text(game, - buttonOffset * 3, buttonOffset * 2, 'highscore: ' + Constants.HighScore.toString(), Constants.buttonTextStyle);
+        this.addChild(this._highScoreText);
+
         this.visible = false;
     }
 
@@ -35,6 +39,18 @@ export default class GameOverScreen extends Phaser.Group
     {
         this.x = this.game.width / 2;
         this.y = this.game.height / 2;
+    }
+
+    public updateText(newHighScore: boolean): void
+    {
+        if (newHighScore)
+        {
+        this._highScoreText.text = 'New highscore! ' + Constants.HighScore.toString();
+        }
+        else
+        {
+        this._highScoreText.text = 'Try to beat the highscore ' + Constants.HighScore.toString();
+        }
     }
 
     private backToMenu(): void
