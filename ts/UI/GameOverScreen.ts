@@ -3,6 +3,7 @@ import TextButton from './TextButton';
 import Constants from '../Data/Constants';
 import Menu from '../States/Menu';
 import Gameplay from '../States/Gameplay';
+import { constants } from 'os';
 
 export default class GameOverScreen extends Phaser.Group
 {
@@ -26,19 +27,15 @@ export default class GameOverScreen extends Phaser.Group
         this._menuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'Main Menu', Constants.buttonTextStyle, this.backToMenu, this);
         this.addChild(this._menuButton);
 
-        this._gameOverText = new Phaser.Text(game, 0, buttonOffset - spaceBetweenButtons * 2, 'GAME OVER');
+        this._gameOverText = new Phaser.Text(game, 0, buttonOffset - spaceBetweenButtons * 2, 'GAME OVER', Constants.buttonTextStyle);
         this.addChild(this._gameOverText);
+        this._gameOverText.anchor.set(0.5);
 
-        this._highScoreText = new Phaser.Text(game, - buttonOffset * 3, buttonOffset * 2, 'highscore: ' + Constants.HighScore.toString(), Constants.buttonTextStyle);
+        this._highScoreText = new Phaser.Text(game, 0, buttonOffset * 2, 'highscore: ' + Constants.HighScore.toString(), Constants.buttonTextStyle);
         this.addChild(this._highScoreText);
+        this._highScoreText.anchor.set(0.5);
 
         this.visible = false;
-    }
-
-    public resize(): void
-    {
-        this.x = this.game.width / 2;
-        this.y = this.game.height / 2;
     }
 
     public updateText(newHighScore: boolean): void

@@ -148,7 +148,6 @@ export default class Gameplay extends Phaser.State
         let vmin: number = Math.min(this.game.width, this.game.height);
 
         this._pauseMenu.resize();
-        this._gameOverScreen.resize();
 
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
@@ -164,6 +163,9 @@ export default class Gameplay extends Phaser.State
 
         this._leafEmitter.x = this.game.width / 2;
         this._leafEmitter.width = this.game.width;
+
+        this._gameOverScreen.x = this.game.width / 2;
+        this._gameOverScreen.y  = this.game.height / 2;
 
         this._gameField.resize();
 
