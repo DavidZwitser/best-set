@@ -10,6 +10,7 @@ export default class TimeBar extends Phaser.Group
 
     private _timeMask: Phaser.Graphics;
     private _maskWidth: number;
+    private _animationEndOfBar: Phaser.Sprite;
 
     get GetMaskWidth(): number
     {
@@ -35,6 +36,11 @@ export default class TimeBar extends Phaser.Group
         this.addMask();
         this.scaleSprite();
 
+        this._animationEndOfBar = new Phaser.Sprite(this.game, this.game.width / 15, this.game.height / 2.275, 'spritesheetuiteindetimebar');
+        this._animationEndOfBar.anchor.set(0, .5);
+        this._animationEndOfBar.animations.add('running');
+        this._animationEndOfBar.animations.play('running', 24, true);
+        this.game.add.existing(this._animationEndOfBar);
         this._timerClass = new Timer();
         console.log(this._timerClass);
     }
@@ -59,6 +65,7 @@ export default class TimeBar extends Phaser.Group
     {
         // Needs a cleaner solution due to constant drawing
         this._timeMask.drawRect(500, 320, this._timeBar.width * adjustedWidth, this._timeBar.height);
+        this._animationEndOfBar.x = 500 + this._timeMask.x + this._timeBar.width * adjustedWidth;
     }
 
     public scaleSprite(): void

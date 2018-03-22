@@ -126,6 +126,9 @@ export default class GameField extends Phaser.Group
             return;
         }
 
+        /* tile will shine since it can be connected */
+        tile.shine();
+
         /* A new path is created */
         this.newPathCreated(this._currentPath);
     }
