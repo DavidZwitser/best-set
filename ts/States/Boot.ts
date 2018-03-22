@@ -112,6 +112,8 @@ export default class Boot extends Phaser.State
     {
         super.preload(this.game);
 
+        this.game.load.bitmapFont('myfont', 'assets/fonts/font.png', 'assets/fonts/font.xml');
+
         Atlases.list.forEach((assetName: string) => {
             this.game.load.atlas(assetName, 'assets/atlases/' + assetName + '.png', 'assets/atlases/' + assetName + '.json');
         });
@@ -123,12 +125,6 @@ export default class Boot extends Phaser.State
         Spines.list.forEach((assetName: string) => {
             this.game.load.spine(assetName, 'assets/spine/' + assetName + '.json');
         });
-
-        // This will be replaced with a propper preloader
-        this.game.load.image(Images.IconTest, './assets/sprites/' + Images.IconTest + '.png');
-        this.game.load.image(Images.CaviaTest, './assets/sprites/' + Images.CaviaTest + '.png');
-        this.game.load.image(Images.PlaceholderBar, './assets/sprites/' + Images.PlaceholderBar + '.png');
-        this.game.load.spine('chips', 'assets/spine/chips.json');
     }
 
     public resize(): void

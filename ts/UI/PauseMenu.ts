@@ -17,7 +17,7 @@ export default class PauseMenu extends Phaser.Group
     private _sfxButton: TextButton;
     private _musicButton: TextButton;
 
-    private _pauseText: Phaser.Text;
+    private _pauseText: Phaser.BitmapText;
 
     private _menuBackground: Phaser.Image;
 
@@ -33,34 +33,34 @@ export default class PauseMenu extends Phaser.Group
         this._menuBackground.anchor.set(0.5);
         this.addChild(this._menuBackground);
 
-        this._pauseText = new Phaser.Text(game, 0, buttonOffset - spaceBetweenButtons * 3, 'Pause', Constants.buttonTextStyle);
+        this._pauseText = new Phaser.BitmapText(game, 0, buttonOffset - spaceBetweenButtons * 3, 'myfont', 'Pause', 80);
         this._pauseText.anchor.set(0.5);
-        this._pauseText.scale.set(scale);
+        this._pauseText.scale.set(scale, scale);
         this.addChild(this._pauseText);
 
-        this._continueGameButton = new TextButton(game, 0,  buttonOffset - spaceBetweenButtons * 2, 'Continue', Constants.buttonTextStyle, this.continue, this);
+        this._continueGameButton = new TextButton(game, 0,  buttonOffset - spaceBetweenButtons * 2, 'Continue', this.continue, this);
         this._continueGameButton.anchor.set(0.5);
         this._continueGameButton.scale.set(scale);
         this.addChild(this._continueGameButton);
 
-        this._backToMenuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'Back To Menu', Constants.buttonTextStyle, this.backToMenu, this);
+        this._backToMenuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'Back To Menu', this.backToMenu, this);
         this._backToMenuButton.anchor.set(0.5);
         this.addChild(this._backToMenuButton);
         this._backToMenuButton.scale.set(scale);
         this.visible = false;
         this.onContinue = new Phaser.Signal();
 
-        this._resetButton = new TextButton(game, 0, buttonOffset, 'Reset Game', Constants.buttonTextStyle, this.restartScene, this);
+        this._resetButton = new TextButton(game, 0, buttonOffset, 'Reset Game', this.restartScene, this);
         this._resetButton.anchor.set(0.5);
         this.addChild(this._resetButton);
         this._resetButton.scale.set(scale);
 
-        this._sfxButton = new TextButton(game, - spaceBetweenButtons, buttonOffset +  spaceBetweenButtons, 'SFX', Constants.buttonTextStyle, this.sfxToggle, this);
+        this._sfxButton = new TextButton(game, - spaceBetweenButtons, buttonOffset +  spaceBetweenButtons, 'SFX', this.sfxToggle, this);
         this._sfxButton.anchor.set(0.5);
         this.addChild(this._sfxButton);
         this._sfxButton.scale.set(scale);
 
-        this._musicButton = new TextButton(game, spaceBetweenButtons, buttonOffset + spaceBetweenButtons, 'M', Constants.buttonTextStyle, this.musicToggle, this);
+        this._musicButton = new TextButton(game, spaceBetweenButtons, buttonOffset + spaceBetweenButtons, 'M', this.musicToggle, this);
         this._musicButton.anchor.set(0.5);
         this.addChild(this._musicButton);
         this._musicButton.scale.set(scale);

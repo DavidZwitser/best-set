@@ -21,10 +21,10 @@ export default class GameOverScreen extends Phaser.Group
         this._screenBackground.anchor.set(0.5);
         this.addChild(this._screenBackground);
 
-        this._retryButton = new TextButton(game, 0, buttonOffset, 'Retry', Constants.buttonTextStyle, this.restartScene, this);
+        this._retryButton = new TextButton(game, 0, buttonOffset, 'Retry', this.restartScene, this);
         this.addChild(this._retryButton);
 
-        this._menuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'Main Menu', Constants.buttonTextStyle, this.backToMenu, this);
+        this._menuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'Main Menu', this.backToMenu, this);
         this.addChild(this._menuButton);
 
         this._gameOverText = new Phaser.Text(game, 0, buttonOffset - spaceBetweenButtons * 2, 'GAME OVER', Constants.buttonTextStyle);

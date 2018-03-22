@@ -5,6 +5,8 @@ import TextButton from '../UI/TextButton';
 import ImageButton from '../UI/ImageButton';
 import Gameplay from './Gameplay';
 import Atlases from '../Data/Atlases';
+import HowToPlayMenu from '../UI/HowToPlayMenu';
+
 export default class Menu extends Phaser.State
 {
     public static Name: string = 'menu';
@@ -15,6 +17,7 @@ export default class Menu extends Phaser.State
     private title: Phaser.Sprite;
     private buttonContainers: Phaser.Group;
     private smallButtonContainer: Phaser.Group;
+    private howToPlayMenu: HowToPlayMenu;
 
     constructor()
     {
@@ -45,6 +48,9 @@ export default class Menu extends Phaser.State
         this.smallButtonContainer = this.createSmallButtonContainers();
         this.add.existing(this.smallButtonContainer);
 
+        this.howToPlayMenu = new HowToPlayMenu(this.game);
+        this.add.existing(this.howToPlayMenu);
+
         /* Go to gameplay by default */
         //this.state.start(Gameplay.Name);
 
@@ -58,23 +64,17 @@ export default class Menu extends Phaser.State
         background.anchor.set(.5);
         group.add(background);
 
-        let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
+        let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', () => {
             this.state.start(Gameplay.Name);
         }, this);
         group.add(playButton);
 
-        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
+        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', () => {
             //
         }, this);
         group.add(howToPlayButton);
 
-        let testButton: TextButton = new TextButton(this.game, 0, 200, 'Test', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
+        let testButton: TextButton = new TextButton(this.game, 0, 200, 'Test', () => {
             this.state.start(Test.Name);
         }, this);
         group.add(testButton);
@@ -115,6 +115,9 @@ export default class Menu extends Phaser.State
 
         this.smallButtonContainer.scale.set(vmin / GAME_WIDTH);
         this.smallButtonContainer.position.set(this.game.width / 2, this.game.height * .9);
+
+        this.howToPlayMenu.scale.set(vmin / GAME_WIDTH);
+        this.howToPlayMenu.position.set(this.game.width / 2, this.game.height / 2);
     }
 
     public shutdown(): void

@@ -38,7 +38,7 @@ export default class Gameplay extends Phaser.State
 
     public currentScore: number = 0;
 
-    private _scoreText: Phaser.Text;
+    private _scoreText: Phaser.BitmapText;
 
     private _character: Character;
 
@@ -91,9 +91,9 @@ export default class Gameplay extends Phaser.State
 
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 150, Images.PopUpMenuBackground);
 
-        this._scoreText = new Phaser.Text(this.game, this.game.width / 2, 0, 'Score: 0', Constants.buttonTextStyle);
+        this._scoreText = this.game.add.bitmapText(this.game.width / 2, 0, 'myfont', 'Score: 0');
+        this._scoreText.fontSize = 50;
         this._scoreText.anchor.set(0.5, 0);
-        this.game.add.existing(this._scoreText);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
         this.currentScore = 0;
