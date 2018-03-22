@@ -62,9 +62,8 @@ export default class Gameplay extends Phaser.State
         this._backgroundSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'background');
         this.game.add.existing(this._backgroundSprite);
 
-        this._leafEmitter = this.createLeafEmitter();
-
         this._character = new Character(this.game, 0, 0);
+        this._leafEmitter = this.createLeafEmitter();
 
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
@@ -190,7 +189,7 @@ export default class Gameplay extends Phaser.State
             this.game.height - this._gameField.height * .92
         );
 
-        this._character.position.set(this.game.width / 2, this.game.height * .3);
+        this._character.position.set(this.game.width / 2, this.game.height * .4);
     }
 
     public shutdown(): void
@@ -212,7 +211,7 @@ export default class Gameplay extends Phaser.State
         emitter.setYSpeed(-1, -10);
         emitter.setRotation(0, 80);
         emitter.setAlpha(1, 2, 2000);
-        emitter.setScale(1, 1, 1, 1, 2000);
+        emitter.setScale(-1, 1, 1, 1, 3000, Phaser.Easing.Sinusoidal.InOut, true);
         emitter.width = 600;
         emitter.start(false, 3500, 400);
         return emitter;

@@ -1,0 +1,39 @@
+{
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "x": 54.04, "y": -9.18 }
+],
+"slots": [
+	{ "name": "Ground", "bone": "bone", "attachment": "characteropdeling/Ground" }
+],
+"skins": {
+	"default": {
+		"Ground": {
+			"characteropdeling/Ground": { "width": 1088, "height": 117 }
+		}
+	}
+},
+"animations": {
+	"idle shadow": {
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "time": 0, "angle": 0, "curve": "stepped" },
+					{ "time": 0.4291, "angle": 0, "curve": "stepped" },
+					{ "time": 0.7666, "angle": 0 }
+				],
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.4291, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.7666, "x": 0, "y": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.907, "y": 1 },
+					{ "time": 0.4291, "x": 0.981, "y": 1 },
+					{ "time": 0.7666, "x": 0.907, "y": 1 }
+				]
+			}
+		}
+	}
+}
+}
