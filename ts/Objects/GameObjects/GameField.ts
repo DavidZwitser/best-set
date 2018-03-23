@@ -104,11 +104,8 @@ export default class GameField extends Phaser.Group
             if (tile === this._currentPath[i])
             {
 
-                /* Removing all the tiles after the current tile */
-                for (let y: number = i + 1; y <= this._currentPath.length; y++)
-                {
-                    this._currentPath.splice(y, 1);
-                }
+                /* Removing all the tiles after the current */
+                this._currentPath.splice( i + 1, this._currentPath.length - i);
 
                 this.newPathCreated(this._currentPath);
                 return;
