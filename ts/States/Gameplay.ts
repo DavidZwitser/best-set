@@ -116,7 +116,7 @@ export default class Gameplay extends Phaser.State
         //stop the timer from moving et cetera
         this.pause(true);
         this._pauseMenu.visible = true;
-        this.pauseMenuButton.visible = false;
+        this.pauseMenuButton.inputEnabled = false;
 
     }
     private gameOverScreen(): void
@@ -141,7 +141,7 @@ export default class Gameplay extends Phaser.State
     private disableMenu(): void
     {
         this.pause(false);
-        this.pauseMenuButton.visible = true;
+        this.pauseMenuButton.inputEnabled = true;
     }
 
     public resize(): void {
