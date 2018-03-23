@@ -44,8 +44,7 @@ export default class GameField extends Phaser.Group
 
         this._backdropSprite.addChild(this._timerBbackdropSprite);
 
-        this._gridMask = new Phaser.Graphics(this.game);
-        this.addChild(this._gridMask);
+        this._gridMask = this.game.add.graphics();
 
         this.grid = new Grid(this.game, 6, 6, 90, .9);
         this.addChild(this.grid);
@@ -64,6 +63,8 @@ export default class GameField extends Phaser.Group
         this.setupGrid();
 
         this.updateScore = new Phaser.Signal();
+
+        window.requestAnimationFrame( () => this.addChild(this._gridMask));
 
     }
 
@@ -210,12 +211,10 @@ export default class GameField extends Phaser.Group
         this._backdropSprite.scale.set(vmin / 720);
 
         this._gridMask.clear();
-        this._gridMask.beginFill(0xffa500);
-        // this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
-        this._gridMask.drawRect(0, 0, 50, 50);
+        this._gridMask.beginFill(0xff0ff0);
+        this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
         this._gridMask.endFill();
 
-        console.log(this.grid.mask);
     }
 
     public destroy(): void
