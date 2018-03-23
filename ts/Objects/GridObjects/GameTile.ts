@@ -33,9 +33,13 @@ export default class GameTile extends GridObject
     private _shineSprite: Phaser.Sprite;
     private _explosionSprite: Phaser.Sprite;
 
+    public isBeingDestroyed: boolean;
+
     constructor(game: Phaser.Game, gridX: number, gridY: number, shape: TileShapes, icon?: TileIcons)
     {
         super(game, gridX, gridY, '', gridElementTypes.tile);
+
+        this.isBeingDestroyed = false;
 
         this._iconSprite = new Phaser.Sprite(game, 0, 0, Atlases.Interface, '');
         this._iconSprite.anchor.set(.5);
@@ -90,6 +94,8 @@ export default class GameTile extends GridObject
 
     /* Hide the tile with an animation */
     public animateOut(): Phaser.Signal {
+
+        this.isBeingDestroyed = true;
 
         this.explosion();
         this.clearTween();

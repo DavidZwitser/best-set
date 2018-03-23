@@ -146,6 +146,9 @@ export default class GameField extends Phaser.Group
             return;
         }
 
+        /* So the user can not exploid the delay between destroying and regenerating */
+        if (this._currentPath[0].isBeingDestroyed === true) { return; }
+
         /* Animating out the tiles in the grid */
         this._currentPath[0].animateOut().addOnce(this.regenerateGrid, this);
 
@@ -177,7 +180,7 @@ export default class GameField extends Phaser.Group
     /* What happens when the path creaton get's canceled */
     private cancelPath(): void
     {
-        this._currentPath = [];
+        this._currentPath.length = 0;
         this._lineDrawer.clearPath();
     }
 
