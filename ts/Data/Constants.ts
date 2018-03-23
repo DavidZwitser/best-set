@@ -1,4 +1,7 @@
 import 'phaser-ce';
+
+import SaveData from '../BackEnd/SaveData';
+
 export default class Constants
 {
     public static PlayMusic: boolean;
@@ -7,6 +10,15 @@ export default class Constants
     fill: '#fff',
     align: 'center' };
 
-    public static HighScore: number = 20;
+    public static get HighScore(): number
+    {
+        return SaveData.highscore;
+    }
+    public static set HighScore(value: number)
+    {
+        if (value < SaveData.highscore) { return; }
+        SaveData.highscore = value;
+    }
+
     public static CurrentScore: number;
 }

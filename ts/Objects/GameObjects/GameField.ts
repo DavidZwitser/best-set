@@ -48,8 +48,7 @@ export default class GameField extends Phaser.Group
 
         this._backdropSprite.addChild(this._timerBbackdropSprite);
 
-        this._gridMask = new Phaser.Graphics(this.game);
-        this.addChild(this._gridMask);
+        this._gridMask = this.game.add.graphics();
 
         this.grid = new Grid(this.game, 6, 6, 90, .9);
         this.addChild(this.grid);
@@ -72,6 +71,8 @@ export default class GameField extends Phaser.Group
         this.setupGrid();
 
         this.updateScore = new Phaser.Signal();
+
+        window.requestAnimationFrame( () => this.addChild(this._gridMask));
 
     }
 
@@ -111,11 +112,8 @@ export default class GameField extends Phaser.Group
             if (tile === this._currentPath[i])
             {
 
-                /* Removing all the tiles after the current tile */
-                for (let y: number = i + 1; y <= this._currentPath.length; y++)
-                {
-                    this._currentPath.splice(y, 1);
-                }
+                /* Removing all the tiles after the current */
+                this._currentPath.splice( i + 1, this._currentPath.length - i);
 
                 this.newPathCreated(this._currentPath);
                 return;
@@ -153,6 +151,9 @@ export default class GameField extends Phaser.Group
             return;
         }
 
+        /* So the user can not exploid the delay between destroying and regenerating */
+        if (this._currentPath[0].isBeingDestroyed === true) { return; }
+
         /* Animating out the tiles in the grid */
         this._currentPath[0].animateOut().addOnce(this.regenerateGrid, this);
 
@@ -184,7 +185,7 @@ export default class GameField extends Phaser.Group
     /* What happens when the path creaton get's canceled */
     private cancelPath(): void
     {
-        this._currentPath = [];
+        this._currentPath.length = 0;
         this._lineDrawer.clearPath();
     }
 
@@ -218,12 +219,10 @@ export default class GameField extends Phaser.Group
         this._backdropSprite.scale.set(vmin / 720);
 
         this._gridMask.clear();
-        this._gridMask.beginFill(0xffa500);
-        // this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
-        this._gridMask.drawRect(0, 0, 50, 50);
+        this._gridMask.beginFill(0xff0ff0);
+        this._gridMask.drawRect(this.grid.x, this.grid.y, this.grid.width, this.grid.height);
         this._gridMask.endFill();
 
-        console.log(this.grid.mask);
     }
 
     public destroy(): void
