@@ -9,6 +9,18 @@ export default class SaveData
 {
     private static StorageKey: string = 'bs-saveData';
 
+    public static Init(): void
+    {
+        if (this.data !== null) { return; }
+
+        this.data = {
+            'sm': false,
+            'mm': false,
+            'hs': 0
+        };
+
+    }
+
     /* Set if the sfx are muted in cache */
     public static set SFXMuted(value: boolean)
     {
