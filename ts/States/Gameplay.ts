@@ -15,11 +15,16 @@ import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
 import Character from '../Objects/Character';
 import Constants from '../Data/Constants';
+
+import StateTransition from '../Effects/StateTransition';
+
 export default class Gameplay extends Phaser.State
 {
     public static Name: string = 'gameplay';
 
     public name: string = Gameplay.Name;
+
+    private _transitionBackdrop: Phaser.Sprite;
 
     private _timeBar: TimeBar;
     private _timerClass: Timer;
@@ -53,6 +58,13 @@ export default class Gameplay extends Phaser.State
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
+    }
+
+    public init(worldSnapshot: Phaser.RenderTexture): void
+    {
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
+        this._transitionBackdrop.anchor.set(.5, 1);
     }
 
     public create(): void
@@ -97,11 +109,13 @@ export default class Gameplay extends Phaser.State
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
         this.currentScore = 0;
         this.resize();
-    }
 
-    public newPathCreated(path: GameTile[]): void
-    {
-        console.log('new path!: ', path);
+        if (!this._transitionBackdrop) { return; }
+        StateTransition.inFromBottom(this.game, () => {
+            this._transitionBackdrop.destroy(true);
+            this._transitionBackdrop = null;
+        });
+
     }
 
     private updateScoreText(scoreIncrease: number): void
