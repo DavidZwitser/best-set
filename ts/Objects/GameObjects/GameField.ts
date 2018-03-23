@@ -10,6 +10,8 @@ import GridRegenerator from '../GridRegenerator';
 import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
 import { gridElementTypes } from '../GridObjects/GridObject';
+import TimeBar from '../../UI/TimeBar';
+import Timer from '../../Backend/Timer';
 
 export default class GameField extends Phaser.Group
 {
@@ -29,7 +31,9 @@ export default class GameField extends Phaser.Group
     private _backdropSprite: Phaser.Sprite;
     private _timerBbackdropSprite: Phaser.Sprite;
 
+    public _timeBar: TimeBar;
     public updateScore: Phaser.Signal;
+    public timer: Timer;
 
     constructor(game: Phaser.Game)
     {
@@ -50,6 +54,10 @@ export default class GameField extends Phaser.Group
         this.grid = new Grid(this.game, 6, 6, 90, .9);
         this.addChild(this.grid);
         this.grid.mask = this._gridMask;
+
+        this._timeBar = new TimeBar(this.game);
+        this._timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
+        this._backdropSprite.addChild(this._timeBar);
 
         this._gridSpawner = new LevelGenerator();
         this._pathChecker = new PathChecker();
@@ -153,7 +161,7 @@ export default class GameField extends Phaser.Group
             this._currentPath[i].animateOut();
         }
         this.updateScore.dispatch(this._currentPath.length);
-
+        this.timer.addSeconds(this._currentPath.length);
     }
 
     /* Replanish the grid with new tiles */

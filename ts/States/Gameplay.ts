@@ -8,8 +8,6 @@ import GameTile from '../Objects/GridObjects/GameTile';
 import PauseMenu from '../UI/PauseMenu';
 import GameOverScreen from '../UI/GameOverScreen';
 import Timer from '../BackEnd/Timer';
-import TimeBar from '../UI/TimeBar';
-import TimeBarScaler from '../BackEnd/TimeBarScaler';
 
 import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
@@ -21,9 +19,7 @@ export default class Gameplay extends Phaser.State
 
     public name: string = Gameplay.Name;
 
-    private _timeBar: TimeBar;
     private _timerClass: Timer;
-    private _timeScalerClass: TimeBarScaler;
 
     private _gameField: GameField;
 
@@ -48,11 +44,18 @@ export default class Gameplay extends Phaser.State
     constructor()
     {
         super();
+        window.addEventListener('blur', () => {
+            this.pause(true);
+        });
+        window.addEventListener('focus', () => {
+            this.pause(false);
+        });
     }
 
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
+        this._timerClass.pause(paused);
     }
 
     public create(): void
@@ -73,11 +76,11 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
         this.game.add.existing(this._highscoreBackdropSprite);
 
-        this._timerClass = new Timer();
-        this._timeBar = new TimeBar(this.game);
-        this._timeScalerClass = new TimeBarScaler(this.game);
-        console.log(this._timeBar);
-        console.log(this._timeScalerClass);
+        this._timerClass = new Timer(this._gameField._timeBar);
+        this._gameField.timer = this._timerClass;
+
+        //this._timeScalerClass = new TimeBarScaler(this._gameField._timeBar);
+        console.log(this._gameField._timeBar);
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
@@ -202,6 +205,8 @@ export default class Gameplay extends Phaser.State
         this._gameField.destroy();
         this._gameField = null;
 
+        window.addEventListener('blur', null);
+        window.addEventListener('focus', null);
     }
 
     public createLeafEmitter(): Phaser.Particles.Arcade.Emitter{

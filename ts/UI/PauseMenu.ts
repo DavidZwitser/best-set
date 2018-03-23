@@ -4,12 +4,8 @@ import Menu from '../States/Menu';
 import Gameplay from '../States/Gameplay';
 import Constants from '../Data/Constants';
 
-import Timer from '../BackEnd/Timer';
-
 export default class PauseMenu extends Phaser.Group
 {
-
-    private _timerScript: Timer;
 
     private _continueGameButton: TextButton;
     private _backToMenuButton: TextButton;
@@ -26,9 +22,6 @@ export default class PauseMenu extends Phaser.Group
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
     {
         super(game);
-
-        this._timerScript = new Timer();
-
         this._menuBackground = new Phaser.Image(game, 0, 0, backgroundImage);
         this._menuBackground.anchor.set(0.5);
         this.addChild(this._menuBackground);
@@ -64,9 +57,6 @@ export default class PauseMenu extends Phaser.Group
         this._musicButton.anchor.set(0.5);
         this.addChild(this._musicButton);
         this._musicButton.scale.set(scale);
-
-        this._timerScript.stopTimer();
-
     }
 
     public resize(): void
@@ -79,8 +69,6 @@ export default class PauseMenu extends Phaser.Group
     {
         this.visible = false;
         this.onContinue.dispatch();
-
-        this._timerScript.startTimer();
     }
 
     private backToMenu(): void
