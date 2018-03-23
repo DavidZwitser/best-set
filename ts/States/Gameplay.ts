@@ -31,21 +31,10 @@ export default class Gameplay extends Phaser.State
     private socialMenuButton: ImageButton;
 
     private _pauseMenu: PauseMenu;
-<<<<<<< HEAD
-=======
-    private _gameOverScreen: GameOverScreen;
->>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
 
     private _highscoreBackdropSprite: Phaser.Sprite;
     private _backgroundSprite: Phaser.Sprite;
 
-<<<<<<< HEAD
-=======
-    public currentScore: number = 0;
-
-    private _scoreText: Phaser.Text;
-
->>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     private _character: Character;
 
     constructor()
@@ -69,10 +58,6 @@ export default class Gameplay extends Phaser.State
 
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
-<<<<<<< HEAD
-=======
-        this._gameField.updateScore.add(this.updateScoreText, this);
->>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
 
         this._highscoreBackdropSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_ingame_highscore_backdrop');
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
@@ -99,10 +84,6 @@ export default class Gameplay extends Phaser.State
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
 
         this.resize();
-<<<<<<< HEAD
-=======
-
->>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     }
 
     public newPathCreated(path: GameTile[]): void
@@ -110,15 +91,6 @@ export default class Gameplay extends Phaser.State
         console.log('new path!: ', path);
     }
 
-<<<<<<< HEAD
-=======
-    private updateScoreText(scoreIncrease: number): void
-    {
-        this.currentScore +=  scoreIncrease;
-        this._scoreText.text = 'Score: ' + this.currentScore.toString();
-    }
-
->>>>>>> f3ad902579068907e040a85678ffbfa1cff9de8b
     private activateMenu(): void
     {
         //pause the game

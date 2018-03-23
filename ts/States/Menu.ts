@@ -4,6 +4,7 @@ import Test from './Test';
 import TextButton from '../UI/TextButton';
 import ImageButton from '../UI/ImageButton';
 import Gameplay from './Gameplay';
+import HowToPlay from './HowToPlay';
 import Atlases from '../Data/Atlases';
 export default class Menu extends Phaser.State
 {
@@ -68,7 +69,7 @@ export default class Menu extends Phaser.State
         let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', {font: '50px',
         fill: '#fff',
         align: 'center' }, () => {
-            //
+            this.state.start(HowToPlay.Name);
         }, this);
         group.add(howToPlayButton);
 

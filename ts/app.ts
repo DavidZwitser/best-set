@@ -4,6 +4,7 @@ import Boot from './States/Boot';
 import Menu from './States/Menu';
 import Test from './States/Test';
 import Gameplay from './States/Gameplay';
+import HowToPlay from './States/HowToPlay';
 
 namespace WebPackGame
 {
@@ -43,6 +44,7 @@ namespace WebPackGame
             // Add the states here
             this.state.add(Boot.Name, Boot, false);
             this.state.add(Menu.Name, Menu, false);
+            this.state.add(HowToPlay.Name, HowToPlay, false);
             this.state.add(Test.Name, Test, false);
             this.state.add(Gameplay.Name, Gameplay, false);
 
