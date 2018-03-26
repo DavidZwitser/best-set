@@ -49,12 +49,12 @@ export default class BasePopUp extends Phaser.Group
     private backToMenu(): void
     {
         this.game.paused = false;
-        this.game.state.start(Menu.Name);
+        this.game.state.start(Menu.Name, true, false, this.game.world.generateTexture());
     }
 
     private restartScene(): void
     {
         this.game.paused = false;
-        this.game.state.start(Gameplay.Name);
+        this.game.state.start(Gameplay.Name, true, false, this.game.world.generateTexture());
     }
 }

@@ -28,4 +28,5 @@ export default class GameOverScreen extends BasePopUp
         this._highScoreText.text = 'Try to beat the highscore ' + Constants.HighScore.toString();
         }
     }
+
 }

@@ -7,11 +7,15 @@ import Gameplay from './Gameplay';
 import Atlases from '../Data/Atlases';
 import HowToPlayMenu from '../UI/HowToPlayMenu';
 
+import StateTransition from '../Effects/StateTransition';
+
 export default class Menu extends Phaser.State
 {
     public static Name: string = 'menu';
 
     public name: string = Menu.Name;
+
+    private _transitionBackdrop: Phaser.Sprite;
 
     private backgroundSprite: Phaser.Sprite;
     private title: Phaser.Sprite;
@@ -24,9 +28,10 @@ export default class Menu extends Phaser.State
         super();
     }
 
-    public init(): void
+    public init(worldSnapshot: Phaser.RenderTexture): void
     {
-        //
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(0, this.game.height, worldSnapshot);
     }
 
     public create(): void
@@ -55,6 +60,12 @@ export default class Menu extends Phaser.State
         //this.state.start(Gameplay.Name);
 
         this.resize();
+
+        if (!this._transitionBackdrop) { return; }
+        StateTransition.inFromTop(this.game, () => {
+            this._transitionBackdrop.destroy(true);
+            this._transitionBackdrop = null;
+        });
     }
 
     private createButtonContainers(): Phaser.Group {

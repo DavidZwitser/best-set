@@ -60,6 +60,7 @@ export default class Gameplay extends Phaser.State
     {
         this.game.paused = paused;
         this._timerClass.pause(paused);
+        this._character.pause(paused);
     }
 
     public init(worldSnapshot: Phaser.RenderTexture): void
@@ -130,6 +131,7 @@ export default class Gameplay extends Phaser.State
     {
         this.currentScore +=  scoreIncrease;
         this._scoreText.text = 'Score: ' + this.currentScore.toString();
+        this._character.Combo();
     }
 
     private activateMenu(): void
@@ -143,6 +145,8 @@ export default class Gameplay extends Phaser.State
     }
     private gameOverScreen(): void
     {
+        this._character.Lose();
+
         if (this.currentScore > Constants.HighScore)
         {
             Constants.HighScore = this.currentScore;
@@ -152,7 +156,7 @@ export default class Gameplay extends Phaser.State
         {
             this._gameOverScreen.updateText(false);
         }
-        this.pause(true);
+        //this.pause(true);
         this._gameOverScreen.visible = true;
     }
     private activateSocial(): void
@@ -211,8 +215,9 @@ export default class Gameplay extends Phaser.State
             this.game.width / 2 - this._gameField.width / 2,
             this.game.height - this._gameField.height * .92
         );
+        this._character.scale.set((vmin / GAME_WIDTH) * .3);
+        this._character.position.set(this.game.width / 2, this.game.height - this._gameField.height - 50);
 
-        this._character.position.set(this.game.width / 2, this.game.height * .4);
     }
 
     public shutdown(): void
