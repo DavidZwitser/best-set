@@ -6,6 +6,7 @@ import Images from '../Data/Images';
 import Menu from './Menu';
 import Atlases from '../Data/Atlases';
 import Spines from '../Data/Spines';
+import SpriteSheets from '../Data/SpriteSheets';
 
 export default class Boot extends Phaser.State
 {
@@ -112,6 +113,12 @@ export default class Boot extends Phaser.State
     {
         super.preload(this.game);
 
+        this.game.load.bitmapFont('myfont', 'assets/fonts/font.png', 'assets/fonts/font.xml');
+
+        SpriteSheets.list.forEach((sheet: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}) => {
+            this.game.load.spritesheet(sheet.name, 'assets/spritesheets/' + sheet.name + '.png', sheet.frameWidth, sheet.frameHeight, sheet.amountOfFrames);
+        });
+
         Atlases.list.forEach((assetName: string) => {
             this.game.load.atlas(assetName, 'assets/atlases/' + assetName + '.png', 'assets/atlases/' + assetName + '.json');
         });
@@ -123,12 +130,6 @@ export default class Boot extends Phaser.State
         Spines.list.forEach((assetName: string) => {
             this.game.load.spine(assetName, 'assets/spine/' + assetName + '.json');
         });
-
-        // This will be replaced with a propper preloader
-        this.game.load.image(Images.IconTest, './assets/sprites/' + Images.IconTest + '.png');
-        this.game.load.image(Images.CaviaTest, './assets/sprites/' + Images.CaviaTest + '.png');
-        this.game.load.image(Images.PlaceholderBar, './assets/sprites/' + Images.PlaceholderBar + '.png');
-        this.game.load.spine('chips', 'assets/spine/chips.json');
     }
 
     public resize(): void

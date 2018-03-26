@@ -59,6 +59,7 @@ export default class Menu extends Phaser.State
         background.anchor.set(.5);
         group.add(background);
 
+        /*
         let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', {font: '50px',
         fill: '#fff',
         align: 'center' }, () => {
@@ -79,6 +80,7 @@ export default class Menu extends Phaser.State
             this.state.start(Test.Name);
         }, this);
         group.add(testButton);
+        */
 
         return group;
     }
