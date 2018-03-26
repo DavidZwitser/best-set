@@ -8,8 +8,6 @@ import GameTile from '../Objects/GridObjects/GameTile';
 import PauseMenu from '../UI/PauseMenu';
 import GameOverScreen from '../UI/GameOverScreen';
 import Timer from '../BackEnd/Timer';
-import TimeBar from '../UI/TimeBar';
-import TimeBarScaler from '../BackEnd/TimeBarScaler';
 
 import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
@@ -21,9 +19,7 @@ export default class Gameplay extends Phaser.State
 
     public name: string = Gameplay.Name;
 
-    private _timeBar: TimeBar;
     private _timerClass: Timer;
-    private _timeScalerClass: TimeBarScaler;
 
     private _gameField: GameField;
 
@@ -74,21 +70,11 @@ export default class Gameplay extends Phaser.State
         this.game.add.existing(this._highscoreBackdropSprite);
 
         this._timerClass = new Timer();
-        this._timeBar = new TimeBar(this.game);
-        this._timeScalerClass = new TimeBarScaler(this.game);
-        console.log(this._timeBar);
-        console.log(this._timeScalerClass);
-
-        this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
-
-        this._pauseMenu.onContinue.add(this.disableMenu, this);
-        this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
-        this.game.add.existing(this.pauseMenuButton);
 
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'popupmenu_icon_twitter', this.activateSocial, this );
         this.game.add.existing(this.socialMenuButton);
 
-        this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 150, Images.PopUpMenuBackground);
+        this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
         this._scoreText = this.game.add.bitmapText(this.game.width / 2, 0, 'myfont', 'Score: 0');
         this._scoreText.fontSize = 50;
@@ -96,6 +82,13 @@ export default class Gameplay extends Phaser.State
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
         this.currentScore = 0;
+
+        this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
+        this.game.add.existing(this.pauseMenuButton);
+
+        this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
+        this._pauseMenu.onContinue.add(this.disableMenu, this);
+
         this.resize();
     }
 
@@ -148,8 +141,6 @@ export default class Gameplay extends Phaser.State
 
         let vmin: number = Math.min(this.game.width, this.game.height);
 
-        this._pauseMenu.resize();
-
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
 
@@ -167,6 +158,9 @@ export default class Gameplay extends Phaser.State
 
         this._gameOverScreen.x = this.game.width / 2;
         this._gameOverScreen.y  = this.game.height / 2;
+
+        this._pauseMenu.x = this.game.width / 2;
+        this._pauseMenu.y = this.game.height / 2;
 
         this._gameField.resize();
 

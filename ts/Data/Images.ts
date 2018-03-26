@@ -9,6 +9,8 @@ export default class Images
     public static PopUpMenuSmallButton: string = 'popupmenu_button_small';
     public static PopUpMenuBigButton: string = 'popupmenu_button_big';
 
+    public static BlackPixel: string = 'pixel_black';
+
     public static list: string[] = [
         //Add images to load
         Images.IconTest,
@@ -16,7 +18,8 @@ export default class Images
         Images.PlaceholderBar,
         Images.PopUpMenuBackground,
         Images.PopUpMenuSmallButton,
-        Images.PopUpMenuBigButton
+        Images.PopUpMenuBigButton,
+        Images.BlackPixel
     ];
 
 }
