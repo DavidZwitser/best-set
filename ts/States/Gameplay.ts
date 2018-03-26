@@ -48,12 +48,6 @@ export default class Gameplay extends Phaser.State
     constructor()
     {
         super();
-        window.addEventListener('blur', () => {
-            this.pause(true);
-        });
-        window.addEventListener('focus', () => {
-            this.pause(false);
-        });
     }
 
     public pause(paused: boolean): void
@@ -68,6 +62,14 @@ export default class Gameplay extends Phaser.State
         if (!worldSnapshot) { return; }
         this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
         this._transitionBackdrop.anchor.set(.5, 1);
+
+        window.addEventListener('blur', () => {
+            this.pause(true);
+        });
+        window.addEventListener('focus', () => {
+            this.pause(false);
+        });
+
     }
 
     public create(): void
@@ -96,10 +98,10 @@ export default class Gameplay extends Phaser.State
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
         this._pauseMenu.onContinue.add(this.disableMenu, this);
-        this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
+        this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activateMenu, this );
         this.game.add.existing(this.pauseMenuButton);
 
-        this.socialMenuButton = new ImageButton(this.game, 0, 0, 'popupmenu_icon_twitter', this.activateSocial, this );
+        this.socialMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_share', this.activateSocial, this );
         this.game.add.existing(this.socialMenuButton);
 
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
@@ -110,9 +112,6 @@ export default class Gameplay extends Phaser.State
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
         this.currentScore = 0;
-
-        this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
-        this.game.add.existing(this.pauseMenuButton);
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
         this._pauseMenu.onContinue.add(this.disableMenu, this);

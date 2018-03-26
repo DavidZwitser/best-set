@@ -43,5 +43,6 @@ export default class Character extends Phaser.Group
 
     public pause( pause: boolean): void {
         this._spine.autoUpdate = !pause;
+        this._shadowSpine.autoUpdate = !pause;
     }
 }
