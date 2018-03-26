@@ -11,7 +11,7 @@ import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
 import { gridElementTypes } from '../GridObjects/GridObject';
 import TimeBar from '../../UI/TimeBar';
-import Timer from '../../Backend/Timer';
+import Timer from '../../BackEnd/Timer';
 
 export default class GameField extends Phaser.Group
 {

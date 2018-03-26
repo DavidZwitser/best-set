@@ -53,7 +53,7 @@ export default class GameOverScreen extends Phaser.Group
     private backToMenu(): void
     {
         this.game.paused = false;
-        this.game.state.start(Menu.Name);
+        this.game.state.start(Menu.Name, true, false, this.game.world.generateTexture());
     }
 
     private restartScene(): void
