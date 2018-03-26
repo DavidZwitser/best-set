@@ -3,7 +3,6 @@ import 'phaser-ce';
 import Images from '../Data/Images';
 
 import GameField from '../Objects/GameObjects/GameField';
-import GameTile from '../Objects/GridObjects/GameTile';
 
 import PauseMenu from '../UI/PauseMenu';
 import GameOverScreen from '../UI/GameOverScreen';
@@ -13,11 +12,16 @@ import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
 import Character from '../Objects/Character';
 import Constants from '../Data/Constants';
+
+import StateTransition from '../Effects/StateTransition';
+
 export default class Gameplay extends Phaser.State
 {
     public static Name: string = 'gameplay';
 
     public name: string = Gameplay.Name;
+
+    private _transitionBackdrop: Phaser.Sprite;
 
     private _timerClass: Timer;
 
@@ -44,11 +48,25 @@ export default class Gameplay extends Phaser.State
     constructor()
     {
         super();
+        window.addEventListener('blur', () => {
+            this.pause(true);
+        });
+        window.addEventListener('focus', () => {
+            this.pause(false);
+        });
     }
 
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
+        this._timerClass.pause(paused);
+    }
+
+    public init(worldSnapshot: Phaser.RenderTexture): void
+    {
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
+        this._transitionBackdrop.anchor.set(.5, 1);
     }
 
     public create(): void
@@ -69,7 +87,16 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
         this.game.add.existing(this._highscoreBackdropSprite);
 
-        this._timerClass = new Timer();
+        this._timerClass = new Timer(this._gameField._timeBar);
+        this._gameField.timer = this._timerClass;
+
+        //this._timeScalerClass = new TimeBarScaler(this._gameField._timeBar);
+
+        this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
+
+        this._pauseMenu.onContinue.add(this.disableMenu, this);
+        this.pauseMenuButton = new ImageButton(this.game, 0, 0, '', this.activateMenu, this );
+        this.game.add.existing(this.pauseMenuButton);
 
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'popupmenu_icon_twitter', this.activateSocial, this );
         this.game.add.existing(this.socialMenuButton);
@@ -90,11 +117,13 @@ export default class Gameplay extends Phaser.State
         this._pauseMenu.onContinue.add(this.disableMenu, this);
 
         this.resize();
-    }
 
-    public newPathCreated(path: GameTile[]): void
-    {
-        console.log('new path!: ', path);
+        if (!this._transitionBackdrop) { return; }
+        StateTransition.inFromBottom(this.game, () => {
+            this._transitionBackdrop.destroy(true);
+            this._transitionBackdrop = null;
+        });
+
     }
 
     private updateScoreText(scoreIncrease: number): void
@@ -196,6 +225,8 @@ export default class Gameplay extends Phaser.State
         this._gameField.destroy();
         this._gameField = null;
 
+        window.addEventListener('blur', null);
+        window.addEventListener('focus', null);
     }
 
     public createLeafEmitter(): Phaser.Particles.Arcade.Emitter{

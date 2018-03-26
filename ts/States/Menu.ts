@@ -65,7 +65,7 @@ export default class Menu extends Phaser.State
         group.add(background);
 
         let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', () => {
-            this.state.start(Gameplay.Name);
+            this.state.start(Gameplay.Name, true, false, this.game.world.generateTexture());
         }, this);
         group.add(playButton);
 

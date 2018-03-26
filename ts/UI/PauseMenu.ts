@@ -41,7 +41,6 @@ export default class PauseMenu extends BasePopUp
     {
         this.visible = false;
         this.onContinue.dispatch();
-
     }
 
     private musicToggle(): void
