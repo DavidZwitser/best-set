@@ -79,9 +79,11 @@ export default class GameTile extends GridObject
     /* Set the icon of a tile */
     set icon(value: TileIcons)
     {
-        this._iconSprite.frameName = FrameNames.InGameIcon + value;
+        if (value !== null) {
+            this._iconSprite.frameName = FrameNames.InGameIcon + value;
+        }
         this._icon = value;
-        this._iconSprite.visible = true;
+        this._iconSprite.visible = value !== null;
     }
     get icon(): TileIcons
     {
