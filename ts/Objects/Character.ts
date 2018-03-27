@@ -25,7 +25,7 @@ export default class Character extends Phaser.Group
         this._spine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'Character');
         this.addChild(this._spine);
 
-        this._powerOrb = new PowerOrb(this.game, 0, 0);
+        this._powerOrb = new PowerOrb(this.game, -250, -800);
         this.addChild(this._powerOrb);
 
         this.setAnimation(Character.ANIMARTION_IDLE, true);

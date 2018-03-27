@@ -201,9 +201,9 @@ export default class Gameplay extends Phaser.State
             Math.min(
 
                 this.game.height
-                - this._backgroundSprite.height / 4
+                - this._backgroundSprite.height / 2
                 - this._highscoreBackdropSprite.height
-                + this.game.height * .08 // Offset form the background
+                + this.game.height * .14 // Offset form the background
 
                 , vmin
             );
