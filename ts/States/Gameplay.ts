@@ -3,27 +3,27 @@ import 'phaser-ce';
 import Images from '../Data/Images';
 
 import GameField from '../Objects/GameObjects/GameField';
-import GameTile from '../Objects/GridObjects/GameTile';
 
 import PauseMenu from '../UI/PauseMenu';
 import GameOverScreen from '../UI/GameOverScreen';
 import Timer from '../BackEnd/Timer';
-import TimeBar from '../UI/TimeBar';
-import TimeBarScaler from '../BackEnd/TimeBarScaler';
 
 import Atlases from '../Data/Atlases';
 import ImageButton from '../UI/ImageButton';
 import Character from '../Objects/Character';
 import Constants from '../Data/Constants';
+
+import StateTransition from '../Effects/StateTransition';
+
 export default class Gameplay extends Phaser.State
 {
     public static Name: string = 'gameplay';
 
     public name: string = Gameplay.Name;
 
-    private _timeBar: TimeBar;
+    private _transitionBackdrop: Phaser.Sprite;
+
     private _timerClass: Timer;
-    private _timeScalerClass: TimeBarScaler;
 
     private _gameField: GameField;
 
@@ -35,16 +35,38 @@ export default class Gameplay extends Phaser.State
     private _highscoreBackdropSprite: Phaser.Sprite;
     private _backgroundSprite: Phaser.Sprite;
 
+    public currentScore: number = 0;
+
+    private _scoreText: Phaser.BitmapText;
+
     private _character: Character;
+
+    private _gameOverScreen: GameOverScreen;
+    //emitters
+    private _leafEmitter: Phaser.Particles.Arcade.Emitter;
 
     constructor()
     {
         super();
+        window.addEventListener('blur', () => {
+            this.pause(true);
+        });
+        window.addEventListener('focus', () => {
+            this.pause(false);
+        });
     }
 
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
+        this._timerClass.pause(paused);
+    }
+
+    public init(worldSnapshot: Phaser.RenderTexture): void
+    {
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
+        this._transitionBackdrop.anchor.set(.5, 1);
     }
 
     public create(): void
@@ -55,6 +77,7 @@ export default class Gameplay extends Phaser.State
         this.game.add.existing(this._backgroundSprite);
 
         this._character = new Character(this.game, 0, 0);
+        this._leafEmitter = this.createLeafEmitter();
 
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
@@ -63,9 +86,11 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
         this.game.add.existing(this._highscoreBackdropSprite);
 
-        this._timerClass = new Timer();
-        this._timeBar = new TimeBar(this.game);
-        this._timeScalerClass = new TimeBarScaler(this.game);
+        this._timerClass = new Timer(this._gameField._timeBar);
+        this._gameField.timer = this._timerClass;
+
+        //this._timeScalerClass = new TimeBarScaler(this._gameField._timeBar);
+        //console.log(this._gameField._timeBar);
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
@@ -78,17 +103,20 @@ export default class Gameplay extends Phaser.State
 
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 150, Images.PopUpMenuBackground);
 
-        this._scoreText = new Phaser.Text(this.game, this.game.width / 2, 0, 'Score: 0', Constants.buttonTextStyle);
-        this.game.add.existing(this._scoreText);
+        this._scoreText = this.game.add.bitmapText(this.game.width / 2, 0, 'myfont', 'Score: 0');
+        this._scoreText.fontSize = 50;
+        this._scoreText.anchor.set(0.5, 0);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
-
+        this.currentScore = 0;
         this.resize();
-    }
 
-    public newPathCreated(path: GameTile[]): void
-    {
-        console.log('new path!: ', path);
+        if (!this._transitionBackdrop) { return; }
+        StateTransition.inFromBottom(this.game, () => {
+            this._transitionBackdrop.destroy(true);
+            this._transitionBackdrop = null;
+        });
+
     }
 
     private activateMenu(): void
@@ -97,14 +125,19 @@ export default class Gameplay extends Phaser.State
         //stop the timer from moving et cetera
         this.pause(true);
         this._pauseMenu.visible = true;
-        this.pauseMenuButton.visible = false;
+        this.pauseMenuButton.inputEnabled = false;
 
     }
     private gameOverScreen(): void
     {
-        if (Constants.CurrentScore > Constants.HighScore)
+        if (this.currentScore > Constants.HighScore)
         {
-            Constants.HighScore = Constants.CurrentScore;
+            Constants.HighScore = this.currentScore;
+            this._gameOverScreen.updateText(true);
+        }
+        else
+        {
+            this._gameOverScreen.updateText(false);
         }
         this.pause(true);
         this._gameOverScreen.visible = true;
@@ -117,7 +150,7 @@ export default class Gameplay extends Phaser.State
     private disableMenu(): void
     {
         this.pause(false);
-        this.pauseMenuButton.visible = true;
+        this.pauseMenuButton.inputEnabled = true;
     }
 
     public resize(): void {
@@ -125,19 +158,24 @@ export default class Gameplay extends Phaser.State
         let vmin: number = Math.min(this.game.width, this.game.height);
 
         this._pauseMenu.resize();
-        this._gameOverScreen.resize();
 
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
 
         this._backgroundSprite.scale.set(this.game.width / GAME_WIDTH);
-        this._backgroundSprite.y = this._highscoreBackdropSprite.height;
+        this._backgroundSprite.y = 0; //this._highscoreBackdropSprite.height;
 
         this.pauseMenuButton.resize();
         this.pauseMenuButton.position.set(this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
 
         this.socialMenuButton.resize();
         this.socialMenuButton.position.set(this.game.width - this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
+
+        this._leafEmitter.x = this.game.width / 2;
+        this._leafEmitter.width = this.game.width;
+
+        this._gameOverScreen.x = this.game.width / 2;
+        this._gameOverScreen.y  = this.game.height / 2;
 
         this._gameField.resize();
 
@@ -146,7 +184,7 @@ export default class Gameplay extends Phaser.State
             Math.min(
 
                 this.game.height
-                - this._backgroundSprite.height
+                - this._backgroundSprite.height / 2
                 - this._highscoreBackdropSprite.height
                 + this.game.height * .08 // Offset form the background
 
@@ -160,16 +198,33 @@ export default class Gameplay extends Phaser.State
             this.game.height - this._gameField.height * .92
         );
 
-        this._character.position.set(this.game.width / 2, this.game.height * .3);
+        this._character.position.set(this.game.width / 2, this.game.height * .4);
     }
 
     public shutdown(): void
     {
         super.shutdown(this.game);
 
+        this._leafEmitter.destroy(true);
+        this._leafEmitter = null;
+
         this._gameField.destroy();
         this._gameField = null;
 
+        window.addEventListener('blur', null);
+        window.addEventListener('focus', null);
     }
 
+    public createLeafEmitter(): Phaser.Particles.Arcade.Emitter{
+        let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 50);
+        emitter.makeParticles(Atlases.Interface, ['particle_leaf_test2', 'particle_leaf_test1']);
+        emitter.setXSpeed(-100, 100);
+        emitter.setYSpeed(-1, -10);
+        emitter.setRotation(0, 80);
+        emitter.setAlpha(1, 2, 2000);
+        emitter.setScale(-1, 1, 1, 1, 3000, Phaser.Easing.Sinusoidal.InOut, true);
+        emitter.width = 600;
+        emitter.start(false, 3500, 400);
+        return emitter;
+    }
 }

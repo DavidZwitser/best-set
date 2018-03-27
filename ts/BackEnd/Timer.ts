@@ -1,4 +1,5 @@
 import 'phaser-ce';
+import TimeBar from '../UI/TimeBar';
 
 export default class Timer
 {
@@ -7,12 +8,14 @@ export default class Timer
 
    private _countNumber: number = 60;
    private _maxSeconds: number = 60;
+   private _startPeriod: number = 0;
 
    private _isPaused: boolean;
-   private _hasEnded: boolean;
 
    public onSecond: Phaser.Signal;
    public onTimeEnd: Phaser.Signal;
+
+   private timeBar: TimeBar;
 
    get CountNumber(): number
    {
@@ -29,69 +32,57 @@ export default class Timer
        return this._isPaused;
    }
 
-   set SetPaused(isPaused: boolean)
-   {
-       isPaused = this._isPaused;
-   }
-
-    constructor()
+    constructor(timebar: TimeBar)
     {
         this.startTimer();
+        this.timeBar = timebar;
+        this.timeBar.startRunning(this.MaxSeconds * 1000);
         this.onTimeEnd = new Phaser.Signal();
+        this.onSecond = new Phaser.Signal();
     }
 
     public startTimer(): void
     {
-        this.onSecond = new Phaser.Signal();
+        this._startPeriod = Date.now();
 
-        this._setTimer = setInterval(() =>
-        {
-            if (this._countNumber <= 0)
-            {
-                this._hasEnded = true;
-                this.stopTimer(false);
-             // this.onSecond.dispose();
-            }
-            if (!this._isPaused || !this._hasEnded)
-            {
-                this._countNumber--;
-                this.onSecond.dispatch();
-            }
-        }, 1000);
+        this._setTimer = setTimeout( () => {
+            this.stopTimer();
+        }, this._countNumber * 1000);
+
+    }
+
+    public pause(pause: boolean): void
+    {
+        if (pause) {
+            this._countNumber -= (Date.now() - this._startPeriod) / 1000;
+            clearTimeout(this._setTimer);
+        } else {
+            this.startTimer();
         }
-
-    public resetTimer(resetSecond: number): void
-    {
-        this._countNumber = resetSecond;
     }
 
-    // Resets the timer to the needed count (1 to 60).
-
-    public pauseTimer(): void
-    {
-        clearInterval(this._setTimer);
+    public resumeTimer(): void {
+        this.startTimer();
     }
-    // Pauses the timer.
-    public stopTimer(pauseMenu: boolean): void
+
+    public stopTimer(): void
     {
-        clearInterval(this._setTimer);
         this.onTimeEnd.dispatch();
     }
 
-    // Function is called when the game ends.
-    // Signal is to let other scripts know that the timer has ended.
-
-    public addSeconds(amountAdded: number): void
+    public addSeconds(amountAddedInSeconds: number): void
     {
-        this._countNumber += amountAdded;
-    }
+        this.pause(true);
+        this._countNumber = Math.min(this._countNumber + amountAddedInSeconds, this._maxSeconds);
 
-    // Function that will get used to add seconds.
-    // This should be called with every succesful combination.
-    // Amount depends on the score.
+        this.timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
+            this.pause(false);
+        });
+    }
 
     public shutdown(): void
     {
-        //
+        this.pause(true);
+        this._setTimer = null;
     }
 }

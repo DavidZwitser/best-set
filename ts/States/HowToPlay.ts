@@ -1,21 +1,32 @@
 import 'phaser-ce';
 
-import Test from './Test';
 import TextButton from '../UI/TextButton';
-import ImageButton from '../UI/ImageButton';
+import PageButton from '../UI/PageButton';
 import Gameplay from './Gameplay';
 import Menu from './Menu';
 import Atlases from '../Data/Atlases';
+import HowToPlayText from '../UI/HowToPlayText';
+
 export default class HowToPlay extends Phaser.State
 {
     public static Name: string = 'HowToPlay';
 
     public name: string = HowToPlay.Name;
+    private _htpText: HowToPlayText;
 
     private backgroundSprite: Phaser.Sprite;
+    private _howToPlaySpriteText: Phaser.Sprite;
     private title: Phaser.Sprite;
     private buttonContainers: Phaser.Group;
     private smallButtonContainer: Phaser.Group;
+
+    private _prevButton: PageButton;
+    private _nextButton: PageButton;
+    private _menuButton: PageButton;
+
+    private _howToPlayText: Phaser.BitmapText;
+
+    private _currentSlide: number;
 
     constructor()
     {
@@ -31,12 +42,10 @@ export default class HowToPlay extends Phaser.State
     {
         super.create(this.game);
 
-        this.backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
-        this.backgroundSprite.anchor.set(.5, 0);
+        this._currentSlide = 0;
 
-        this.title = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_ondergrond_logo');
-        this.title.anchor.set(.5);
-       
+        this.backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
+        this.backgroundSprite.anchor.set(.5, .4415);
 
         this.buttonContainers = this.createButtonContainers();
         this.add.existing(this.buttonContainers);
@@ -44,8 +53,17 @@ export default class HowToPlay extends Phaser.State
         this.smallButtonContainer = this.createSmallButtonContainers();
         this.add.existing(this.smallButtonContainer);
 
-        /* Go to gameplay by default */
-        //this.state.start(Gameplay.Name);
+        /*
+        this._htpText = new HowToPlayText();
+        this.PlayText(this._htpText.GetHtpText_One);
+        */
+
+        this._howToPlaySpriteText = this.game.add.sprite(this.game.width / 2, this.game.width / 1, Atlases.Interface, 'pagina_1');
+        this._howToPlaySpriteText.anchor.set(.5);
+
+        this.title = this.game.add.sprite(this.game.width / 2, this.game.height / 3, Atlases.Interface, 'logo_how_to_play');
+        this.title.anchor.set(.5, -2.75);
+
 
         this.resize();
     }
@@ -53,44 +71,34 @@ export default class HowToPlay extends Phaser.State
     private createButtonContainers(): Phaser.Group {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
-        let background: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_menu_ondergrond');
+        let background: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_howto_opmaak');
         background.anchor.set(.5);
         group.add(background);
-
-        let menuButton: TextButton = new TextButton(this.game, 0, -400, 'Back', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
-            this.state.start(Menu.Name);
-        }, this);
-        group.add(menuButton);
-
-
         return group;
     }
 
     private createSmallButtonContainers(): Phaser.Group {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
-
-
-        let testButton: TextButton = new TextButton(this.game, 100, 20, 'Next', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
-          //  this.state.start(Test.Name);
+        this._prevButton = new PageButton(this.game, -200, -225, 'ui_howto_previouspage', () => {
+         this._currentSlide--;
+         this.ChangeText();
         }, this);
-        group.add(testButton);
+        group.add(this._prevButton);
 
-/*
-        let settingButton: ImageButton = new ImageButton(this.game, 100, 0, 'ui_icon_settings', () => {
-            //
-        }, this);
-        group.add(settingButton);
+        this._prevButton.visible = false;
 
-        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'popupmenu_icon_twitter', () => {
-            //
+        this._nextButton = new PageButton(this.game, 200, -225, 'ui_howto_nextpage', () => {
+            this._currentSlide++;
+            this.ChangeText();
         }, this);
-        group.add(shareButton);
-*/
+        group.add(this._nextButton);
+
+        this._menuButton = new PageButton(this.game, -250, -800, 'ui_howto_exit', () => {
+            this.state.start(Menu.Name);
+        }, this);
+        group.add(this._menuButton);
+
         return group;
     }
 
@@ -110,6 +118,51 @@ export default class HowToPlay extends Phaser.State
 
         this.smallButtonContainer.scale.set(vmin / GAME_WIDTH);
         this.smallButtonContainer.position.set(this.game.width / 2, this.game.height * .9);
+    }
+
+    private ChangeText(): void
+    {
+       switch (this._currentSlide)
+       {
+        default:
+        //
+        break;
+
+           case 0:
+           //this.AdjustText(this._htpText.GetHtpText_One);
+           this._howToPlaySpriteText.loadTexture(Atlases.Interface, 'pagina_1');
+           this._prevButton.visible = false;
+           this._nextButton.visible = true;
+           break;
+           case 1:
+           //this.AdjustText(this._htpText.GetHtpText_Two);
+           this._howToPlaySpriteText.loadTexture(Atlases.Interface, 'pagina_2');
+           this._prevButton.visible = true;
+           this._nextButton.visible = true;
+           break;
+           case 2:
+        //this.AdjustText(this._htpText.GetHtpText_Three);
+           this._prevButton.visible = true;
+           this._nextButton.visible = false;
+           this._howToPlaySpriteText.loadTexture(Atlases.Interface, 'pagina_3');
+        }
+    }
+
+    private PlayText(replaceText: string): void
+    {
+        this._howToPlayText = this.game.add.bitmapText(this.game.width / 2, this.game.height / 2.5, 'myfont', replaceText);
+        this._howToPlayText.fontSize = 50;
+        this._howToPlayText.anchor.set(0.5, 0);
+    }
+
+    private AddText(): void
+    {
+
+    }
+
+    private AdjustText(replaceText: string): void
+    {
+        this._howToPlayText.text = replaceText;
     }
 
     public shutdown(): void
