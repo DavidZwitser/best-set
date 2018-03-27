@@ -79,9 +79,11 @@ export default class GameTile extends GridObject
     /* Set the icon of a tile */
     set icon(value: TileIcons)
     {
-        this._iconSprite.frameName = FrameNames.InGameIcon + value;
+        if (value !== null) {
+            this._iconSprite.frameName = FrameNames.InGameIcon + value;
+        }
         this._icon = value;
-        this._iconSprite.visible = true;
+        this._iconSprite.visible = value !== null;
     }
     get icon(): TileIcons
     {
@@ -146,8 +148,19 @@ export default class GameTile extends GridObject
     public destroy(): void {
         super.destroy(true);
 
-        this._iconSprite.destroy(true);
+        this.clearTween();
+
+        if (this._iconSprite) { this._iconSprite.destroy(true); }
         this._iconSprite = null;
+
+        if (this._glowSprite) { this._glowSprite.destroy(true); }
+        this._glowSprite = null;
+
+        if (this._shineSprite) { this._shineSprite.destroy(true); }
+        this._shineSprite = null;
+
+        if (this._explosionSprite) { this._explosionSprite.destroy(true); }
+        this._explosionSprite = null;
     }
 
 }

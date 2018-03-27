@@ -1,200 +1,222 @@
+
 Character.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Belt
   rotate: false
-  xy: 2391, 209
+  xy: 2391, 219
   size: 282, 234
   orig: 282, 234
   offset: 0, 0
   index: -1
 Body Strap
   rotate: false
-  xy: 2637, 529
+  xy: 2637, 539
   size: 323, 315
   orig: 323, 315
   offset: 0, 0
   index: -1
 Bottom
   rotate: false
-  xy: 1071, 19
+  xy: 1071, 29
   size: 315, 177
   orig: 315, 177
   offset: 0, 0
   index: -1
 Collar Back
   rotate: false
-  xy: 1608, 11
+  xy: 1608, 21
   size: 181, 185
   orig: 181, 185
   offset: 0, 0
   index: -1
 Hair
   rotate: true
-  xy: 2391, 445
+  xy: 2391, 455
   size: 350, 244
   orig: 350, 244
   offset: 0, 0
   index: -1
 Hair Back
   rotate: false
-  xy: 2675, 262
+  xy: 2675, 272
   size: 245, 265
   orig: 245, 265
   offset: 0, 0
   index: -1
 Head
   rotate: true
-  xy: 3606, 696
+  xy: 3606, 706
   size: 316, 353
   orig: 316, 353
   offset: 0, 0
   index: -1
 L
   rotate: true
-  xy: 1388, 29
+  xy: 1388, 39
   size: 167, 218
   orig: 167, 218
   offset: 0, 0
   index: -1
 L-1
   rotate: true
-  xy: 3132, 529
+  xy: 3132, 539
   size: 218, 275
   orig: 218, 275
   offset: 0, 0
   index: -1
 L-3
   rotate: true
-  xy: 2962, 452
+  xy: 2962, 462
   size: 131, 163
   orig: 131, 163
   offset: 0, 0
   index: -1
 L-4
   rotate: true
-  xy: 3586, 472
+  xy: 3586, 482
   size: 222, 231
   orig: 222, 231
   offset: 0, 0
   index: -1
 L.Lower Arm
   rotate: false
-  xy: 3961, 843
+  xy: 3961, 853
   size: 133, 169
   orig: 133, 169
   offset: 0, 0
   index: -1
 L.Lower Leg
-  rotate: true
-  xy: 1791, 2
+  rotate: false
+  xy: 1993, 59
   size: 92, 205
   orig: 92, 205
   offset: 0, 0
   index: -1
 L.Upper Arm
   rotate: false
-  xy: 3409, 542
+  xy: 3409, 552
   size: 175, 205
   orig: 175, 205
   offset: 0, 0
   index: -1
 L.Upper Leg
   rotate: false
-  xy: 2099, 216
+  xy: 2099, 226
   size: 290, 579
   orig: 290, 579
   offset: 0, 0
   index: -1
 Neck
   rotate: false
-  xy: 3961, 696
+  xy: 3961, 706
   size: 82, 145
   orig: 82, 145
   offset: 0, 0
   index: -1
 R
   rotate: true
-  xy: 3819, 484
+  xy: 3819, 494
   size: 210, 209
   orig: 210, 209
   offset: 0, 0
   index: -1
 R-1
   rotate: false
-  xy: 2962, 585
+  xy: 2962, 595
   size: 168, 259
   orig: 168, 259
   offset: 0, 0
   index: -1
 R-3
   rotate: false
-  xy: 2922, 294
+  xy: 2922, 304
   size: 139, 156
   orig: 139, 156
   offset: 0, 0
   index: -1
 R-4
   rotate: false
-  xy: 1755, 797
+  xy: 1755, 807
   size: 759, 215
   orig: 759, 215
   offset: 0, 0
   index: -1
 R.Lower Arm
   rotate: false
-  xy: 1998, 84
+  xy: 2289, 54
   size: 93, 170
   orig: 93, 170
   offset: 0, 0
   index: -1
 R.Lower Leg
   rotate: true
-  xy: 2093, 95
+  xy: 2675, 151
   size: 119, 194
   orig: 119, 194
   offset: 0, 0
   index: -1
 R.Upper Arm
   rotate: false
-  xy: 1791, 96
+  xy: 2384, 59
   size: 205, 158
   orig: 205, 158
   offset: 0, 0
   index: -1
 R.Upper Leg
   rotate: false
-  xy: 1755, 256
+  xy: 1755, 266
   size: 342, 539
   orig: 342, 539
   offset: 0, 0
   index: -1
 Rag
   rotate: true
-  xy: 2516, 846
+  xy: 2516, 856
   size: 166, 619
   orig: 166, 619
   offset: 0, 0
   index: -1
 Sheath
   rotate: false
-  xy: 1071, 198
+  xy: 1071, 208
   size: 682, 814
   orig: 682, 814
   offset: 0, 0
   index: -1
 Sword
   rotate: true
-  xy: 2, 44
+  xy: 2, 54
   size: 968, 1067
   orig: 968, 1067
   offset: 0, 0
   index: -1
 Upper Body
   rotate: true
-  xy: 3137, 749
+  xy: 3137, 759
   size: 263, 467
   orig: 263, 467
+  offset: 0, 0
+  index: -1
+faal
+  rotate: false
+  xy: 2, 2
+  size: 40, 50
+  orig: 50, 50
+  offset: 5, 0
+  index: -1
+slash
+  rotate: false
+  xy: 1791, 64
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+slash2
+  rotate: false
+  xy: 2087, 24
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: -1

@@ -11,7 +11,7 @@ export default class Test extends Phaser.State
 
     public emitter: EditorEmitter;
     public testButton: any;
-    private followMouse: boolean = false;
+    private _followMouse: boolean = false;
 
     constructor()
     {
@@ -45,7 +45,7 @@ export default class Test extends Phaser.State
         this.emitter.destroy(true);
         this.emitter = null;
         this.emitter = new EditorEmitter(this.game, this.game.width / 2, this.game.height / 2);
-        this.followMouse = (<any>document.getElementById('mouse')).checked;
+        this._followMouse = (<any>document.getElementById('mouse')).checked;
 
         this.emitter.editorValues = {
         gravity: Math.round((<any>document.getElementById('gravity')).value),
@@ -81,7 +81,7 @@ export default class Test extends Phaser.State
     }
 
     public update(): void {
-        if (this.followMouse) {
+        if (this._followMouse) {
             this.emitter.emitX = this.game.input.activePointer.x;
             this.emitter.emitY = this.game.input.activePointer.y;
         }
@@ -92,5 +92,9 @@ export default class Test extends Phaser.State
 
         //this._testSprite.destroy(true);
         //this._testSprite = null;
+
+        if (this.emitter) { this.emitter.destroy(true); }
+        this.emitter = null;
+
     }
 }

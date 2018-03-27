@@ -18,4 +18,10 @@ export default class TextButton extends Phaser.Button
 
         this.game.add.existing(this);
     }
+
+    public destroy(): void
+    {
+        if (this._label) { this._label.destroy(true); }
+        this._label = null;
+    }
 }

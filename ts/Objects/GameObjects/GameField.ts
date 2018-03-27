@@ -9,9 +9,9 @@ import GridRegenerator from '../GridRegenerator';
 
 import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
-import { gridElementTypes } from '../GridObjects/GridObject';
+import GridObject, { gridElementTypes } from '../GridObjects/GridObject';
 import TimeBar from '../../UI/TimeBar';
-import Timer from '../../Backend/Timer';
+import Timer from '../../BackEnd/Timer';
 
 export default class GameField extends Phaser.Group
 {
@@ -31,7 +31,7 @@ export default class GameField extends Phaser.Group
     private _backdropSprite: Phaser.Sprite;
     private _timerBbackdropSprite: Phaser.Sprite;
 
-    public _timeBar: TimeBar;
+    public timeBar: TimeBar;
     public updateScore: Phaser.Signal;
     public timer: Timer;
 
@@ -54,9 +54,9 @@ export default class GameField extends Phaser.Group
         this.addChild(this.grid);
         this.grid.mask = this._gridMask;
 
-        this._timeBar = new TimeBar(this.game);
-        this._timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
-        this._backdropSprite.addChild(this._timeBar);
+        this.timeBar = new TimeBar(this.game);
+        this.timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
+        this._backdropSprite.addChild(this.timeBar);
 
         this._gridSpawner = new LevelGenerator();
         this._pathChecker = new PathChecker();
@@ -73,6 +73,10 @@ export default class GameField extends Phaser.Group
         this.updateScore = new Phaser.Signal();
 
         window.requestAnimationFrame( () => this.addChild(this._gridMask));
+        if (1 < 0) {
+            this.clearIconFromColor(TileShapes.blue);
+            this.destroyBombTiles(0, 0, true);
+        }
 
     }
 
@@ -195,6 +199,39 @@ export default class GameField extends Phaser.Group
         this._lineDrawer.drawPath(path, 15, 0x00ff00);
     }
 
+    private clearIconFromColor(color: TileShapes): void {
+        this.grid.forEach((elem: GridObject) => {
+            if (elem.gridElementType === gridElementTypes.tile) {
+                if ((<GameTile>elem).shape === color) {
+                    (<GameTile>elem).icon = null;
+                    (<GameTile>elem).shine();
+                }
+            }
+            return false;
+        });
+    }
+
+    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void {
+        this._currentPath.length = 0;
+
+        this.grid.forEach((elem: GridObject) => {
+            if (elem.gridElementType === gridElementTypes.tile) {
+                if (cross) {
+                    if ((<GameTile>elem).gridPos.x === xPos || (<GameTile>elem).gridPos.y === yPos) {
+                        this._currentPath.push((<GameTile>elem));
+                    }
+                } else {
+                    if (Math.abs((<GameTile>elem).gridPos.x - xPos) <= 1 && Math.abs((<GameTile>elem).gridPos.y - yPos) <= 1) {
+                        this._currentPath.push((<GameTile>elem));
+                    }
+                }
+            }
+            return false;
+        });
+
+        this.inputRelease();
+    }
+
     public update(): void
     {
         this._gridInput.checkInputOnTiles(<GameTile[]>this.grid.get(null, null, null, gridElementTypes.tile));
@@ -227,6 +264,8 @@ export default class GameField extends Phaser.Group
 
     public destroy(): void
     {
+        super.destroy(true);
+
         if (this.grid) { this.grid.destroy(); }
         this.grid = null;
 
@@ -242,8 +281,25 @@ export default class GameField extends Phaser.Group
 
         this._gridRegenerator = null;
 
+        /* Visualising grid stuff */
         if (this._gridMask) { this._gridMask.destroy(true); }
         this._gridMask = null;
+
+        if (this._backdropSprite) { this._backdropSprite.destroy(true); }
+        this._backdropSprite = null;
+
+        /* Timer stuff */
+        if (this._timerBbackdropSprite) { this._timerBbackdropSprite.destroy(true); }
+        this._timerBbackdropSprite = null;
+
+        if (this.timeBar) { this.timeBar.destroy(); }
+        this.timeBar = null;
+
+        if (this.updateScore) { this.updateScore.removeAll(); }
+        this.updateScore = null;
+
+        if (this.timer) { this.timer.destroy(); }
+        this.timer = null;
 
     }
 
