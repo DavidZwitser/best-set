@@ -3,8 +3,8 @@ import IGame from '../PluginManagers/IGame';
 import PowerOrb from './PowerOrb';
 export default class Character extends Phaser.Group
 {
-    public _spine: any;
-    public _shadowSpine: any;
+    public spine: any;
+    public shadowSpine: any;
     public game: IGame;
 
     private _powerOrb: PowerOrb;
@@ -18,12 +18,12 @@ export default class Character extends Phaser.Group
         this.position.set(x, y);
         this.scale.set(.2);
 
-        this._shadowSpine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'shadow');
+        this.shadowSpine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'shadow');
 
-        this.addChild(this._shadowSpine);
+        this.addChild(this.shadowSpine);
 
-        this._spine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'Character');
-        this.addChild(this._spine);
+        this.spine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'Character');
+        this.addChild(this.spine);
 
         this._powerOrb = new PowerOrb(this.game, -250, -800);
         this.addChild(this._powerOrb);
@@ -31,10 +31,10 @@ export default class Character extends Phaser.Group
         this.setAnimation(Character.ANIMARTION_IDLE, true);
     }
     private setAnimation(animation: string, loop: boolean = false): void {
-        this._shadowSpine.setAnimationByName(0, animation, loop);
-        this._spine.setAnimationByName(0, animation, loop);
+        this.shadowSpine.setAnimationByName(0, animation, loop);
+        this.spine.setAnimationByName(0, animation, loop);
 
-        this._spine.onComplete.addOnce( () => { if (!loop) {
+        this.spine.onComplete.addOnce( () => { if (!loop) {
             this.setAnimation(Character.ANIMARTION_IDLE, true);
         }});
     }
@@ -47,19 +47,19 @@ export default class Character extends Phaser.Group
     }
 
     public pause( pause: boolean): void {
-        this._spine.autoUpdate = !pause;
-        this._shadowSpine.autoUpdate = !pause;
+        this.spine.autoUpdate = !pause;
+        this.shadowSpine.autoUpdate = !pause;
     }
 
     public destroy(): void
     {
         super.destroy(true);
 
-        if (this._spine) { this._spine.destroy(true); }
-        this._spine = null;
+        if (this.spine) { this.spine.destroy(true); }
+        this.spine = null;
 
-        if (this._shadowSpine) { this._shadowSpine.destroy(true); }
-        this._shadowSpine = null;
+        if (this.shadowSpine) { this.shadowSpine.destroy(true); }
+        this.shadowSpine = null;
 
     }
 }

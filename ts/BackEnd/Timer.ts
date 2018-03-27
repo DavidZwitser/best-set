@@ -1,5 +1,5 @@
 import 'phaser-ce';
-import TimeBar from '../UI/TimeBar';
+import _TimeBar from '../UI/TimeBar';
 
 export default class Timer
 {
@@ -15,7 +15,7 @@ export default class Timer
    public onSecond: Phaser.Signal;
    public onTimeEnd: Phaser.Signal;
 
-   private timeBar: TimeBar;
+   private _timeBar: _TimeBar;
 
    get CountNumber(): number
    {
@@ -32,11 +32,11 @@ export default class Timer
        return this._isPaused;
    }
 
-    constructor(timebar: TimeBar)
+    constructor(_timebar: _TimeBar)
     {
         this.startTimer();
-        this.timeBar = timebar;
-        this.timeBar.startRunning(this.MaxSeconds * 1000);
+        this._timeBar = _timebar;
+        this._timeBar.startRunning(this.MaxSeconds * 1000);
         this.onTimeEnd = new Phaser.Signal();
         this.onSecond = new Phaser.Signal();
     }
@@ -75,7 +75,7 @@ export default class Timer
         this.pause(true);
         this._countNumber = Math.min(this._countNumber + amountAddedInSeconds, this._maxSeconds);
 
-        this.timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
+        this._timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
             this.pause(false);
         });
     }
@@ -91,7 +91,7 @@ export default class Timer
         if (this.onTimeEnd) { this.onTimeEnd.removeAll(); }
         this.onTimeEnd = null;
 
-        if (this.timeBar) { this.timeBar.destroy(); }
-        this.timeBar = null;
+        if (this._timeBar) { this._timeBar.destroy(); }
+        this._timeBar = null;
     }
 }
