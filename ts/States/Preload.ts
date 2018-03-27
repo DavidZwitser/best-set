@@ -79,6 +79,8 @@ export default class Preload extends Phaser.State
     }
     public shutdown(): void
     {
+        super.shutdown(this.game);
+
         this._preloadText.destroy(true);
         this._preloadText = null;
 

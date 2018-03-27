@@ -52,4 +52,21 @@ export default class PauseMenu extends BasePopUp
     {
         Constants.PlaySoundEffects = ! Constants.PlaySoundEffects;
     }
+
+    public destroy(): void
+    {
+        super.destroy();
+
+        if (this._continueGameButton) { this._continueGameButton.destroy(); }
+        this._continueGameButton = null;
+
+        if (this._sfxButton) { this._sfxButton.destroy(); }
+        this._sfxButton = null;
+
+        if (this._musicButton) { this._musicButton.destroy(); }
+        this._musicButton = null;
+
+        if (this.onContinue) { this.onContinue.removeAll(); }
+        this.onContinue = null;
+    }
 }

@@ -97,6 +97,8 @@ export default class TimeBar extends Phaser.Group
 
     public destroy(): void
     {
+        super.destroy(true);
+
         if (this._timeBar) { this._timeBar.destroy(true); }
         this._timeBar = null;
 

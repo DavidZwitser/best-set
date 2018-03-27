@@ -92,5 +92,9 @@ export default class Test extends Phaser.State
 
         //this._testSprite.destroy(true);
         //this._testSprite = null;
+
+        if (this.emitter) { this.emitter.destroy(true); }
+        this.emitter = null;
+
     }
 }

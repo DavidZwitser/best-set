@@ -45,4 +45,16 @@ export default class Character extends Phaser.Group
         this._spine.autoUpdate = !pause;
         this._shadowSpine.autoUpdate = !pause;
     }
+
+    public destroy(): void
+    {
+        super.destroy(true);
+
+        if (this._spine) { this._spine.destroy(true); }
+        this._spine = null;
+
+        if (this._shadowSpine) { this._shadowSpine.destroy(true); }
+        this._shadowSpine = null;
+
+    }
 }

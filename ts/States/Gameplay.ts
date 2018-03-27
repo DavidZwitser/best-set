@@ -229,22 +229,35 @@ export default class Gameplay extends Phaser.State
         if (this._timerClass) { this._timerClass.destroy(); }
         this._timerClass = null;
 
-        this._leafEmitter.destroy(true);
+        if (this._leafEmitter) { this._leafEmitter.destroy(true); }
         this._leafEmitter = null;
 
         if (this._gameField) { this._gameField.destroy(); }
         this._gameField = null;
 
-        if (this.pauseMenuButton) { this.pauseMenuButton.destroy(true); }
+        if (this.pauseMenuButton) { this.pauseMenuButton.destroy(); }
         this.pauseMenuButton = null;
 
-        if (this.socialMenuButton) { this.socialMenuButton.destroy(true); }
+        if (this.socialMenuButton) { this.socialMenuButton.destroy(); }
         this.socialMenuButton = null;
 
-        if (this._pauseMenu) { this._pauseMenu.destroy(true); }
+        if (this._pauseMenu) { this._pauseMenu.destroy(); }
         this._pauseMenu = null;
 
-        if (this._gameOverScreen) { this._gameOverScreen.destroy(true); }
+        if (this._gameOverScreen) { this._gameOverScreen.destroy(); }
+        this._gameOverScreen = null;
+
+        if (this._highscoreBackdropSprite) { this._highscoreBackdropSprite.destroy(true); }
+        this._highscoreBackdropSprite =  null;
+
+        if (this._backgroundSprite) { this._backgroundSprite.destroy(true); }
+        this._backgroundSprite = null;
+
+        if (this._scoreText) { this._scoreText.destroy(true); }
+        this._scoreText = null;
+
+        if (this._character) { this._character.destroy(); }
+        this._character = null;
 
         window.addEventListener('blur', null);
         window.addEventListener('focus', null);

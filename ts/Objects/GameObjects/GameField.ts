@@ -262,6 +262,8 @@ export default class GameField extends Phaser.Group
 
     public destroy(): void
     {
+        super.destroy(true);
+
         if (this.grid) { this.grid.destroy(); }
         this.grid = null;
 

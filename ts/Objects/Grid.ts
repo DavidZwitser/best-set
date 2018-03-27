@@ -204,6 +204,8 @@ export default class Grid extends Phaser.Group
     /* Destroy the grid and all it's elements */
     public destroy(): void
     {
+        super.destroy(true);
+
         if (!this._elements) { return; }
 
         for (let i: number = this._elements.length; i--; )

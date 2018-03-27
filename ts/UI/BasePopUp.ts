@@ -57,4 +57,24 @@ export default class BasePopUp extends Phaser.Group
         this.game.paused = false;
         this.game.state.start(Gameplay.Name, true, false);
     }
+
+    public destroy(): void
+    {
+        super.destroy(true);
+
+        if (this._backToMenuButton) { this._backToMenuButton.destroy(); }
+        this._backToMenuButton = null;
+
+        if (this._resetButton) { this._resetButton.destroy(); }
+        this._resetButton = null;
+
+        if (this._titleText) { this._titleText.destroy(true); }
+        this._titleText = null;
+
+        if (this._menuBackground) { this._menuBackground.destroy(true); }
+        this._menuBackground = null;
+
+        if (this._blackPixel) { this._blackPixel.destroy(true); }
+        this._blackPixel = null;
+    }
 }
