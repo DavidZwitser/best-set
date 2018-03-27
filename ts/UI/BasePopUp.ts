@@ -55,6 +55,6 @@ export default class BasePopUp extends Phaser.Group
     private restartScene(): void
     {
         this.game.paused = false;
-        this.game.state.start(Gameplay.Name, true, false, this.game.world.generateTexture());
+        this.game.state.start(Gameplay.Name, true, false);
     }
 }

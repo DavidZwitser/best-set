@@ -31,7 +31,7 @@ export default class GameField extends Phaser.Group
     private _backdropSprite: Phaser.Sprite;
     private _timerBbackdropSprite: Phaser.Sprite;
 
-    public _timeBar: TimeBar;
+    public timeBar: TimeBar;
     public updateScore: Phaser.Signal;
     public timer: Timer;
 
@@ -54,9 +54,9 @@ export default class GameField extends Phaser.Group
         this.addChild(this.grid);
         this.grid.mask = this._gridMask;
 
-        this._timeBar = new TimeBar(this.game);
-        this._timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
-        this._backdropSprite.addChild(this._timeBar);
+        this.timeBar = new TimeBar(this.game);
+        this.timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
+        this._backdropSprite.addChild(this.timeBar);
 
         this._gridSpawner = new LevelGenerator();
         this._pathChecker = new PathChecker();
@@ -277,8 +277,25 @@ export default class GameField extends Phaser.Group
 
         this._gridRegenerator = null;
 
+        /* Visualising grid stuff */
         if (this._gridMask) { this._gridMask.destroy(true); }
         this._gridMask = null;
+
+        if (this._backdropSprite) { this._backdropSprite.destroy(true); }
+        this._backdropSprite = null;
+
+        /* Timer stuff */
+        if (this._timerBbackdropSprite) { this._timerBbackdropSprite.destroy(true); }
+        this._timerBbackdropSprite = null;
+
+        if (this.timeBar) { this.timeBar.destroy(); }
+        this.timeBar = null;
+
+        if (this.updateScore) { this.updateScore.removeAll(); }
+        this.updateScore = null;
+
+        if (this.timer) { this.timer.destroy(); }
+        this.timer = null;
 
     }
 

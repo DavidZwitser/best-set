@@ -95,13 +95,23 @@ export default class TimeBar extends Phaser.Group
         return '0x' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
 
-    public shutdown(): void
+    public destroy(): void
     {
-        this._timeBar.destroy(true);
+        if (this._timeBar) { this._timeBar.destroy(true); }
         this._timeBar = null;
 
-        this._timeMask.destroy(true);
+        if (this._timeBackdrop) { this._timeBackdrop.destroy(true); }
+        this._timeBackdrop = null;
+
+        if (this._timeMask) { this._timeMask.destroy(true); }
         this._timeMask = null;
+
+        if (this._animationEndOfBar) { this._animationEndOfBar.destroy(true); }
+        this._animationEndOfBar = null;
+
+        if (this._runningTween) { this._runningTween.stop(false); }
+        this._runningTween = null;
+
     }
 
 }
