@@ -87,7 +87,7 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
         this.game.add.existing(this._highscoreBackdropSprite);
 
-        this._timerClass = new Timer(this._gameField._timeBar);
+        this._timerClass = new Timer(this._gameField.timeBar);
         this._gameField.timer = this._timerClass;
 
         //this._timeScalerClass = new TimeBarScaler(this._gameField._timeBar);

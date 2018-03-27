@@ -80,9 +80,18 @@ export default class Timer
         });
     }
 
-    public shutdown(): void
+    public destroy(): void
     {
         this.pause(true);
         this._setTimer = null;
+
+        if (this.onSecond) { this.onSecond.removeAll(); }
+        this.onSecond = null;
+
+        if (this.onTimeEnd) { this.onTimeEnd.removeAll(); }
+        this.onTimeEnd = null;
+
+        if (this.timeBar) { this.timeBar.destroy(); }
+        this.timeBar = null;
     }
 }
