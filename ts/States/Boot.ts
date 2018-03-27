@@ -108,7 +108,11 @@ export default class Boot extends Phaser.State
     public preload(): void
     {
         super.preload(this.game);
+
         this.game.load.image('ui_splashscreen', 'assets/sprites/ui_splashscreen.png');
+        this.game.load.image('ui_splashscreen_textap', 'assets/sprites/ui_splashscreen_textap.png');
+        this.game.load.image('ui_splashscreen_texclick', 'assets/sprites/ui_splashscreen_texclick.png');
+        this.game.load.image('ui_splashscreen_textloading', 'assets/sprites/ui_splashscreen_textloading.png');
     }
 
     public resize(): void
