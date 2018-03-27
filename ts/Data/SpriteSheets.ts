@@ -10,12 +10,14 @@ export default class SpriteSheets
     public static TileShine: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
     { name: 'spritesheetshine', frameWidth: 165, frameHeight: 165, amountOfFrames: 6};
 
+    public static Orb: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
+    { name: 'orb', frameWidth: 150, frameHeight: 150, amountOfFrames: 10};
+
     public static list: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}[] = [
-        //Add spines to load
         SpriteSheets.BarEnd,
         SpriteSheets.TileDestroy,
-        SpriteSheets.TileShine
-
+        SpriteSheets.TileShine,
+        SpriteSheets.Orb
     ];
 
 }
