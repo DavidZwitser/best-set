@@ -223,11 +223,28 @@ export default class Gameplay extends Phaser.State
     {
         super.shutdown(this.game);
 
+        if (this._transitionBackdrop) { this._transitionBackdrop.destroy(true); }
+        this._transitionBackdrop = null;
+
+        if (this._timerClass) { this._timerClass.destroy(); }
+        this._timerClass = null;
+
         this._leafEmitter.destroy(true);
         this._leafEmitter = null;
 
-        this._gameField.destroy();
+        if (this._gameField) { this._gameField.destroy(); }
         this._gameField = null;
+
+        if (this.pauseMenuButton) { this.pauseMenuButton.destroy(true); }
+        this.pauseMenuButton = null;
+
+        if (this.socialMenuButton) { this.socialMenuButton.destroy(true); }
+        this.socialMenuButton = null;
+
+        if (this._pauseMenu) { this._pauseMenu.destroy(true); }
+        this._pauseMenu = null;
+
+        if (this._gameOverScreen) { this._gameOverScreen.destroy(true); }
 
         window.addEventListener('blur', null);
         window.addEventListener('focus', null);
