@@ -101,7 +101,7 @@ export default class Menu extends Phaser.State
         }, this);
         group.add(settingButton);
 
-        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'popupmenu_icon_twitter', () => {
+        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'ui_ingame_button_share', () => {
             //
         }, this);
         group.add(shareButton);

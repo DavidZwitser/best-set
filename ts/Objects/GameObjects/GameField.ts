@@ -9,7 +9,7 @@ import GridRegenerator from '../GridRegenerator';
 
 import GameTile, {TileShapes, TileIcons} from '../GridObjects/GameTile';
 import Atlases from '../../Data/Atlases';
-import { gridElementTypes } from '../GridObjects/GridObject';
+import GridObject, { gridElementTypes } from '../GridObjects/GridObject';
 import TimeBar from '../../UI/TimeBar';
 import Timer from '../../BackEnd/Timer';
 
@@ -73,6 +73,10 @@ export default class GameField extends Phaser.Group
         this.updateScore = new Phaser.Signal();
 
         window.requestAnimationFrame( () => this.addChild(this._gridMask));
+        if (1 < 0) {
+            this.clearIconFromColor(TileShapes.blue);
+            this.destroyBombTiles(0, 0, true);
+        }
 
     }
 
@@ -193,6 +197,37 @@ export default class GameField extends Phaser.Group
     private newPathCreated(path: GameTile[]): void
     {
         this._lineDrawer.drawPath(path, 15, 0x00ff00);
+    }
+
+    private clearIconFromColor(color: TileShapes): void {
+        this.grid.forEach((elem: GridObject) => {
+            if (elem.gridElementType === gridElementTypes.tile) {
+                if ((<GameTile>elem).shape === color) {
+                    (<GameTile>elem).icon = null;
+                    (<GameTile>elem).shine();
+                }
+            }
+            return false;
+        });
+    }
+
+    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void {
+        this._currentPath = [];
+        this.grid.forEach((elem: GridObject) => {
+            if (elem.gridElementType === gridElementTypes.tile) {
+                if (cross) {
+                    if ((<GameTile>elem).gridPos.x === xPos || (<GameTile>elem).gridPos.y === yPos) {
+                        this._currentPath.push((<GameTile>elem));
+                    }
+                } else {
+                    if (Math.abs((<GameTile>elem).gridPos.x - xPos) <= 1 && Math.abs((<GameTile>elem).gridPos.y - yPos) <= 1) {
+                        this._currentPath.push((<GameTile>elem));
+                    }
+                }
+            }
+            return false;
+        });
+        this.inputRelease();
     }
 
     public update(): void
