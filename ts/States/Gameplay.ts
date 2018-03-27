@@ -201,7 +201,7 @@ export default class Gameplay extends Phaser.State
             Math.min(
 
                 this.game.height
-                - this._backgroundSprite.height / 2
+                - this._backgroundSprite.height / 4
                 - this._highscoreBackdropSprite.height
                 + this.game.height * .08 // Offset form the background
 
@@ -215,7 +215,7 @@ export default class Gameplay extends Phaser.State
             this.game.height - this._gameField.height * .92
         );
         this._character.scale.set((vmin / GAME_WIDTH) * .3);
-        this._character.position.set(this.game.width / 2, this.game.height - this._gameField.height - 50);
+        this._character.position.set(this.game.width / 2, this.game.width * .8);
 
     }
 

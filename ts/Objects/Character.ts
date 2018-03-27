@@ -1,11 +1,13 @@
 import 'phaser-ce';
 import IGame from '../PluginManagers/IGame';
-
+import PowerOrb from './PowerOrb';
 export default class Character extends Phaser.Group
 {
     public _spine: any;
     public _shadowSpine: any;
     public game: IGame;
+
+    private _powerOrb: PowerOrb;
 
     public static ANIMARTION_IDLE: string = 'idle';
     public static ANIMARTION_ATTACK: string = 'combo';
@@ -22,6 +24,9 @@ export default class Character extends Phaser.Group
 
         this._spine = new PhaserSpine.Spine(<PhaserSpine.SpineGame>(this.game), 'Character');
         this.addChild(this._spine);
+
+        this._powerOrb = new PowerOrb(this.game, 0, 0);
+        this.addChild(this._powerOrb);
 
         this.setAnimation(Character.ANIMARTION_IDLE, true);
     }
