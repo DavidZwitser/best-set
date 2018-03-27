@@ -212,7 +212,8 @@ export default class GameField extends Phaser.Group
     }
 
     private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void {
-        this._currentPath = [];
+        this._currentPath.length = 0;
+
         this.grid.forEach((elem: GridObject) => {
             if (elem.gridElementType === gridElementTypes.tile) {
                 if (cross) {
@@ -227,6 +228,7 @@ export default class GameField extends Phaser.Group
             }
             return false;
         });
+
         this.inputRelease();
     }
 
