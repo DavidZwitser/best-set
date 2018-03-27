@@ -1,9 +1,12 @@
 import 'phaser-ce';
 
+import SaveData from './BackEnd/SaveData';
+
 import Boot from './States/Boot';
 import Menu from './States/Menu';
 import Test from './States/Test';
 import Gameplay from './States/Gameplay';
+import Preload from './States/Preload';
 
 namespace WebPackGame
 {
@@ -23,6 +26,8 @@ namespace WebPackGame
                 preserveDrawingBuffer: false
             });
             this.clearBeforeRender = false;
+
+            SaveData.Init();
 
             this.state.add('game', {
                 create: this.stateCreator.bind(this),
@@ -44,6 +49,7 @@ namespace WebPackGame
             this.state.add(Boot.Name, Boot, false);
             this.state.add(Menu.Name, Menu, false);
             this.state.add(Test.Name, Test, false);
+            this.state.add(Preload.Name, Preload, false);
             this.state.add(Gameplay.Name, Gameplay, false);
 
             // Starting the first state

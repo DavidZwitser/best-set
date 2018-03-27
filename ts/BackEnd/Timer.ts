@@ -1,4 +1,5 @@
 import 'phaser-ce';
+import TimeBar from '../UI/TimeBar';
 
 export default class Timer
 {
@@ -7,12 +8,14 @@ export default class Timer
 
    private _countNumber: number = 60;
    private _maxSeconds: number = 60;
+   private _startPeriod: number = 0;
 
    private _isPaused: boolean;
-   private _hasEnded: boolean;
 
    public onSecond: Phaser.Signal;
    public onTimeEnd: Phaser.Signal;
+
+   private timeBar: TimeBar;
 
    get CountNumber(): number
    {
@@ -29,58 +32,66 @@ export default class Timer
        return this._isPaused;
    }
 
-    constructor()
+    constructor(timebar: TimeBar)
     {
         this.startTimer();
+        this.timeBar = timebar;
+        this.timeBar.startRunning(this.MaxSeconds * 1000);
         this.onTimeEnd = new Phaser.Signal();
+        this.onSecond = new Phaser.Signal();
     }
 
     public startTimer(): void
     {
-        this.onSecond = new Phaser.Signal();
+        this._startPeriod = Date.now();
 
-        this._setTimer = setInterval(() =>
-        {
+        this._setTimer = setTimeout( () => {
+            this.stopTimer();
+        }, this._countNumber * 1000);
 
-            if (this._countNumber < 1)
-             {
-                 this._hasEnded = true;
-                 this.stopTimer();
-                // this.onSecond.dispose();
-             }
-
-            if (!this._isPaused && !this._hasEnded)
-            {
-                this._countNumber--;
-                this.onSecond.dispatch();
-             }
-        }, 1000);
     }
 
-    public resetTimer (resetSecond: number): void
+    public pause(pause: boolean): void
     {
-        this._countNumber = resetSecond;
+        if (pause) {
+            this._countNumber -= (Date.now() - this._startPeriod) / 1000;
+            clearTimeout(this._setTimer);
+        } else {
+            this.startTimer();
+        }
     }
 
-    public pauseTimer(): void
-    {
-        clearInterval(this._setTimer);
+    public resumeTimer(): void {
+        this.startTimer();
     }
 
     public stopTimer(): void
     {
-        clearInterval(this._setTimer);
-
         this.onTimeEnd.dispatch();
     }
 
-    public addSeconds(amountAdded: number): void
+    public addSeconds(amountAddedInSeconds: number): void
     {
-        this._countNumber += amountAdded;
+        this.pause(true);
+        this._countNumber = Math.min(this._countNumber + amountAddedInSeconds, this._maxSeconds);
+
+        this.timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
+            this.pause(false);
+        });
     }
 
-    public shutdown(): void
+    public destroy(): void
     {
-        //
+        this.pause(true);
+        this._setTimer = null;
+
+        if (this.onSecond) { this.onSecond.removeAll(); }
+        this.onSecond = null;
+
+        if (this.onTimeEnd) { this.onTimeEnd.removeAll(); }
+        this.onTimeEnd = null;
+
+        if (this.timeBar) { this.timeBar.destroy(); }
+        this.timeBar = null;
     }
 }

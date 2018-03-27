@@ -1,11 +1,14 @@
 export default class Spines
 {
 
-    public static Chips: string = 'chips';
+    public static Character: string = 'Character';
+    public static Shadow: string = 'shadow';
 
     public static list: string[] = [
         //Add spines to load
-        Spines.Chips
+        Spines.Character,
+        Spines.Shadow
+
     ];
 
 }

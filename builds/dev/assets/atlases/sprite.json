@@ -1,128 +1,136 @@
 {
     "frames": {
-        "popupmenu_icon_pause": {
-            "frame": {
-                "x": 706,
-                "y": 2281,
-                "w": 82,
-                "h": 71
-            }
-        },
         "popupmenu_icon_twitter": {
             "frame": {
-                "x": 619,
-                "y": 2281,
+                "x": 1241,
+                "y": 1435,
                 "w": 82,
                 "h": 71
             }
         },
         "ui_icon_music_off": {
             "frame": {
-                "x": 2507,
-                "y": 2150,
+                "x": 1058,
+                "y": 1435,
                 "w": 90,
                 "h": 81
             }
         },
         "ui_icon_music_on": {
             "frame": {
-                "x": 2602,
-                "y": 2150,
+                "x": 1153,
+                "y": 1435,
                 "w": 83,
                 "h": 81
             }
         },
         "ui_icon_settings": {
             "frame": {
-                "x": 870,
-                "y": 2281,
+                "x": 2094,
+                "y": 1176,
                 "w": 63,
                 "h": 67
             }
         },
         "ui_icon_sfx_off": {
             "frame": {
-                "x": 2690,
-                "y": 2150,
+                "x": 1729,
+                "y": 1294,
                 "w": 44,
                 "h": 45
             }
         },
         "ui_icon_sfx_on": {
             "frame": {
-                "x": 938,
-                "y": 2281,
+                "x": 1328,
+                "y": 1435,
                 "w": 73,
                 "h": 57
             }
         },
-        "ui_icon_social": {
+        "ui_ingame_button_pause": {
             "frame": {
-                "x": 793,
-                "y": 2281,
-                "w": 72,
-                "h": 71
+                "x": 581,
+                "y": 1574,
+                "w": 116,
+                "h": 118
+            }
+        },
+        "ui_ingame_button_share": {
+            "frame": {
+                "x": 823,
+                "y": 1574,
+                "w": 116,
+                "h": 118
             }
         },
         "background": {
             "frame": {
-                "x": 2014,
+                "x": 725,
                 "y": 0,
                 "w": 720,
                 "h": 1272
             }
         },
-        "temp_char": {
+        "ingame_empty_timebar": {
             "frame": {
-                "x": 0,
-                "y": 0,
-                "w": 1284,
-                "h": 2276
+                "x": 1012,
+                "y": 1352,
+                "w": 686,
+                "h": 25
+            }
+        },
+        "ingame_opvulling_timebar": {
+            "frame": {
+                "x": 1012,
+                "y": 1409,
+                "w": 682,
+                "h": 21
             }
         },
         "ui_ingame_button": {
             "frame": {
-                "x": 1870,
-                "y": 1677,
-                "w": 136,
-                "h": 98
+                "x": 702,
+                "y": 1574,
+                "w": 116,
+                "h": 118
             }
         },
         "ui_ingame_highscore_backdrop": {
             "frame": {
-                "x": 2014,
-                "y": 2150,
-                "w": 488,
-                "h": 83
+                "x": 1450,
+                "y": 1176,
+                "w": 451,
+                "h": 92
             }
         },
         "ui_ingame_playfield_backdrop": {
             "frame": {
-                "x": 2014,
-                "y": 1277,
+                "x": 1450,
+                "y": 0,
                 "w": 720,
                 "h": 731
             }
         },
         "ui_ingame_timer_backdrop": {
             "frame": {
-                "x": 1289,
-                "y": 2221,
+                "x": 1012,
+                "y": 1294,
                 "w": 712,
                 "h": 53
             }
         },
         "ui_ingame_timer": {
             "frame": {
-                "x": 2014,
-                "y": 2238,
+                "x": 1012,
+                "y": 1382,
                 "w": 680,
                 "h": 22
             }
         },
         "ui_menu_background": {
             "frame": {
-                "x": 1289,
+                "x": 0,
                 "y": 0,
                 "w": 720,
                 "h": 1289
@@ -130,39 +138,39 @@
         },
         "ui_menu_button_small": {
             "frame": {
-                "x": 1870,
-                "y": 1294,
+                "x": 581,
+                "y": 1435,
                 "w": 134,
                 "h": 134
             }
         },
         "ui_menu_button": {
             "frame": {
-                "x": 0,
-                "y": 2281,
+                "x": 581,
+                "y": 1294,
                 "w": 426,
                 "h": 136
             }
         },
         "ui_menu_logo": {
             "frame": {
-                "x": 2014,
-                "y": 2013,
+                "x": 1450,
+                "y": 1039,
                 "w": 572,
                 "h": 132
             }
         },
         "ui_menu_ondergrond_logo": {
             "frame": {
-                "x": 1289,
-                "y": 1918,
+                "x": 1450,
+                "y": 736,
                 "w": 603,
                 "h": 298
             }
         },
         "ui_menu_ondergrond": {
             "frame": {
-                "x": 1289,
+                "x": 0,
                 "y": 1294,
                 "w": 576,
                 "h": 619
@@ -170,88 +178,88 @@
         },
         "particle_leaf_test1": {
             "frame": {
-                "x": 1964,
-                "y": 1780,
+                "x": 1703,
+                "y": 1352,
                 "w": 24,
                 "h": 23
             }
         },
         "particle_leaf_test2": {
             "frame": {
-                "x": 2690,
-                "y": 2200,
+                "x": 1778,
+                "y": 1294,
                 "w": 31,
                 "h": 20
             }
         },
         "ui_ingame_icon_blue": {
             "frame": {
-                "x": 525,
-                "y": 2281,
+                "x": 964,
+                "y": 1435,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_glow_blue": {
             "frame": {
-                "x": 2591,
-                "y": 2013,
+                "x": 842,
+                "y": 1435,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_glow_red": {
             "frame": {
-                "x": 1870,
-                "y": 1555,
+                "x": 720,
+                "y": 1435,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_glow_yellow": {
             "frame": {
-                "x": 1870,
-                "y": 1433,
+                "x": 2027,
+                "y": 1039,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_helmet": {
             "frame": {
-                "x": 431,
-                "y": 2281,
+                "x": 2058,
+                "y": 830,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_magic": {
             "frame": {
-                "x": 1897,
-                "y": 2106,
+                "x": 2058,
+                "y": 736,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_red": {
             "frame": {
-                "x": 1897,
-                "y": 2012,
+                "x": 2000,
+                "y": 1176,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_shield": {
             "frame": {
-                "x": 1897,
-                "y": 1918,
+                "x": 1906,
+                "y": 1176,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_yellow": {
             "frame": {
-                "x": 1870,
-                "y": 1780,
+                "x": 2058,
+                "y": 924,
                 "w": 89,
                 "h": 89
             }
@@ -263,8 +271,8 @@
         "image": "~sprite.png",
         "scale": 1,
         "size": {
-            "w": 2734,
-            "h": 2417
+            "w": 2170,
+            "h": 1913
         }
     }
 }

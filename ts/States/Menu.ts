@@ -5,25 +5,33 @@ import TextButton from '../UI/TextButton';
 import ImageButton from '../UI/ImageButton';
 import Gameplay from './Gameplay';
 import Atlases from '../Data/Atlases';
+import HowToPlayMenu from '../UI/HowToPlayMenu';
+
+import StateTransition from '../Effects/StateTransition';
+
 export default class Menu extends Phaser.State
 {
     public static Name: string = 'menu';
 
     public name: string = Menu.Name;
 
+    private _transitionBackdrop: Phaser.Sprite;
+
     private backgroundSprite: Phaser.Sprite;
     private title: Phaser.Sprite;
     private buttonContainers: Phaser.Group;
     private smallButtonContainer: Phaser.Group;
+    private howToPlayMenu: HowToPlayMenu;
 
     constructor()
     {
         super();
     }
 
-    public init(): void
+    public init(worldSnapshot: Phaser.RenderTexture): void
     {
-        //
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(0, this.game.height, worldSnapshot);
     }
 
     public create(): void
@@ -45,10 +53,19 @@ export default class Menu extends Phaser.State
         this.smallButtonContainer = this.createSmallButtonContainers();
         this.add.existing(this.smallButtonContainer);
 
+        this.howToPlayMenu = new HowToPlayMenu(this.game);
+        this.add.existing(this.howToPlayMenu);
+
         /* Go to gameplay by default */
         //this.state.start(Gameplay.Name);
 
         this.resize();
+
+        if (!this._transitionBackdrop) { return; }
+        StateTransition.inFromTop(this.game, () => {
+            this._transitionBackdrop.destroy(true);
+            this._transitionBackdrop = null;
+        });
     }
 
     private createButtonContainers(): Phaser.Group {
@@ -58,23 +75,17 @@ export default class Menu extends Phaser.State
         background.anchor.set(.5);
         group.add(background);
 
-        let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
-            this.state.start(Gameplay.Name);
+        let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', () => {
+            this.state.start(Gameplay.Name, true, false, this.game.world.generateTexture());
         }, this);
         group.add(playButton);
 
-        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
+        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', () => {
             //
         }, this);
         group.add(howToPlayButton);
 
-        let testButton: TextButton = new TextButton(this.game, 0, 200, 'Test', {font: '50px',
-        fill: '#fff',
-        align: 'center' }, () => {
+        let testButton: TextButton = new TextButton(this.game, 0, 200, 'Test', () => {
             this.state.start(Test.Name);
         }, this);
         group.add(testButton);
@@ -90,7 +101,7 @@ export default class Menu extends Phaser.State
         }, this);
         group.add(settingButton);
 
-        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'popupmenu_icon_twitter', () => {
+        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'ui_ingame_button_share', () => {
             //
         }, this);
         group.add(shareButton);
@@ -115,6 +126,9 @@ export default class Menu extends Phaser.State
 
         this.smallButtonContainer.scale.set(vmin / GAME_WIDTH);
         this.smallButtonContainer.position.set(this.game.width / 2, this.game.height * .9);
+
+        this.howToPlayMenu.scale.set(vmin / GAME_WIDTH);
+        this.howToPlayMenu.position.set(this.game.width / 2, this.game.height / 2);
     }
 
     public shutdown(): void
