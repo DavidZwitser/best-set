@@ -30,7 +30,7 @@ export default class SoundManager {
     }
 
     public play(key: string, volume: number = 1, loop: boolean = false): Phaser.Sound {
-        if (!SaveGame.getInstance().sfx) {
+        if (SaveGame.SFXMuted) {
             return null;
         }
 
@@ -49,7 +49,7 @@ export default class SoundManager {
     }
 
     public playMusic(key: string): void {
-        if (!SaveGame.musicMuted) {
+        if (SaveGame.musicMuted) {
             //Even though the music is currently turned off, keep track of the last music we wanted to play.
             //This way, when we turn the music on again, we already know which song to play.
             this.music = this.sound.play(key, 1, true);

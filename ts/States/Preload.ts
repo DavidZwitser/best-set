@@ -3,10 +3,12 @@ import 'phaser-ce';
 import IGame from '../PluginManagers/IGame';
 
 import Images from '../Data/Images';
+import Sounds from '../Data/Sounds';
 import Menu from './Menu';
 import Atlases from '../Data/Atlases';
 import Spines from '../Data/Spines';
 import SpriteSheets from '../Data/SpriteSheets';
+import SoundManager from '../BackEnd/SoundManager';
 
 export default class Preload extends Phaser.State
 {
@@ -40,6 +42,10 @@ export default class Preload extends Phaser.State
             this.game.load.image(assetName, 'assets/sprites/' + assetName + '.png');
         });
 
+        Sounds.list.forEach((assetName: string) => {
+            this.game.load.audio(assetName, 'assets/sounds/sfx/' + assetName + '.wav');
+        });
+
         Spines.list.forEach((assetName: string) => {
             this.game.load.spine(assetName, 'assets/spine/' + assetName + '.json');
         });
@@ -51,6 +57,7 @@ export default class Preload extends Phaser.State
         let text: Phaser.BitmapText = this.game.add.bitmapText(this.game.width / 2, this.game.height / 2, 'myfont', 'click to start', 50);
         text.anchor.set(.5);
         this.game.input.onDown.addOnce(() => {
+
             this.goToMenu();
         });
     }

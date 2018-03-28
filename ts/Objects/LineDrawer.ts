@@ -1,6 +1,8 @@
 import 'phaser-ce';
 
 import GameTile from './GridObjects/GameTile';
+import Sounds from '../Data/Sounds';
+import SoundManager from '../BackEnd/SoundManager';
 
 export default class LineDrawer
 {
@@ -33,6 +35,11 @@ export default class LineDrawer
         {
             let currentTile: GameTile = tiles[i];
 
+            let rndValue: number = Math.random();
+            let rndSoundKey: string;
+            rndSoundKey = tiles.length <= 2 ? Sounds.TileSelect1 : rndValue <= 3 ? Sounds.TileSelect2 : Sounds.TileSelect3;
+
+            SoundManager.getInstance(this.game).play(rndSoundKey);
             this._drawGraphics.lineTo(currentTile.worldPosition.x, currentTile.worldPosition.y);
             this._drawGraphics.moveTo(currentTile.worldPosition.x, currentTile.worldPosition.y);
 

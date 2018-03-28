@@ -1,5 +1,7 @@
 import 'phaser-ce';
 import Atlases from '../Data/Atlases';
+import SoundManager from '../BackEnd/SoundManager';
+import Sounds from '../Data/Sounds';
 
 export default class ImageButton extends Phaser.Button
 {
@@ -8,7 +10,10 @@ export default class ImageButton extends Phaser.Button
     constructor(
         game: Phaser.Game, x: number, y: number, key: string, callback: Function, callbackContext: any)
         {
-        super(game, x, y, Atlases.Interface, callback, callbackContext, 'ui_ingame_button', 'ui_ingame_button', 'ui_ingame_button');
+        super(game, x, y, Atlases.Interface, () => {
+            SoundManager.getInstance(this.game).play(Sounds.ButtonPress);
+            callback();
+        }, callbackContext, 'ui_ingame_button', 'ui_ingame_button', 'ui_ingame_button');
 
         this.anchor.set(.5);
 

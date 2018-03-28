@@ -18,17 +18,17 @@ export default class PauseMenu extends BasePopUp
     {
         super(game, scale, buttonOffset, spaceBetweenButtons, backgroundImage);
 
-        this._continueGameButton = new TextButton(game, 0,  buttonOffset - spaceBetweenButtons * 2, 'Continue', this.continue, this);
+        this._continueGameButton = new TextButton(game, 0,  buttonOffset - spaceBetweenButtons * 2, 'Continue', this.continue.bind(this), this);
         this._continueGameButton.anchor.set(0.5);
         this._continueGameButton.scale.set(scale);
         this.addChild(this._continueGameButton);
 
-        this._sfxButton = new TextButton(game, - spaceBetweenButtons, buttonOffset +  spaceBetweenButtons, 'SFX', this.sfxToggle, this);
+        this._sfxButton = new TextButton(game, - spaceBetweenButtons, buttonOffset +  spaceBetweenButtons, 'SFX', this.sfxToggle.bind(this), this);
         this._sfxButton.anchor.set(0.5);
         this.addChild(this._sfxButton);
         this._sfxButton.scale.set(scale);
 
-        this._musicButton = new TextButton(game, spaceBetweenButtons, buttonOffset + spaceBetweenButtons, 'M', this.musicToggle, this);
+        this._musicButton = new TextButton(game, spaceBetweenButtons, buttonOffset + spaceBetweenButtons, 'M', this.musicToggle.bind(this), this);
         this._musicButton.anchor.set(0.5);
         this.addChild(this._musicButton);
         this._musicButton.scale.set(scale);

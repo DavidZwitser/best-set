@@ -14,6 +14,8 @@ import Character from '../Objects/Character';
 import Constants from '../Data/Constants';
 
 import StateTransition from '../Effects/StateTransition';
+import SoundManager from '../BackEnd/SoundManager';
+import Sounds from '../Data/Sounds';
 
 export default class Gameplay extends Phaser.State
 {
@@ -93,12 +95,10 @@ export default class Gameplay extends Phaser.State
         this._timerClass = new Timer(this._gameField._timeBar);
         this._gameField.timer = this._timerClass;
 
-        //this._timeScalerClass = new TimeBarScaler(this._gameField._timeBar);
-
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
-        this._pauseMenu.onContinue.add(this.disableMenu, this);
-        this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activateMenu, this );
+        this._pauseMenu.onContinue.add(this.disableMenu.bind(this), this);
+        this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activateMenu.bind(this), this );
         this.game.add.existing(this.pauseMenuButton);
 
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_share', this.activateSocial, this );
@@ -149,10 +149,12 @@ export default class Gameplay extends Phaser.State
         if (this.currentScore > Constants.HighScore)
         {
             Constants.HighScore = this.currentScore;
+            SoundManager.getInstance().play(Sounds.NewRecord);
             this._gameOverScreen.updateText(true);
         }
         else
         {
+            SoundManager.getInstance().play(Sounds.Lose);
             this._gameOverScreen.updateText(false);
         }
         //this.pause(true);

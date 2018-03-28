@@ -8,6 +8,8 @@ import Atlases from '../Data/Atlases';
 import HowToPlayMenu from '../UI/HowToPlayMenu';
 
 import StateTransition from '../Effects/StateTransition';
+import SoundManager from '../BackEnd/SoundManager';
+import Sounds from '../Data/Sounds';
 
 export default class Menu extends Phaser.State
 {
@@ -26,18 +28,20 @@ export default class Menu extends Phaser.State
     constructor()
     {
         super();
+
     }
 
     public init(worldSnapshot: Phaser.RenderTexture): void
     {
         if (!worldSnapshot) { return; }
         this._transitionBackdrop = this.game.add.sprite(0, this.game.height, worldSnapshot);
+        SoundManager.getInstance(this.game);
     }
 
     public create(): void
     {
         super.create(this.game);
-
+        SoundManager.getInstance(this.game).playMusic(Sounds.Ambience);
         this.backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
         this.backgroundSprite.anchor.set(.5, 1);
 
