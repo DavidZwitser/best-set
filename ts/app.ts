@@ -35,13 +35,15 @@ namespace WebPackGame
             }, true);
         }
 
-        private statePreloader(): void {
+        private statePreloader(): void
+        {
             // libs.forEach((library: string) => {
             //     this.load.script(library, library);
             // });
         }
 
-        private stateCreator(): void {
+        private stateCreator(): void
+        {
             //Here we load all the plugins
             this.plugins.add(PhaserSpine.SpinePlugin);
 

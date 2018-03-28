@@ -13,7 +13,7 @@ export default class SpriteSheets
     public static Orb: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
     { name: 'orb', frameWidth: 150, frameHeight: 150, amountOfFrames: 10};
 
-    public static list: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}[] = [
+    public static List: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}[] = [
         SpriteSheets.BarEnd,
         SpriteSheets.TileDestroy,
         SpriteSheets.TileShine,

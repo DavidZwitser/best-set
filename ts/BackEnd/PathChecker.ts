@@ -59,7 +59,8 @@ export default class PathChecker
     }
 
     /* Returns true if every value is different */
-    private everyValueIsDifferent(arr: any): boolean {
+    private everyValueIsDifferent(arr: any): boolean
+    {
         let _counts: any = [];
 
         for (let i: number = arr.length; i--; )

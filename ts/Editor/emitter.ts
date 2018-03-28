@@ -101,7 +101,8 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         this.code += 'return emitter;}';
         //console.log(this.code);
     }
-    public startEmitter(): void {
+    public startEmitter(): void
+    {
         if (this.editorValues.explode) {
             this.code += 'emitter.start(' + true + ', ' + this.editorValues.lifespan + ', ' + this.editorValues.freq + ', ' + this.editorValues.maxParticles + ');';
             super.start(true, this.editorValues.lifespan, this.editorValues.freq, this.editorValues.maxParticles);

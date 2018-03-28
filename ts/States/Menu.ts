@@ -47,10 +47,10 @@ export default class Menu extends Phaser.State
         logo.anchor.set(.5);
         this._title.addChild(logo);
 
-        this._buttonContainers = this.create_ButtonContainers();
+        this._buttonContainers = this.createButtonContainers();
         this.add.existing(this._buttonContainers);
 
-        this._smallButtonContainer = this.createSmall_ButtonContainers();
+        this._smallButtonContainer = this.createSmallButtonContainers();
         this.add.existing(this._smallButtonContainer);
 
         this._howToPlayMenu = new HowToPlayMenu(this.game);
@@ -62,13 +62,14 @@ export default class Menu extends Phaser.State
         this.resize();
 
         if (!this._transitionBackdrop) { return; }
-        StateTransition.inFromTop(this.game, () => {
+        StateTransition.InFromTop(this.game, () => {
             this._transitionBackdrop.destroy(true);
             this._transitionBackdrop = null;
         });
     }
 
-    private create_ButtonContainers(): Phaser.Group {
+    private createButtonContainers(): Phaser.Group
+    {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
         let background: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_menu_ondergrond');
@@ -93,7 +94,8 @@ export default class Menu extends Phaser.State
         return group;
     }
 
-    private createSmall_ButtonContainers(): Phaser.Group {
+    private createSmallButtonContainers(): Phaser.Group
+    {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
         let settingButton: ImageButton = new ImageButton(this.game, 100, 0, 'ui_icon_settings', () => {

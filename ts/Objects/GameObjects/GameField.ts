@@ -199,7 +199,8 @@ export default class GameField extends Phaser.Group
         this._lineDrawer.drawPath(path, 15, 0x00ff00);
     }
 
-    private clearIconFromColor(color: TileShapes): void {
+    private clearIconFromColor(color: TileShapes): void
+    {
         this.grid.forEach((elem: GridObject) => {
             if (elem.gridElementType === gridElementTypes.tile) {
                 if ((<GameTile>elem).shape === color) {
@@ -211,7 +212,8 @@ export default class GameField extends Phaser.Group
         });
     }
 
-    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void {
+    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void
+    {
         this._currentPath.length = 0;
 
         this.grid.forEach((elem: GridObject) => {

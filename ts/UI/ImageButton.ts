@@ -32,7 +32,8 @@ export default class ImageButton extends Phaser.Button
         });
     }
 
-    public resize(): void {
+    public resize(): void
+    {
         this.scale.set((this.game.width / GAME_WIDTH) *  this._scaleFactor);
     }
 

@@ -130,7 +130,7 @@ export default class Gameplay extends Phaser.State
     {
         this.currentScore +=  scoreIncrease;
         this._scoreText.text = 'Score: ' + this.currentScore.toString();
-        this._character.Combo();
+        this._character.combo();
     }
 
     private activateMenu(): void
@@ -144,7 +144,7 @@ export default class Gameplay extends Phaser.State
     }
     private gameOverScreen(): void
     {
-        this._character.Lose();
+        this._character.lose();
 
         if (this.currentScore > Constants.HighScore)
         {
@@ -169,7 +169,8 @@ export default class Gameplay extends Phaser.State
         this.pauseMenuButton.inputEnabled = true;
     }
 
-    public resize(): void {
+    public resize(): void
+    {
 
         let vmin: number = Math.min(this.game.width, this.game.height);
 
@@ -263,7 +264,8 @@ export default class Gameplay extends Phaser.State
         window.addEventListener('focus', null);
     }
 
-    public createLeafEmitter(): Phaser.Particles.Arcade.Emitter{
+    public createLeafEmitter(): Phaser.Particles.Arcade.Emitter
+    {
         let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 50);
         emitter.makeParticles(Atlases.Interface, ['particle_leaf_test2', 'particle_leaf_test1']);
         emitter.setXSpeed(-100, 100);

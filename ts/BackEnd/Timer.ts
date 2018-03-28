@@ -61,7 +61,8 @@ export default class Timer
         }
     }
 
-    public resumeTimer(): void {
+    public resumeTimer(): void
+    {
         this.startTimer();
     }
 

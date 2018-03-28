@@ -11,7 +11,7 @@ export default class Images
 
     public static BlackPixel: string = 'pixel_black';
 
-    public static list: string[] = [
+    public static List: string[] = [
         //Add images to load
         Images.IconTest,
         Images.CaviaTest,

@@ -13,7 +13,8 @@ export default class PowerOrb extends Phaser.Sprite
         this.appearing();
     }
 
-    private appearing(): void {
+    private appearing(): void
+    {
         this.inputEnabled = true;
         //this.visible = true;
     }
