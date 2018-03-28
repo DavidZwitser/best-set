@@ -5,9 +5,9 @@ export default class TextButton extends Phaser.Button
 {
     private _label: Phaser.BitmapText;
 
-    constructor(game: Phaser.Game, x: number, y: number, text: string, callback: Function, callbackContext: any)
+    constructor(game: Phaser.Game, x: number, y: number, key: string, text: string, callback: Function, callbackContext: any)
     {
-        super(game, x, y, Atlases.Interface, callback, callbackContext, 'ui_menu_button', 'ui_menu_button', 'ui_menu_button');
+        super(game, x, y, Atlases.Interface, callback, callbackContext, key, key, key);
 
         this.anchor.set(.5);
 

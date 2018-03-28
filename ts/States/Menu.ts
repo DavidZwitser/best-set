@@ -42,11 +42,8 @@ export default class Menu extends Phaser.State
         this._backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
         this._backgroundSprite.anchor.set(.5, 1);
 
-        this._title = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_ondergrond_logo');
+        this._title = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_logo');
         this._title.anchor.set(.5);
-        let logo: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_menu_logo');
-        logo.anchor.set(.5);
-        this._title.addChild(logo);
 
         this._buttonContainers = this.createButtonContainers();
         this.add.existing(this._buttonContainers);
@@ -73,21 +70,17 @@ export default class Menu extends Phaser.State
     {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
-        let background: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_menu_ondergrond');
-        background.anchor.set(.5);
-        group.add(background);
-
-        let playButton: TextButton = new TextButton(this.game, 0, -200, 'Play', () => {
+        let playButton: TextButton = new TextButton(this.game, 0, -200, 'MainMenu_PlayButton', '', () => {
             this.state.start(Gameplay.Name, true, false, this.game.world.generateTexture());
         }, this);
         group.add(playButton);
 
-        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', () => {
+        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'ui_ingame_highscore_backdrop', 'How to play', () => {
             this.state.start(HowToPlay.Name);
         }, this);
         group.add(howToPlayButton);
 
-        let testButton: TextButton = new TextButton(this.game, 0, 200, 'Test', () => {
+        let testButton: TextButton = new TextButton(this.game, 0, 200, 'MainMenu_QuitButton', '', () => {
             this.state.start(Test.Name);
         }, this);
         group.add(testButton);
@@ -98,7 +91,7 @@ export default class Menu extends Phaser.State
     {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
-        let settingButton: ImageButton = new ImageButton(this.game, 100, 0, 'ui_icon_settings', () => {
+        let settingButton: ImageButton = new ImageButton(this.game, 100, 0, 'ui_ingame_button_settings', () => {
             //
         }, this);
         group.add(settingButton);

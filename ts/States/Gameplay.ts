@@ -107,11 +107,11 @@ export default class Gameplay extends Phaser.State
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
         this._scoreText = this.game.add.bitmapText(0, 0, 'myfont', 'Score: 0');
-        this._scoreText.fontSize = 50;
+        this._scoreText.fontSize = 40;
         this._scoreText.anchor.set(0.5, 0);
 
         this._highScoreText = this.game.add.bitmapText(0, 0, 'myfont', 'Highscore: ' + Constants.HighScore);
-        this._highScoreText.fontSize = 20;
+        this._highScoreText.fontSize = 15;
         this._highScoreText.anchor.set(0.5, 0);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
@@ -231,9 +231,10 @@ export default class Gameplay extends Phaser.State
         this._character.position.set(this.game.width / 2, this.game.height * .4);
 
         this._scoreText.x = this.game.width / 2;
+        this._scoreText.y = this.game.width * 0.02;
         this._scoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
         this._highScoreText.x = this.game.width / 2;
-        this._highScoreText.y = this.game.width * 0.07;
+        this._highScoreText.y = this.game.width * 0.08;
         this._highScoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
 
     }

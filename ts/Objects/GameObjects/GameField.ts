@@ -296,7 +296,7 @@ export default class GameField extends Phaser.Group
     {
         super.destroy(true);
 
-        for (let i: number = this._shineSprites.length; i--) {
+        for (let i: number = this._shineSprites.length; i--;) {
             this._shineSprites[i].destroy(true);
             this._shineSprites[i] = null;
         }
