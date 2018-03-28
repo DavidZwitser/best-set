@@ -198,7 +198,7 @@ export default class GameField extends Phaser.Group
     /* What happends when a new path is created */
     private newPathCreated(path: GameTile[]): void
     {
-        this._lineDrawer.drawPath(path, 15, 0x00ff00);
+        this._lineDrawer.drawPath(path);
     }
 
     private clearIconFromColor(color: TileShapes): void {

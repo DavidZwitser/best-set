@@ -5,81 +5,73 @@ import SpriteSheets from '../Data/SpriteSheets';
 
 export default class LineDrawer
 {
-
     public game: Phaser.Game;
-
-    private _drawGraphics: Phaser.Graphics;
     private _drawSpriteSheets: Array<Phaser.Sprite>;
 
     constructor(game: Phaser.Game)
     {
         this.game = game;
-
-        this._drawGraphics = new Phaser.Graphics(game);
-        this.game.add.existing(this._drawGraphics);
-
         this._drawSpriteSheets = [];
-        for (let i: number = 0; i < 3; i++) {
-            this.addSpriteToLine();
-        }
     }
 
     /* Draw a path */
-    public drawPath(tiles: GameTile[], lineWidth: number, color: number): void
+    public drawPath(tiles: GameTile[]): void
     {
         this.clearPath();
 
         if (tiles.length <= 1) { return; }
 
-        // this._drawGraphics.beginFill();
-        // this._drawGraphics.lineStyle(lineWidth, color);
-
-        // this._drawGraphics.moveTo(tiles[0].worldPosition.x, tiles[0].worldPosition.y);
+        /* if there are more lines to be drawn than there are, then new ones are made and added to the list */
+        while (tiles.length - 1 > this._drawSpriteSheets.length) {
+            this.addSpriteToLine();
+        }
 
         for (let i: number = 1; i < tiles.length; i++)
         {
+            /* declaring all the values needed to draw the line */
             let currentTile: GameTile = tiles[i];
             let previousTile: GameTile = tiles[i - 1];
             let dx: number = currentTile.worldPosition.x - previousTile.worldPosition.x;
             let dy: number = currentTile.worldPosition.y - previousTile.worldPosition.y;
             let length: number = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-            let angle: number = Math.atan(dx / dy);
-            console.log(dx, dy, angle);
+            let angle: number = Math.atan2(dy, dx) * 180 / Math.PI;
 
+            /* implementing those values */
             let line: Phaser.Sprite = this._drawSpriteSheets[i - 1];
+            line.visible = true;
             line.position.set(previousTile.worldPosition.x, previousTile.worldPosition.y);
             line.width = length;
             line.height = length / 2.5;
-
-            //this._drawGraphics.lineTo(currentTile.worldPosition.x, currentTile.worldPosition.y);
-            //this._drawGraphics.moveTo(currentTile.worldPosition.x, currentTile.worldPosition.y);
-
+            line.angle = angle;
+            line.animations.play('shine', 24, true);
         }
-
-        //this._drawGraphics.endFill();
     }
+
+    /* adding a spritesheet line to the list */
     public addSpriteToLine(): void {
         let sprite: Phaser.Sprite = this.game.add.sprite(0, 0, SpriteSheets.Swipe.name);
+        sprite.anchor.set(0, .5);
         sprite.animations.add('shine');
-        sprite.animations.play('shine', 24, true);
         this._drawSpriteSheets.push(sprite);
     }
 
-    /* Clear the path */
+    /* Clears the path */
     public clearPath(): void
     {
-        this._drawGraphics.clear();
+        for (let i: number = this._drawSpriteSheets.length; i--;)
+        {
+            this._drawSpriteSheets[i].animations.stop();
+            this._drawSpriteSheets[i].visible = false;
+        }
     }
 
+    /* called when the class is destroyed */
     public destroy(): void
     {
         for (let i: number = this._drawSpriteSheets.length; i--;) {
             this._drawSpriteSheets[i].destroy(true);
-            this._drawSpriteSheets = null;
+            this._drawSpriteSheets[i] = null;
         }
-        this._drawSpriteSheets.length = 0;
-
-        this._drawGraphics.destroy(true);
-        this._drawGraphics = null;
+        this._drawSpriteSheets = null;
     }
 }

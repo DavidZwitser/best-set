@@ -33,6 +33,7 @@ export default class Preload extends Phaser.State
         this._preloadText = new Phaser.Sprite(this.game, this._preloadImage.width / 2, this._preloadImage.height * .4, 'ui_splashscreen_textloading');
         this._preloadText.anchor.set(.5);
         this._preloadImage.addChild(this._preloadText);
+        this.game.add.tween(this._preloadText).to({alpha: 0.5}, 400, Phaser.Easing.Linear.None, true, 0, 0, true).loop(true);
 
         this._preloadImage.width = this.game.width;
         this._preloadImage.height = this.game.height;
@@ -60,6 +61,8 @@ export default class Preload extends Phaser.State
     {
         super.create(this.game);
         this._preloadText.loadTexture(this.game.device.desktop ? 'ui_splashscreen_texclick' : 'ui_splashscreen_textap');
+        this.game.add.tween(this._preloadText.scale).to({x: 1.2, y: 1.2}, 500, Phaser.Easing.Cubic.InOut, true, 0, 0, true);
+
         this.game.input.onDown.addOnce(() => {
             this.goToMenu();
         });
@@ -70,7 +73,6 @@ export default class Preload extends Phaser.State
     }
 
     public resize(): void {
-        console.log('resize');
         this._preloadImage.width = this.game.width;
         this._preloadImage.height = this.game.height;
 
@@ -84,6 +86,8 @@ export default class Preload extends Phaser.State
 
         this._preloadImage.destroy(true);
         this._preloadImage = null;
+
+        this.game.tweens.removeAll();
     }
 
 }
