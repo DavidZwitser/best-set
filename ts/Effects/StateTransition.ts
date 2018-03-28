@@ -26,12 +26,12 @@ export default class StateTransitioner
 
     }
 
-    public static inFromBottom(game: Phaser.Game, callback?: Function): void
+    public static InFromBottom(game: Phaser.Game, callback?: Function): void
     {
         this.animateIn(game, -1, callback);
     }
 
-    public static inFromTop(game: Phaser.Game, callback?: Function): void
+    public static InFromTop(game: Phaser.Game, callback?: Function): void
     {
         this.animateIn(game, 1, callback);
     }

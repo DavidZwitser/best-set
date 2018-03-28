@@ -12,7 +12,9 @@ export default class Character extends Phaser.Group
     public static ANIMARTION_IDLE: string = 'idle';
     public static ANIMARTION_ATTACK: string = 'combo';
     public static ANIMARTION_LOSE: string = 'defeat';
-    constructor(game: Phaser.Game, x: number, y: number) {
+
+    constructor(game: Phaser.Game, x: number, y: number)
+    {
         super(game);
 
         this.position.set(x, y);
@@ -30,7 +32,9 @@ export default class Character extends Phaser.Group
 
         this.setAnimation(Character.ANIMARTION_IDLE, true);
     }
-    private setAnimation(animation: string, loop: boolean = false): void {
+
+    private setAnimation(animation: string, loop: boolean = false): void
+    {
         this.shadowSpine.setAnimationByName(0, animation, loop);
         this.spine.setAnimationByName(0, animation, loop);
 
@@ -38,15 +42,19 @@ export default class Character extends Phaser.Group
             this.setAnimation(Character.ANIMARTION_IDLE, true);
         }});
     }
-    public Combo(): void {
+
+    public combo(): void
+    {
         this.setAnimation(Character.ANIMARTION_ATTACK, false);
     }
 
-    public Lose(): void {
+    public lose(): void
+    {
         this.setAnimation(Character.ANIMARTION_LOSE, false);
     }
 
-    public pause( pause: boolean): void {
+    public pause( pause: boolean): void
+    {
         this.spine.autoUpdate = !pause;
         this.shadowSpine.autoUpdate = !pause;
     }

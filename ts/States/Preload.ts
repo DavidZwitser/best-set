@@ -40,19 +40,19 @@ export default class Preload extends Phaser.State
 
         this.game.load.bitmapFont('myfont', 'assets/fonts/font.png', 'assets/fonts/font.xml');
 
-        SpriteSheets.list.forEach((sheet: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}) => {
+        SpriteSheets.List.forEach((sheet: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}) => {
             this.game.load.spritesheet(sheet.name, 'assets/spritesheets/' + sheet.name + '.png', sheet.frameWidth, sheet.frameHeight, sheet.amountOfFrames);
         });
 
-        Atlases.list.forEach((assetName: string) => {
+        Atlases.List.forEach((assetName: string) => {
             this.game.load.atlas(assetName, 'assets/atlases/' + assetName + '.png', 'assets/atlases/' + assetName + '.json');
         });
 
-        Images.list.forEach((assetName: string) => {
+        Images.List.forEach((assetName: string) => {
             this.game.load.image(assetName, 'assets/sprites/' + assetName + '.png');
         });
 
-        Spines.list.forEach((assetName: string) => {
+        Spines.List.forEach((assetName: string) => {
             this.game.load.spine(assetName, 'assets/spine/' + assetName + '.json');
         });
     }
@@ -68,11 +68,14 @@ export default class Preload extends Phaser.State
         });
     }
 
-    private goToMenu(): void {
+    private goToMenu(): void
+    {
         this.state.start(Menu.Name);
     }
 
-    public resize(): void {
+    public resize(): void
+    {
+        console.log('resize');
         this._preloadImage.width = this.game.width;
         this._preloadImage.height = this.game.height;
 

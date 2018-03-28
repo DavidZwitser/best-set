@@ -35,27 +35,27 @@ export default class SaveData
     }
 
     /* Save if the sound is muted in cache */
-    public static set musicMuted(value: boolean)
+    public static set MusicMuted(value: boolean)
     {
         let newData: ISaveData = this.data;
         newData.mm = value;
 
         this.data = newData;
     }
-    public static get musicMuted(): boolean
+    public static get MusicMuted(): boolean
     {
         return this.data.mm;
     }
 
     /* Set highscore in cache */
-    public static set highscore(value: number)
+    public static set Highscore(value: number)
     {
         let newData: ISaveData = this.data;
         newData.hs = value;
 
         this.data = newData;
     }
-    public static get highscore(): number
+    public static get Highscore(): number
     {
         return this.data.hs;
     }

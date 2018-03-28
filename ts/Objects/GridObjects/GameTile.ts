@@ -25,10 +25,10 @@ export default class GameTile extends GridObject
     private _shape: TileShapes;
     private _icon: TileIcons;
 
+    private _tween: Phaser.Tween;
+
     private _iconSprite: Phaser.Sprite;
     private _glowSprite: Phaser.Sprite;
-
-    private _tween: Phaser.Tween;
 
     private _shineSprite: Phaser.Sprite;
     private _explosionSprite: Phaser.Sprite;
@@ -90,13 +90,14 @@ export default class GameTile extends GridObject
         return this._icon;
     }
 
-    public shine(): void {
+    public shine(): void
+    {
         this._shineSprite.animations.play('shine', 24, false);
     }
 
     /* Hide the tile with an animation */
-    public animateOut(): Phaser.Signal {
-
+    public animateOut(): Phaser.Signal
+    {
         this.isBeingDestroyed = true;
 
         this.explosion();
@@ -109,7 +110,8 @@ export default class GameTile extends GridObject
         return this._tween.onComplete;
     }
 
-    public explosion(): void {
+    public explosion(): void
+    {
         this._explosionSprite = new Phaser.Sprite(this.game, this.world.x, this.world.y, SpriteSheets.TileDestroy.name);
         this._explosionSprite.anchor.set(.5);
         this._explosionSprite.scale.set(.65);
@@ -145,7 +147,8 @@ export default class GameTile extends GridObject
         this.clearTween();
     }
 
-    public destroy(): void {
+    public destroy(): void
+    {
         super.destroy(true);
 
         this.clearTween();

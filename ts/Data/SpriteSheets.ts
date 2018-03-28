@@ -16,7 +16,7 @@ export default class SpriteSheets
     public static Swipe: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
     { name: 'spritesheet_swipe', frameWidth: 77, frameHeight: 30, amountOfFrames: 16};
 
-    public static list: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}[] = [
+    public static List: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number}[] = [
         SpriteSheets.BarEnd,
         SpriteSheets.TileDestroy,
         SpriteSheets.TileShine,

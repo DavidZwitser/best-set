@@ -56,7 +56,8 @@ export default class TimeBar extends Phaser.Group
         this.addChild(this._timeMask);
     }
 
-    public startRunning(miliSeconds: number): void {
+    public startRunning(miliSeconds: number): void
+    {
        this._runningTween = this.game.add.tween(this._timeMask).to({x: -this._timeBar.width}, miliSeconds, Phaser.Easing.Linear.None, true).
        onUpdateCallback(() => {
             this.updateColor();
@@ -80,18 +81,21 @@ export default class TimeBar extends Phaser.Group
         });
         return tween.onComplete;
     }
-    private updateColor(): void {
+    private updateColor(): void
+    {
         this._animationEndOfBar.x = this._timeMask.x + this._timeMask.width;
         let precentEmpty: number = this._timeMask.x / -this._timeBar.width;
         this._timeBar.tint = (this.rgbToHex(255 *  precentEmpty, 255 * (1 - precentEmpty), 0));
     }
 
-    private componentToHex(c: number): string {
+    private componentToHex(c: number): string
+    {
         let hex: string = c.toString(16);
         return hex.charAt(1) === '.' || hex.length === 1 ? '0' +  hex.substring(0, 1) : hex = hex.substring(0, 2);
     }
 
-    private rgbToHex(r: number, g: number, b: number): any {
+    private rgbToHex(r: number, g: number, b: number): any
+    {
         return '0x' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
     }
 
