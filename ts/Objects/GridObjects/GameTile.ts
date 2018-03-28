@@ -49,7 +49,7 @@ export default class GameTile extends GridObject
         this._shineSprite.anchor.set(.5);
         this._shineSprite.scale.set(.55);
         this._shineSprite.animations.add('shine');
-        this.shine();
+        //this.shine();
 
         this._glowSprite = new Phaser.Sprite(game, 0, 0, Atlases.Interface, '');
         this._glowSprite.anchor.set(.5);
@@ -92,6 +92,9 @@ export default class GameTile extends GridObject
 
     public shine(): void
     {
+        if (this.children.indexOf(this._shineSprite) <= -1) {
+            this.addChild(this._shineSprite);
+        }
         this._shineSprite.animations.play('shine', 24, false);
     }
 
