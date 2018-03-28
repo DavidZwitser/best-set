@@ -80,7 +80,7 @@ export default class Gameplay extends Phaser.State
         this._backgroundSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'background');
         this.game.add.existing(this._backgroundSprite);
 
-        this._character = new Character(this.game, 0, 0);
+        this._character = new Character(this.game, this.game.width / 2, this.game.height * .4);
         this._leafEmitter = this.createLeafEmitter();
 
         this._gameField = new GameField(this.game);
@@ -115,6 +115,7 @@ export default class Gameplay extends Phaser.State
         this._highScoreText.anchor.set(0.5, 0);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
+        this._gameField.updateScore.add(this.updateScoreText.bind(this));
         this.currentScore = 0;
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);

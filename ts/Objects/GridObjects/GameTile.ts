@@ -30,7 +30,6 @@ export default class GameTile extends GridObject
     private _iconSprite: Phaser.Sprite;
     private _glowSprite: Phaser.Sprite;
 
-    private _shineSprite: Phaser.Sprite;
     private _explosionSprite: Phaser.Sprite;
 
     public isBeingDestroyed: boolean;
@@ -45,19 +44,12 @@ export default class GameTile extends GridObject
         this._iconSprite.anchor.set(.5);
         this._iconSprite.visible = false;
 
-        this._shineSprite = new Phaser.Sprite(game, 0, 0, SpriteSheets.TileShine.name);
-        this._shineSprite.anchor.set(.5);
-        this._shineSprite.scale.set(.55);
-        this._shineSprite.animations.add('shine');
-        //this.shine();
-
         this._glowSprite = new Phaser.Sprite(game, 0, 0, Atlases.Interface, '');
         this._glowSprite.anchor.set(.5);
 
         if (shape) { this.shape = shape; }
         if (icon) { this.icon = icon; }
 
-        this.addChild(this._shineSprite);
         this.addChild(this._iconSprite);
         this.addChild(this._glowSprite);
 
@@ -88,14 +80,6 @@ export default class GameTile extends GridObject
     get icon(): TileIcons
     {
         return this._icon;
-    }
-
-    public shine(): void
-    {
-        if (this.children.indexOf(this._shineSprite) <= -1) {
-            this.addChild(this._shineSprite);
-        }
-        this._shineSprite.animations.play('shine', 24, false);
     }
 
     /* Hide the tile with an animation */
@@ -161,9 +145,6 @@ export default class GameTile extends GridObject
 
         if (this._glowSprite) { this._glowSprite.destroy(true); }
         this._glowSprite = null;
-
-        if (this._shineSprite) { this._shineSprite.destroy(true); }
-        this._shineSprite = null;
 
         if (this._explosionSprite) { this._explosionSprite.destroy(true); }
         this._explosionSprite = null;

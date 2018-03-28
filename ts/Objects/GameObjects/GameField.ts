@@ -12,6 +12,7 @@ import Atlases from '../../Data/Atlases';
 import GridObject, { gridElementTypes } from '../GridObjects/GridObject';
 import TimeBar from '../../UI/TimeBar';
 import Timer from '../../BackEnd/Timer';
+import SpriteSheets from '../../Data/SpriteSheets';
 
 export default class GameField extends Phaser.Group
 {
@@ -34,6 +35,9 @@ export default class GameField extends Phaser.Group
     public timeBar: TimeBar;
     public updateScore: Phaser.Signal;
     public timer: Timer;
+
+    private _shineSprites: Array<Phaser.Sprite>;
+    private _shineIndex: number = 0;
 
     constructor(game: Phaser.Game)
     {
@@ -67,6 +71,8 @@ export default class GameField extends Phaser.Group
 
         this._currentPath = [];
 
+        this.setupShines();
+
         this.setupGrid();
 
         this.updateScore = new Phaser.Signal();
@@ -98,6 +104,19 @@ export default class GameField extends Phaser.Group
         this._gridInput.onInputUp.add(this.inputRelease, this);
 
         this.resize();
+    }
+
+    private setupShines(): void {
+        this._shineIndex = 0;
+        this._shineSprites = [];
+        for (let i: number = 0; i < 3; i++) {
+            let shine: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, SpriteSheets.TileShine.name);
+            shine.anchor.set(.5);
+            shine.animations.add('shine');
+
+            this.game.add.existing(shine);
+            this._shineSprites.push(shine);
+        }
     }
 
     private generateNewGrid(): GameTile[]
@@ -139,10 +158,18 @@ export default class GameField extends Phaser.Group
         }
 
         /* tile will shine since it can be connected */
-        tile.shine();
+        this.shineOnTile(tile);
 
         /* A new path is created */
         this.newPathCreated(this._currentPath);
+    }
+
+    private shineOnTile(tile: GameTile): void {
+        this._shineIndex = (this._shineIndex + 1 ) % this._shineSprites.length;
+        let shine: Phaser.Sprite = this._shineSprites[this._shineIndex];
+        shine.scale.set(tile.scale.x * .55);
+        shine.position.set(tile.worldPosition.x, tile.worldPosition.y);
+        shine.animations.play('shine', 24, false);
     }
 
     /* What happens when the path input is released */
@@ -207,7 +234,6 @@ export default class GameField extends Phaser.Group
             if (elem.gridElementType === gridElementTypes.tile) {
                 if ((<GameTile>elem).shape === color) {
                     (<GameTile>elem).icon = null;
-                    (<GameTile>elem).shine();
                 }
             }
             return false;
@@ -269,6 +295,12 @@ export default class GameField extends Phaser.Group
     public destroy(): void
     {
         super.destroy(true);
+
+        for (let i: number = this._shineSprites.length; i--) {
+            this._shineSprites[i].destroy(true);
+            this._shineSprites[i] = null;
+        }
+        this._shineSprites = null;
 
         if (this.grid) { this.grid.destroy(); }
         this.grid = null;

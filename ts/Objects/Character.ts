@@ -28,6 +28,8 @@ export default class Character extends Phaser.Group
         //this.addChild(this.spine);
 
         this._powerOrb = new PowerOrb(this.game, -250, -800);
+        this.addChild(this.shadowSpine);
+        this.addChild(this.spine);
         this.addChild(this._powerOrb);
 
         this.setAnimation(Character.ANIMARTION_IDLE, true);
