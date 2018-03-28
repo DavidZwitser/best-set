@@ -48,11 +48,10 @@ export default class GameField extends Phaser.Group
 
         this._backdropSprite.addChild(this._timerBbackdropSprite);
 
-        this._gridMask = this.game.add.graphics();
+        this._gridMask = new Phaser.Graphics(this.game, 0, 0);
 
         this.grid = new Grid(this.game, 6, 6, 90, .9);
         this.addChild(this.grid);
-        this.grid.mask = this._gridMask;
 
         this.timeBar = new TimeBar(this.game);
         this.timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
@@ -72,7 +71,10 @@ export default class GameField extends Phaser.Group
 
         this.updateScore = new Phaser.Signal();
 
-        window.requestAnimationFrame( () => this.addChild(this._gridMask));
+        window.requestAnimationFrame( () => {
+            this.addChild(this._gridMask);
+            this.grid.mask = this._gridMask;
+        });
         if (1 < 0) {
             this.clearIconFromColor(TileShapes.blue);
             this.destroyBombTiles(0, 0, true);
