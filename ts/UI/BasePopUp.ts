@@ -57,6 +57,11 @@ export default class BasePopUp extends Phaser.Group
         this.game.paused = false;
         this.game.state.start(Gameplay.Name, true, false);
     }
+    public resize(): void {
+        this._blackPixel.width = this.game.width;
+        this._blackPixel.height = this.game.height;
+        this._blackPixel.scale.set(this.scale.x * 10000);
+    }
 
     public destroy(): void
     {

@@ -31,7 +31,6 @@ export default class Gameplay extends Phaser.State
     private socialMenuButton: ImageButton;
 
     private _pauseMenu: PauseMenu;
-    private _gameOverScreen: GameOverScreen;
 
     private _highscoreBackdropSprite: Phaser.Sprite;
     private _backgroundSprite: Phaser.Sprite;
@@ -39,9 +38,11 @@ export default class Gameplay extends Phaser.State
     public currentScore: number = 0;
 
     private _scoreText: Phaser.BitmapText;
+    private _highScoreText: Phaser.BitmapText;
 
     private _character: Character;
 
+    private _gameOverScreen: GameOverScreen;
     //emitters
     private _leafEmitter: Phaser.Particles.Arcade.Emitter;
 
@@ -84,7 +85,6 @@ export default class Gameplay extends Phaser.State
 
         this._gameField = new GameField(this.game);
         this.game.add.existing(this._gameField);
-        this._gameField.updateScore.add(this.updateScoreText, this);
 
         this._highscoreBackdropSprite = new Phaser.Sprite(this.game, 0, 0, Atlases.Interface, 'ui_ingame_highscore_backdrop');
         this._highscoreBackdropSprite.anchor.set(0.5, 0);
@@ -106,9 +106,13 @@ export default class Gameplay extends Phaser.State
 
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
-        this._scoreText = this.game.add.bitmapText(this.game.width / 2, 0, 'myfont', 'Score: 0');
+        this._scoreText = this.game.add.bitmapText(0, 0, 'myfont', 'Score: 0');
         this._scoreText.fontSize = 50;
         this._scoreText.anchor.set(0.5, 0);
+
+        this._highScoreText = this.game.add.bitmapText(0, 0, 'myfont', 'Highscore: ' + Constants.HighScore);
+        this._highScoreText.fontSize = 20;
+        this._highScoreText.anchor.set(0.5, 0);
 
         this._timerClass.onTimeEnd.add(this.gameOverScreen, this);
         this.currentScore = 0;
@@ -119,7 +123,7 @@ export default class Gameplay extends Phaser.State
         this.resize();
 
         if (!this._transitionBackdrop) { return; }
-        StateTransition.inFromBottom(this.game, () => {
+        StateTransition.InFromBottom(this.game, () => {
             this._transitionBackdrop.destroy(true);
             this._transitionBackdrop = null;
         });
@@ -128,7 +132,7 @@ export default class Gameplay extends Phaser.State
 
     private updateScoreText(scoreIncrease: number): void
     {
-        this.currentScore +=  scoreIncrease;
+        this.currentScore += scoreIncrease;
         this._scoreText.text = 'Score: ' + this.currentScore.toString();
         this._character.combo();
     }
@@ -177,8 +181,8 @@ export default class Gameplay extends Phaser.State
         this._highscoreBackdropSprite.scale.set(this.game.width / GAME_WIDTH);
         this._highscoreBackdropSprite.x = this.game.width / 2;
 
-        this._backgroundSprite.scale.set(this.game.width / GAME_WIDTH);
-        this._backgroundSprite.y = 0; //this._highscoreBackdropSprite.height;
+        this._backgroundSprite.width = this.game.width;
+        this._backgroundSprite.height = this.game.height;
 
         this.pauseMenuButton.resize();
         this.pauseMenuButton.position.set(this.pauseMenuButton.width / 2, this.pauseMenuButton.height / 2);
@@ -188,12 +192,6 @@ export default class Gameplay extends Phaser.State
 
         this._leafEmitter.x = this.game.width / 2;
         this._leafEmitter.width = this.game.width;
-
-        this._gameOverScreen.x = this.game.width / 2;
-        this._gameOverScreen.y  = this.game.height / 2;
-
-        this._pauseMenu.x = this.game.width / 2;
-        this._pauseMenu.y = this.game.height / 2;
 
         this._gameField.resize();
 
@@ -215,8 +213,27 @@ export default class Gameplay extends Phaser.State
             this.game.width / 2 - this._gameField.width / 2,
             this.game.height - this._gameField.height * .92
         );
+
+        this._gameOverScreen.x = this.game.width / 2;
+        this._gameOverScreen.y  = this.game.height / 2;
+        this._gameOverScreen.scale.set(vmin / GAME_WIDTH);
+        this._gameOverScreen.resize();
+
+        this._pauseMenu.x = this.game.width / 2;
+        this._pauseMenu.y = this.game.height / 2;
+        this._pauseMenu.scale.set(vmin / GAME_WIDTH);
+        this._pauseMenu.resize();
+
+        vmin = Math.min(this.game.width, this.game.height / (GAME_HEIGHT / GAME_WIDTH));
+
         this._character.scale.set((vmin / GAME_WIDTH) * .3);
-        this._character.position.set(this.game.width / 2, this.game.width * .8);
+        this._character.position.set(this.game.width / 2, this.game.height * .4);
+
+        this._scoreText.x = this.game.width / 2;
+        this._scoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
+        this._highScoreText.x = this.game.width / 2;
+        this._highScoreText.y = this.game.width * 0.07;
+        this._highScoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
 
     }
 

@@ -4,6 +4,7 @@ import Test from './Test';
 import TextButton from '../UI/TextButton';
 import ImageButton from '../UI/ImageButton';
 import Gameplay from './Gameplay';
+import HowToPlay from './HowToPlay';
 import Atlases from '../Data/Atlases';
 import HowToPlayMenu from '../UI/HowToPlayMenu';
 
@@ -82,7 +83,7 @@ export default class Menu extends Phaser.State
         group.add(playButton);
 
         let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'How to play', () => {
-            //
+            this.state.start(HowToPlay.Name);
         }, this);
         group.add(howToPlayButton);
 
@@ -90,7 +91,6 @@ export default class Menu extends Phaser.State
             this.state.start(Test.Name);
         }, this);
         group.add(testButton);
-
         return group;
     }
 
@@ -114,7 +114,7 @@ export default class Menu extends Phaser.State
     public resize(): void
     {
         let vmax: number = Math.max(this.game.width, this.game.height);
-        let vmin: number = Math.min(this.game.width, this.game.height);
+        let vmin: number = Math.min(this.game.width, this.game.height / 2);
 
         this._backgroundSprite.x = this.game.width / 2;
         this._backgroundSprite.y = this.game.height;
