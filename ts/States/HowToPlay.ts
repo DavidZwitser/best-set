@@ -64,7 +64,6 @@ export default class HowToPlay extends Phaser.State
         this.title = this.game.add.sprite(this.game.width / 2, this.game.height / 3, Atlases.Interface, 'logo_how_to_play');
         this.title.anchor.set(.5, -2.75);
 
-
         this.resize();
     }
 

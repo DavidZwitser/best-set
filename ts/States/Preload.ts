@@ -30,12 +30,12 @@ export default class Preload extends Phaser.State
 
         this._preloadImage = this.game.add.sprite(0, 0, 'ui_splashscreen');
 
-        let vmax: number = Math.min(this.game.width, this.game.height);
-        this._preloadImage.scale.set(vmax / GAME_WIDTH);
-
         this._preloadText = new Phaser.Sprite(this.game, this._preloadImage.width / 2, this._preloadImage.height * .4, 'ui_splashscreen_textloading');
         this._preloadText.anchor.set(.5);
         this._preloadImage.addChild(this._preloadText);
+
+        this._preloadImage.width = this.game.width;
+        this._preloadImage.height = this.game.height;
 
         this.game.load.bitmapFont('myfont', 'assets/fonts/font.png', 'assets/fonts/font.xml');
 
@@ -71,10 +71,8 @@ export default class Preload extends Phaser.State
 
     public resize(): void {
         console.log('resize');
-        let vmax: number = Math.min(this.game.width, this.game.height);
-
-        this._preloadImage.scale.set(vmax / GAME_WIDTH);
-        this._preloadImage.y = 0 + (this.game.height - this._preloadImage.height);
+        this._preloadImage.width = this.game.width;
+        this._preloadImage.height = this.game.height;
 
     }
     public shutdown(): void

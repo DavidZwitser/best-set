@@ -112,7 +112,7 @@ export default class Menu extends Phaser.State
     public resize(): void
     {
         let vmax: number = Math.max(this.game.width, this.game.height);
-        let vmin: number = Math.min(this.game.width, this.game.height);
+        let vmin: number = Math.min(this.game.width, this.game.height / 2);
 
         this._backgroundSprite.x = this.game.width / 2;
         this._backgroundSprite.y = this.game.height;

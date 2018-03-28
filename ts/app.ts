@@ -7,6 +7,7 @@ import Menu from './States/Menu';
 import Test from './States/Test';
 import Gameplay from './States/Gameplay';
 import Preload from './States/Preload';
+import HowToPlay from './States/HowToPlay';
 
 namespace WebPackGame
 {
