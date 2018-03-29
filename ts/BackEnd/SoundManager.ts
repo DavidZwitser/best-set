@@ -58,13 +58,13 @@ export default class SoundManager
         }
     }
 
-    public playMusic(key: string): void
+    public playMusic(key: string, volume: number = 1): void
     {
         if (SaveGame.MusicMuted)
         {
             //Even though the music is currently turned off, keep track of the last music we wanted to play.
             //This way, when we turn the music on again, we already know which song to play.
-            this.music = this._sound.play(key, 1, true);
+            this.music = this._sound.play(key, volume, true);
 
             //Stop the music right away. We just want to keep track of the song.
             this.music.stop();

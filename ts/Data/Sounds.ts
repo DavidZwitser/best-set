@@ -13,7 +13,6 @@ export default class Sounds
 
     public static List: string[] = [
         Sounds.ButtonPress,
-        Sounds.Incorrect,
         Sounds.TilesBreak,
         Sounds.TileSelect1,
         Sounds.TileSelect2,
