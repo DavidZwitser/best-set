@@ -3,6 +3,7 @@ import 'phaser-ce';
 import IGame from '../PluginManagers/IGame';
 
 import Images from '../Data/Images';
+import Sounds from '../Data/Sounds';
 import Menu from './Menu';
 import Atlases from '../Data/Atlases';
 import Spines from '../Data/Spines';
@@ -52,6 +53,10 @@ export default class Preload extends Phaser.State
             this.game.load.image(assetName, 'assets/sprites/' + assetName + '.png');
         });
 
+        Sounds.List.forEach((assetName: string) => {
+            this.game.load.audio(assetName, 'assets/sounds/sfx/' + assetName + '.wav');
+        });
+
         Spines.List.forEach((assetName: string) => {
             this.game.load.spine(assetName, 'assets/spine/' + assetName + '.json');
         });
@@ -64,6 +69,7 @@ export default class Preload extends Phaser.State
         this.game.add.tween(this._preloadText.scale).to({x: 1.2, y: 1.2}, 500, Phaser.Easing.Cubic.InOut, true, 0, 0, true);
 
         this.game.input.onDown.addOnce(() => {
+
             this.goToMenu();
         });
     }
@@ -75,7 +81,6 @@ export default class Preload extends Phaser.State
 
     public resize(): void
     {
-        console.log('resize');
         this._preloadImage.width = this.game.width;
         this._preloadImage.height = this.game.height;
 

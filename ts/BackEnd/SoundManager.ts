@@ -36,7 +36,7 @@ export default class SoundManager
 
     public play(key: string, volume: number = 1, loop: boolean = false): Phaser.Sound
     {
-        if (!SaveGame.SFXMuted)
+        if (SaveGame.SFXMuted)
         {
             return null;
         }
@@ -58,17 +58,18 @@ export default class SoundManager
         }
     }
 
-    public playMusic(key: string): void
+    public playMusic(key: string, volume: number = 1): void
     {
-        if (!SaveGame.MusicMuted)
+        if (SaveGame.MusicMuted)
         {
             //Even though the music is currently turned off, keep track of the last music we wanted to play.
             //This way, when we turn the music on again, we already know which song to play.
-            this.music = this._sound.play(key, 1, true);
+            this.music = this._sound.play(key, volume, true);
 
             //Stop the music right away. We just want to keep track of the song.
             this.music.stop();
 
+            console.error('Music, playing! Though muted :(');
             return;
         }
 
@@ -77,10 +78,17 @@ export default class SoundManager
             if (null !== this.music && this.music.name !== key)
             {
                 this.music.stop();
+                console.error('sound already there!, stopping and playing again');
             }
 
             this.music = this._sound.play(key, 1, true);
+
+            console.error('playin ze muziek');
+
+            return;
         }
+
+        console.error('doing nothing' );
     }
 
     public fadeMusicVolume(duration: number, volume: number): void

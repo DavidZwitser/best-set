@@ -26,14 +26,14 @@ export default class BasePopUp extends Phaser.Group
         this._blackPixel.anchor.setTo(0.5);
         this._blackPixel.alpha = 0.7;
 
-        this._resetButton = new TextButton(game, 120, 200, 'popup_button', 'Replay', this.restartScene, this);
+        this._resetButton = new TextButton(game, 120, 200, 'popup_button', 'Replay', this.restartScene.bind(this), this);
         this._resetButton.anchor.set(0.5);
         this._resetButton._label.tint = 0xDFC48E;
         this._resetButton._label.y = 15;
         this._resetButton._label.fontSize = 35;
         this.addChild(this._resetButton);
 
-        this._backToMenuButton = new TextButton(game, -120, 200, 'popup_button', 'Quit', this.backToMenu, this);
+        this._backToMenuButton = new TextButton(game, -120, 200, 'popup_button', 'Quit', this.backToMenu.bind(this), this);
         this._backToMenuButton.anchor.set(0.5);
         this._backToMenuButton._label.tint = 0xDFC48E;
         this._backToMenuButton._label.y = 15;

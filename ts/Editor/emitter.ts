@@ -41,7 +41,6 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
 
     public setUpEmitter(): void
     {
-        console.log();
         this.code =
         'public createEmitter(): Phaser.Particles.Arcade.Emitter{' +
         'let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, ' + this.editorValues.maxParticles + ');';

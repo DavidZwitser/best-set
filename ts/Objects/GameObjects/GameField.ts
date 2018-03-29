@@ -14,6 +14,9 @@ import TimeBar from '../../UI/TimeBar';
 import Timer from '../../BackEnd/Timer';
 import SpriteSheets from '../../Data/SpriteSheets';
 
+import Sounds from '../../Data/Sounds';
+import SoundManager from '../../BackEnd/SoundManager';
+
 export default class GameField extends Phaser.Group
 {
     public grid: Grid;
@@ -153,6 +156,7 @@ export default class GameField extends Phaser.Group
             (this._pathChecker.isPatternPossible(this._currentPath) === false ||
             this._pathChecker.isNeighbour(this._currentPath[this._currentPath.length - 2], tile) === false)
         ) {
+            SoundManager.getInstance().play(Sounds.Incorrect);
             this._currentPath.pop();
             return;
         }
@@ -196,6 +200,7 @@ export default class GameField extends Phaser.Group
         }
         this.updateScore.dispatch(this._currentPath.length);
         this.timer.addSeconds(this._currentPath.length);
+        SoundManager.getInstance(this.game).play(Sounds.TilesBreak);
     }
 
     /* Replanish the grid with new tiles */

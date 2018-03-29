@@ -1,6 +1,8 @@
 import 'phaser-ce';
 
 import GameTile from './GridObjects/GameTile';
+import Sounds from '../Data/Sounds';
+import SoundManager from '../BackEnd/SoundManager';
 import SpriteSheets from '../Data/SpriteSheets';
 
 export default class LineDrawer
@@ -30,6 +32,10 @@ export default class LineDrawer
         {
             /* declaring all the values needed to draw the line */
             let currentTile: GameTile = tiles[i];
+
+            let rndSoundKey: string = tiles.length <= 2 ? Sounds.TileSelect1 : tiles.length <= 3 ? Sounds.TileSelect2 : Sounds.TileSelect3;
+            SoundManager.getInstance(this.game).play(rndSoundKey);
+
             let previousTile: GameTile = tiles[i - 1];
             let dx: number = currentTile.worldPosition.x - previousTile.worldPosition.x;
             let dy: number = currentTile.worldPosition.y - previousTile.worldPosition.y;
