@@ -6,6 +6,7 @@ import BasePopUp from './BasePopUp';
 export default class GameOverScreen extends BasePopUp
 {
     private _highScoreText: Phaser.BitmapText;
+
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
     {
         super(game, scale, buttonOffset, spaceBetweenButtons, backgroundImage);
@@ -27,6 +28,14 @@ export default class GameOverScreen extends BasePopUp
         {
         this._highScoreText.text = 'Try to beat the highscore ' + Constants.HighScore.toString();
         }
+    }
+
+    public destroy(): void
+    {
+        super.destroy();
+
+        if (this._highScoreText) { this._highScoreText.destroy(true); }
+        this._highScoreText = null;
     }
 
 }

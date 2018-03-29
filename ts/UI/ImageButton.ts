@@ -36,7 +36,18 @@ export default class ImageButton extends Phaser.Button
             this.resize();
         });
     }
-    public resize(): void {
-        this.scale.set((this.game.width / GAME_WIDTH) *  this._scaleFactor);
+
+    public resize(): void
+    {
+        let vmin: number = Math.min(this.game.width, this.game.height / 2);
+        this.scale.set((vmin / GAME_WIDTH) *  this._scaleFactor);
+    }
+
+    public destroy(): void
+    {
+        super.destroy(true);
+
+        if (this._image) { this._image.destroy(true); }
+        this._image = null;
     }
 }

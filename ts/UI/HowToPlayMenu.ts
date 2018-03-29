@@ -4,6 +4,7 @@ export default class HowToPlayMenu extends Phaser.Group
 {
 
     private _menuBackground: Phaser.Sprite;
+
     constructor(game: Phaser.Game)
     {
         super(game);
@@ -18,5 +19,13 @@ export default class HowToPlayMenu extends Phaser.Group
     {
         this.x = this.game.width / 2;
         this.y = this.game.height / 2;
+    }
+
+    public destroy(): void
+    {
+        super.destroy(true);
+
+        if (this._menuBackground) { this._menuBackground.destroy(true); }
+        this._menuBackground = null;
     }
 }

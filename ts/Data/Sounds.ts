@@ -11,7 +11,7 @@ export default class Sounds
     public static TileDrop: string = 'ui_soundfx_tiledrop';
     public static Ambience: string = 'bgm_ambience';
 
-    public static list: string[] = [
+    public static List: string[] = [
         Sounds.ButtonPress,
         Sounds.Incorrect,
         Sounds.TilesBreak,

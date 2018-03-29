@@ -1,13 +1,13 @@
 import 'phaser-ce';
-import TimeBar from '../UI/TimeBar';
+import _TimeBar from '../UI/TimeBar';
 
 export default class Timer
 {
 
    private _setTimer: any;
 
-   private _countNumber: number = 60;
-   private _maxSeconds: number = 60;
+   private _countNumber: number = 30;
+   private _maxSeconds: number = 30;
    private _startPeriod: number = 0;
 
    private _isPaused: boolean;
@@ -15,7 +15,7 @@ export default class Timer
    public onSecond: Phaser.Signal;
    public onTimeEnd: Phaser.Signal;
 
-   private timeBar: TimeBar;
+   private _timeBar: _TimeBar;
 
    get CountNumber(): number
    {
@@ -32,11 +32,11 @@ export default class Timer
        return this._isPaused;
    }
 
-    constructor(timebar: TimeBar)
+    constructor(_timebar: _TimeBar)
     {
         this.startTimer();
-        this.timeBar = timebar;
-        this.timeBar.startRunning(this.MaxSeconds * 1000);
+        this._timeBar = _timebar;
+        this._timeBar.startRunning(this.MaxSeconds * 1000);
         this.onTimeEnd = new Phaser.Signal();
         this.onSecond = new Phaser.Signal();
     }
@@ -61,7 +61,8 @@ export default class Timer
         }
     }
 
-    public resumeTimer(): void {
+    public resumeTimer(): void
+    {
         this.startTimer();
     }
 
@@ -75,14 +76,23 @@ export default class Timer
         this.pause(true);
         this._countNumber = Math.min(this._countNumber + amountAddedInSeconds, this._maxSeconds);
 
-        this.timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
+        this._timeBar.increaseBar(this._countNumber, this.MaxSeconds).addOnce(() => {
             this.pause(false);
         });
     }
 
-    public shutdown(): void
+    public destroy(): void
     {
         this.pause(true);
         this._setTimer = null;
+
+        if (this.onSecond) { this.onSecond.removeAll(); }
+        this.onSecond = null;
+
+        if (this.onTimeEnd) { this.onTimeEnd.removeAll(); }
+        this.onTimeEnd = null;
+
+        if (this._timeBar) { this._timeBar.destroy(); }
+        this._timeBar = null;
     }
 }

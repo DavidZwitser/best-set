@@ -41,9 +41,9 @@ export default class Boot extends Phaser.State
             this.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE;
 
             window.addEventListener('resize', () => {
-                Boot.mobileResizeCallback(this.game.scale);
+                Boot.MobileResizeCallback(this.game.scale);
             });
-            Boot.mobileResizeCallback(this.game.scale);
+            Boot.MobileResizeCallback(this.game.scale);
             this.game.scale.onSizeChange.add(
                 () => {
                     // if (Constants.LANDSCAPE_LOCKED) {
@@ -68,11 +68,13 @@ export default class Boot extends Phaser.State
         this.game.input.maxPointers = 1;
 
         //Disable contextual menu
-        this.game.canvas.oncontextmenu = function (e: Event): void {
+        this.game.canvas.oncontextmenu = function (e: Event): void
+        {
             e.preventDefault();
         };
     }
-    private scaleCanvasContain(): void {
+    private scaleCanvasContain(): void
+    {
         if (window.innerHeight / window.innerWidth > GAME_HEIGHT / GAME_WIDTH) {
             this.scale.maxHeight = window.innerWidth * (GAME_HEIGHT / GAME_WIDTH);
             this.scale.maxWidth = window.innerWidth;
@@ -82,7 +84,8 @@ export default class Boot extends Phaser.State
         }
     }
 
-    public static mobileResizeCallback(manager: Phaser.ScaleManager): void {
+    public static MobileResizeCallback(manager: Phaser.ScaleManager): void
+    {
         let width: number = window.innerWidth;
         let height: number = window.innerHeight;
 
@@ -108,7 +111,11 @@ export default class Boot extends Phaser.State
     public preload(): void
     {
         super.preload(this.game);
+
         this.game.load.image('ui_splashscreen', 'assets/sprites/ui_splashscreen.png');
+        this.game.load.image('ui_splashscreen_textap', 'assets/sprites/ui_splashscreen_textap.png');
+        this.game.load.image('ui_splashscreen_texclick', 'assets/sprites/ui_splashscreen_texclick.png');
+        this.game.load.image('ui_splashscreen_textloading', 'assets/sprites/ui_splashscreen_textloading.png');
     }
 
     public resize(): void
