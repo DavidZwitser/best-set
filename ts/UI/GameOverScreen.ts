@@ -13,7 +13,11 @@ export default class GameOverScreen extends BasePopUp
 
         this._titleText.text = 'GAME OVER';
 
-        this._highScoreText = new Phaser.BitmapText(game, 0 , buttonOffset * 2, 'myfont', 'highscore: ' + Constants.HighScore.toString());
+        this._highScoreText = new Phaser.BitmapText(game, 0 , 60, 'myfont', 'highscore: ' + Constants.HighScore.toString(), 60);
+        this._highScoreText.tint = 0x181137;
+        this._highScoreText.anchor.set(0, 0.5);
+        this._highScoreText.scale.set(scale, scale);
+
         this.addChild(this._highScoreText);
         this._highScoreText.anchor.set(0.5);
     }
@@ -22,11 +26,11 @@ export default class GameOverScreen extends BasePopUp
     {
         if (newHighScore)
         {
-        this._highScoreText.text = 'New highscore! ' + Constants.HighScore.toString();
+        this._highScoreText.text = 'New highscore!';
         }
         else
         {
-        this._highScoreText.text = 'Try to beat the highscore ' + Constants.HighScore.toString();
+        this._highScoreText.text = 'Highscore: ' + Constants.HighScore.toString();
         }
     }
 

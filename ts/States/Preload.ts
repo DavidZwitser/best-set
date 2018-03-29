@@ -81,7 +81,6 @@ export default class Preload extends Phaser.State
 
     public resize(): void
     {
-        console.log('resize');
         this._preloadImage.width = this.game.width;
         this._preloadImage.height = this.game.height;
 
