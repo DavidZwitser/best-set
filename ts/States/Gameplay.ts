@@ -101,7 +101,7 @@ export default class Gameplay extends Phaser.State
         this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activateMenu.bind(this), this );
         this.game.add.existing(this.pauseMenuButton);
 
-        this.socialMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_share', this.activateSocial, this );
+        this.socialMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_share', this.activateSocial.bind(this), this );
         this.game.add.existing(this.socialMenuButton);
 
         this._gameOverScreen = new GameOverScreen(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
@@ -167,7 +167,11 @@ export default class Gameplay extends Phaser.State
     }
     private activateSocial(): void
     {
-        console.log('socialiceren? NANI!');
+        window.open(
+            'https://twitter.com/share?text=Checkout%20this%20awesome%20game!%0A%23demo%20%23indiedev%0A',
+            '',
+            'menubar=no, toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'
+        );
     }
 
     private disableMenu(): void
