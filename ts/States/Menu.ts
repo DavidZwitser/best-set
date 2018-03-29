@@ -44,7 +44,7 @@ export default class Menu extends Phaser.State
     public create(): void
     {
         super.create(this.game);
-        SoundManager.getInstance(this.game).playMusic(Sounds.Ambience);
+        SoundManager.getInstance(this.game).playMusic(Sounds.Ambience, 0.1);
         console.log(SoundManager.getInstance());
 
         this._backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
