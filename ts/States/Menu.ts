@@ -81,15 +81,10 @@ export default class Menu extends Phaser.State
         }, this);
         group.add(playButton);
 
-        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'ui_ingame_highscore_backdrop', 'How to play', () => {
+        let howToPlayButton: TextButton = new TextButton(this.game, 0, 0, 'MainMenu_HowToPlayButton', '', () => {
             this.state.start(HowToPlay.Name);
         }, this);
         group.add(howToPlayButton);
-
-        let testButton: TextButton = new TextButton(this.game, 0, 200, 'MainMenu_QuitButton', '', () => {
-            this.state.start(Test.Name);
-        }, this);
-        group.add(testButton);
         return group;
     }
 
@@ -97,12 +92,7 @@ export default class Menu extends Phaser.State
     {
         let group: Phaser.Group = new Phaser.Group(this.game);
 
-        let settingButton: ImageButton = new ImageButton(this.game, 100, 0, 'ui_ingame_button_settings', () => {
-            //
-        }, this);
-        group.add(settingButton);
-
-        let shareButton: ImageButton = new ImageButton(this.game, -100, 0, 'ui_ingame_button_share', () => {
+        let shareButton: ImageButton = new ImageButton(this.game, 0, - 300, 'ui_ingame_button_share', () => {
             //
         }, this);
         group.add(shareButton);

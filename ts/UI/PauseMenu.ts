@@ -4,13 +4,14 @@ import TextButton from './TextButton';
 import Constants from '../Data/Constants';
 
 import BasePopUp from '../UI/BasePopUp';
+import ImageButton from './ImageButton';
 
 export default class PauseMenu extends BasePopUp
 {
 
     private _continueGameButton: TextButton;
-    private _sfxButton: TextButton;
-    private _musicButton: TextButton;
+    private _sfxButton: ImageButton;
+    private _musicButton: ImageButton;
 
     public onContinue: Phaser.Signal;
 
@@ -18,20 +19,17 @@ export default class PauseMenu extends BasePopUp
     {
         super(game, scale, buttonOffset, spaceBetweenButtons, backgroundImage);
 
-        this._continueGameButton = new TextButton(game, 0,  buttonOffset - spaceBetweenButtons * 2, 'ui_ingame_highscore_backdrop', 'Continue', this.continue.bind(this), this);
+        this._continueGameButton = new TextButton(game, 200,  buttonOffset - spaceBetweenButtons * 2, 'exitbutton', '', this.continue.bind(this), this);
         this._continueGameButton.anchor.set(0.5);
-        this._continueGameButton.scale.set(scale);
         this.addChild(this._continueGameButton);
 
-        this._sfxButton = new TextButton(game, - spaceBetweenButtons, buttonOffset +  spaceBetweenButtons, 'ui_ingame_highscore_backdrop', 'SFX', this.sfxToggle.bind(this), this);
+        this._sfxButton = new ImageButton(game, - spaceBetweenButtons, 80, 'ui_icon_sfx_on', this.sfxToggle.bind(this), this);
         this._sfxButton.anchor.set(0.5);
         this.addChild(this._sfxButton);
-        this._sfxButton.scale.set(scale);
 
-        this._musicButton = new TextButton(game, spaceBetweenButtons, buttonOffset + spaceBetweenButtons, 'ui_ingame_highscore_backdrop', 'M', this.musicToggle.bind(this), this);
+        this._musicButton = new ImageButton(game, spaceBetweenButtons, 80, 'ui_icon_music_on', this.musicToggle.bind(this), this);
         this._musicButton.anchor.set(0.5);
         this.addChild(this._musicButton);
-        this._musicButton.scale.set(scale);
 
         this.onContinue = new Phaser.Signal();
 

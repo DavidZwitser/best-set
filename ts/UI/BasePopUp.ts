@@ -10,6 +10,7 @@ export default class BasePopUp extends Phaser.Group
     private _resetButton: TextButton;
 
     protected _titleText: Phaser.BitmapText;
+    public _scoreText: Phaser.BitmapText;
 
     private _menuBackground: Phaser.Image;
     private _blackPixel: Phaser.Sprite;
@@ -23,27 +24,40 @@ export default class BasePopUp extends Phaser.Group
         this._blackPixel.height = game.height;
         this.addChild(this._blackPixel);
         this._blackPixel.anchor.setTo(0.5);
-        this._blackPixel.alpha = 0.5;
+        this._blackPixel.alpha = 0.7;
+
+        this._resetButton = new TextButton(game, 120, 200, 'popup_button', 'Replay', this.restartScene.bind(this), this);
+        this._resetButton.anchor.set(0.5);
+        this._resetButton._label.tint = 0xDFC48E;
+        this._resetButton._label.y = 15;
+        this._resetButton._label.fontSize = 35;
+        this.addChild(this._resetButton);
+
+        this._backToMenuButton = new TextButton(game, -120, 200, 'popup_button', 'Quit', this.backToMenu.bind(this), this);
+        this._backToMenuButton.anchor.set(0.5);
+        this._backToMenuButton._label.tint = 0xDFC48E;
+        this._backToMenuButton._label.y = 15;
+        this._backToMenuButton._label.fontSize = 40;
+        this.addChild(this._backToMenuButton);
 
         this._menuBackground = new Phaser.Image(game, 0, 0, backgroundImage);
         this._menuBackground.anchor.set(0.5);
         this.addChild(this._menuBackground);
 
-        this._titleText = new Phaser.BitmapText(game, 0, buttonOffset - spaceBetweenButtons * 3, 'myfont', 'Pause', 80);
+        this._titleText = new Phaser.BitmapText(game, 0, -80, 'myfont', 'Pause', 100);
+        this._titleText.tint = 0x181137;
         this._titleText.anchor.set(0.5);
         this._titleText.scale.set(scale, scale);
         this.addChild(this._titleText);
 
-        this._backToMenuButton = new TextButton(game, 0, buttonOffset - spaceBetweenButtons, 'ui_ingame_highscore_backdrop', 'Back To Menu', this.backToMenu.bind(this), this);
-        this._backToMenuButton.anchor.set(0.5);
-        this.addChild(this._backToMenuButton);
-        this._backToMenuButton.scale.set(scale);
+        this._scoreText = new Phaser.BitmapText(game, -150, 0, 'myfont', 'Score:', 70);
+        this._scoreText.tint = 0x181137;
+        this._scoreText.anchor.set(0, 0.5);
+        this._scoreText.scale.set(scale, scale);
+        this.addChild(this._scoreText);
+
         this.visible = false;
 
-        this._resetButton = new TextButton(game, 0, buttonOffset, 'ui_ingame_highscore_backdrop', 'Reset Game', this.restartScene.bind(this), this);
-        this._resetButton.anchor.set(0.5);
-        this.addChild(this._resetButton);
-        this._resetButton.scale.set(scale);
     }
 
     private backToMenu(): void
@@ -75,6 +89,9 @@ export default class BasePopUp extends Phaser.Group
 
         if (this._titleText) { this._titleText.destroy(true); }
         this._titleText = null;
+
+        if (this._scoreText) { this._scoreText.destroy(true); }
+        this._scoreText = null;
 
         if (this._menuBackground) { this._menuBackground.destroy(true); }
         this._menuBackground = null;

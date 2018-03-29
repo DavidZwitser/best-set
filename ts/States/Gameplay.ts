@@ -144,6 +144,7 @@ export default class Gameplay extends Phaser.State
         //stop the timer from moving et cetera
         this.pause(true);
         this._pauseMenu.visible = true;
+        this._pauseMenu._scoreText.text = 'Score: ' + this.currentScore;
         this.pauseMenuButton.inputEnabled = false;
 
     }
@@ -151,6 +152,7 @@ export default class Gameplay extends Phaser.State
     {
         this._character.lose();
 
+        this._gameOverScreen._scoreText.text = 'Score: ' + this.currentScore;
         if (this.currentScore > Constants.HighScore)
         {
             Constants.HighScore = this.currentScore;
