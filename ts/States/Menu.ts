@@ -35,7 +35,6 @@ export default class Menu extends Phaser.State
     public init(worldSnapshot: Phaser.RenderTexture): void
     {
         SoundManager.getInstance(this.game);
-        console.log(SoundManager.getInstance(), 'SCHREEUW!! (erbij)');
 
         if (!worldSnapshot) { return; }
         this._transitionBackdrop = this.game.add.sprite(0, this.game.height, worldSnapshot);
@@ -45,7 +44,6 @@ export default class Menu extends Phaser.State
     {
         super.create(this.game);
         SoundManager.getInstance(this.game).playMusic(Sounds.Ambience, 0.1);
-        console.log(SoundManager.getInstance());
 
         this._backgroundSprite = this.game.add.sprite(0, 0, Atlases.Interface, 'ui_menu_background');
         this._backgroundSprite.anchor.set(.5, 1);

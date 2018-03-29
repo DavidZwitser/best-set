@@ -34,7 +34,6 @@ export default class LineDrawer
             let currentTile: GameTile = tiles[i];
 
             let rndSoundKey: string = tiles.length <= 2 ? Sounds.TileSelect1 : tiles.length <= 3 ? Sounds.TileSelect2 : Sounds.TileSelect3;
-            console.log(rndSoundKey);
             SoundManager.getInstance(this.game).play(rndSoundKey);
 
             let previousTile: GameTile = tiles[i - 1];
