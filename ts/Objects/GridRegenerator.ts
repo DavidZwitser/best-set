@@ -1,6 +1,8 @@
 import GameTile from './GridObjects/GameTile';
 import Grid from './Grid';
 import GridObject from './GridObjects/GridObject';
+import Sounds from '../Data/Sounds';
+import SoundManager from '../BackEnd/SoundManager';
 
 export interface IRegenerateGridInfo
 {
@@ -118,7 +120,7 @@ export default class GridRegenerator
     /* Move in the new elements */
     public moveInNewElements(grid: Grid, newGrid: GameTile[]): void
     {
-
+        SoundManager.getInstance().play(Sounds.TileDrop);
         this.animateInNewTiles(grid, this.findNewTiles(grid, newGrid));
 
     }

@@ -4,7 +4,7 @@ export default class Grid extends Phaser.Group
 {
 
     /* Contains all the elements */
-    private _elements: GridElement[] = [];
+    private _elements: GridElement[];
 
     private _gridBlockSize: number;
     private _gridElementSizeMultiplier: number;
@@ -14,6 +14,8 @@ export default class Grid extends Phaser.Group
     constructor(game: Phaser.Game, blocksOnX: number, blocksOnY: number, gridBlockSize: number, gridElementSizeMultiplier: number)
     {
         super(game);
+
+        this._elements = [];
 
         this.blocksOnX = blocksOnX;
         this.blocksOnY = blocksOnY;
@@ -204,6 +206,8 @@ export default class Grid extends Phaser.Group
     /* Destroy the grid and all it's elements */
     public destroy(): void
     {
+        super.destroy(true);
+
         if (!this._elements) { return; }
 
         for (let i: number = this._elements.length; i--; )

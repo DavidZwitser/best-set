@@ -12,6 +12,10 @@ import Atlases from '../../Data/Atlases';
 import GridObject, { gridElementTypes } from '../GridObjects/GridObject';
 import TimeBar from '../../UI/TimeBar';
 import Timer from '../../BackEnd/Timer';
+import SpriteSheets from '../../Data/SpriteSheets';
+
+import Sounds from '../../Data/Sounds';
+import SoundManager from '../../BackEnd/SoundManager';
 
 export default class GameField extends Phaser.Group
 {
@@ -35,6 +39,9 @@ export default class GameField extends Phaser.Group
     public updateScore: Phaser.Signal;
     public timer: Timer;
 
+    private _shineSprites: Array<Phaser.Sprite>;
+    private _shineIndex: number = 0;
+
     constructor(game: Phaser.Game)
     {
         super(game);
@@ -48,11 +55,10 @@ export default class GameField extends Phaser.Group
 
         this._backdropSprite.addChild(this._timerBbackdropSprite);
 
-        this._gridMask = this.game.add.graphics();
+        this._gridMask = new Phaser.Graphics(this.game, 0, 0);
 
         this.grid = new Grid(this.game, 6, 6, 90, .9);
         this.addChild(this.grid);
-        this.grid.mask = this._gridMask;
 
         this.timeBar = new TimeBar(this.game);
         this.timeBar.position.set(-this._backdropSprite.width / 2 + 20, -this._backdropSprite.width / 2);
@@ -68,11 +74,16 @@ export default class GameField extends Phaser.Group
 
         this._currentPath = [];
 
+        this.setupShines();
+
         this.setupGrid();
 
         this.updateScore = new Phaser.Signal();
 
-        window.requestAnimationFrame( () => this.addChild(this._gridMask));
+        window.requestAnimationFrame( () => {
+            this.addChild(this._gridMask);
+            this.grid.mask = this._gridMask;
+        });
         if (1 < 0) {
             this.clearIconFromColor(TileShapes.blue);
             this.destroyBombTiles(0, 0, true);
@@ -96,6 +107,19 @@ export default class GameField extends Phaser.Group
         this._gridInput.onInputUp.add(this.inputRelease, this);
 
         this.resize();
+    }
+
+    private setupShines(): void {
+        this._shineIndex = 0;
+        this._shineSprites = [];
+        for (let i: number = 0; i < 3; i++) {
+            let shine: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, SpriteSheets.TileShine.name);
+            shine.anchor.set(.5);
+            shine.animations.add('shine');
+
+            this.game.add.existing(shine);
+            this._shineSprites.push(shine);
+        }
     }
 
     private generateNewGrid(): GameTile[]
@@ -132,15 +156,24 @@ export default class GameField extends Phaser.Group
             (this._pathChecker.isPatternPossible(this._currentPath) === false ||
             this._pathChecker.isNeighbour(this._currentPath[this._currentPath.length - 2], tile) === false)
         ) {
+            SoundManager.getInstance().play(Sounds.Incorrect);
             this._currentPath.pop();
             return;
         }
 
         /* tile will shine since it can be connected */
-        tile.shine();
+        this.shineOnTile(tile);
 
         /* A new path is created */
         this.newPathCreated(this._currentPath);
+    }
+
+    private shineOnTile(tile: GameTile): void {
+        this._shineIndex = (this._shineIndex + 1 ) % this._shineSprites.length;
+        let shine: Phaser.Sprite = this._shineSprites[this._shineIndex];
+        shine.scale.set(tile.scale.x * .55);
+        shine.position.set(tile.worldPosition.x, tile.worldPosition.y);
+        shine.animations.play('shine', 24, false);
     }
 
     /* What happens when the path input is released */
@@ -167,6 +200,7 @@ export default class GameField extends Phaser.Group
         }
         this.updateScore.dispatch(this._currentPath.length);
         this.timer.addSeconds(this._currentPath.length);
+        SoundManager.getInstance(this.game).play(Sounds.TilesBreak);
     }
 
     /* Replanish the grid with new tiles */
@@ -196,23 +230,25 @@ export default class GameField extends Phaser.Group
     /* What happends when a new path is created */
     private newPathCreated(path: GameTile[]): void
     {
-        this._lineDrawer.drawPath(path, 15, 0x00ff00);
+        this._lineDrawer.drawPath(path);
     }
 
-    private clearIconFromColor(color: TileShapes): void {
+    private clearIconFromColor(color: TileShapes): void
+    {
         this.grid.forEach((elem: GridObject) => {
             if (elem.gridElementType === gridElementTypes.tile) {
                 if ((<GameTile>elem).shape === color) {
                     (<GameTile>elem).icon = null;
-                    (<GameTile>elem).shine();
                 }
             }
             return false;
         });
     }
 
-    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void {
-        this._currentPath = [];
+    private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void
+    {
+        this._currentPath.length = 0;
+
         this.grid.forEach((elem: GridObject) => {
             if (elem.gridElementType === gridElementTypes.tile) {
                 if (cross) {
@@ -227,6 +263,7 @@ export default class GameField extends Phaser.Group
             }
             return false;
         });
+
         this.inputRelease();
     }
 
@@ -262,6 +299,14 @@ export default class GameField extends Phaser.Group
 
     public destroy(): void
     {
+        super.destroy(true);
+
+        for (let i: number = this._shineSprites.length; i--;) {
+            this._shineSprites[i].destroy(true);
+            this._shineSprites[i] = null;
+        }
+        this._shineSprites = null;
+
         if (this.grid) { this.grid.destroy(); }
         this.grid = null;
 

@@ -7,7 +7,7 @@ interface ISaveData
 
 export default class SaveData
 {
-    private static StorageKey: string = 'bs-saveData';
+    private static _StorageKey: string = 'bs-saveData';
 
     public static Init(): void
     {
@@ -35,27 +35,27 @@ export default class SaveData
     }
 
     /* Save if the sound is muted in cache */
-    public static set musicMuted(value: boolean)
+    public static set MusicMuted(value: boolean)
     {
         let newData: ISaveData = this.data;
         newData.mm = value;
 
         this.data = newData;
     }
-    public static get musicMuted(): boolean
+    public static get MusicMuted(): boolean
     {
         return this.data.mm;
     }
 
     /* Set highscore in cache */
-    public static set highscore(value: number)
+    public static set Highscore(value: number)
     {
         let newData: ISaveData = this.data;
         newData.hs = value;
 
         this.data = newData;
     }
-    public static get highscore(): number
+    public static get Highscore(): number
     {
         return this.data.hs;
     }
@@ -63,11 +63,11 @@ export default class SaveData
     /* Set or get the cached data */
     private static set data(data: ISaveData)
     {
-        localStorage.setItem(SaveData.StorageKey, JSON.stringify(data));
+        localStorage.setItem(SaveData._StorageKey, JSON.stringify(data));
     }
     private static get data(): ISaveData
     {
-        return JSON.parse(localStorage.getItem(SaveData.StorageKey));
+        return JSON.parse(localStorage.getItem(SaveData._StorageKey));
     }
 
 }

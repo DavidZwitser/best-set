@@ -41,7 +41,6 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
 
     public setUpEmitter(): void
     {
-        console.log();
         this.code =
         'public createEmitter(): Phaser.Particles.Arcade.Emitter{' +
         'let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, ' + this.editorValues.maxParticles + ');';
@@ -101,7 +100,8 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         this.code += 'return emitter;}';
         //console.log(this.code);
     }
-    public startEmitter(): void {
+    public startEmitter(): void
+    {
         if (this.editorValues.explode) {
             this.code += 'emitter.start(' + true + ', ' + this.editorValues.lifespan + ', ' + this.editorValues.freq + ', ' + this.editorValues.maxParticles + ');';
             super.start(true, this.editorValues.lifespan, this.editorValues.freq, this.editorValues.maxParticles);

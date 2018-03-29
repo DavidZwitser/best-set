@@ -1,65 +1,153 @@
 {
     "frames": {
+        "logo_how_to_play": {
+            "frame": {
+                "x": 2175,
+                "y": 1349,
+                "w": 409,
+                "h": 83
+            }
+        },
+        "pagina_1": {
+            "frame": {
+                "x": 1162,
+                "y": 1294,
+                "w": 478,
+                "h": 400
+            }
+        },
+        "pagina_2": {
+            "frame": {
+                "x": 1645,
+                "y": 1294,
+                "w": 481,
+                "h": 394
+            }
+        },
+        "pagina_3": {
+            "frame": {
+                "x": 2175,
+                "y": 303,
+                "w": 465,
+                "h": 355
+            }
+        },
+        "ui_howto_exit": {
+            "frame": {
+                "x": 2333,
+                "y": 1752,
+                "w": 64,
+                "h": 65
+            }
+        },
+        "ui_howto_neutralpage_letside": {
+            "frame": {
+                "x": 2175,
+                "y": 1437,
+                "w": 166,
+                "h": 188
+            }
+        },
+        "ui_howto_neutralpage_rightside": {
+            "frame": {
+                "x": 2175,
+                "y": 1630,
+                "w": 153,
+                "h": 189
+            }
+        },
+        "ui_howto_nextpage": {
+            "frame": {
+                "x": 2512,
+                "y": 1437,
+                "w": 161,
+                "h": 151
+            }
+        },
+        "ui_howto_opmaak": {
+            "frame": {
+                "x": 581,
+                "y": 1294,
+                "w": 576,
+                "h": 619
+            }
+        },
+        "ui_howto_previouspage": {
+            "frame": {
+                "x": 2346,
+                "y": 1437,
+                "w": 161,
+                "h": 154
+            }
+        },
         "popupmenu_icon_twitter": {
             "frame": {
-                "x": 1241,
-                "y": 1435,
+                "x": 2175,
+                "y": 1824,
                 "w": 82,
                 "h": 71
             }
         },
         "ui_icon_music_off": {
             "frame": {
-                "x": 1058,
-                "y": 1435,
+                "x": 2589,
+                "y": 1349,
                 "w": 90,
                 "h": 81
             }
         },
         "ui_icon_music_on": {
             "frame": {
-                "x": 1153,
-                "y": 1435,
+                "x": 2684,
+                "y": 1349,
                 "w": 83,
                 "h": 81
             }
         },
         "ui_icon_settings": {
             "frame": {
-                "x": 2094,
-                "y": 1176,
+                "x": 2699,
+                "y": 1252,
                 "w": 63,
                 "h": 67
             }
         },
         "ui_icon_sfx_off": {
             "frame": {
-                "x": 1729,
-                "y": 1294,
+                "x": 2732,
+                "y": 663,
                 "w": 44,
                 "h": 45
             }
         },
         "ui_icon_sfx_on": {
             "frame": {
-                "x": 1328,
-                "y": 1435,
+                "x": 2678,
+                "y": 1531,
                 "w": 73,
                 "h": 57
             }
         },
         "ui_ingame_button_pause": {
             "frame": {
-                "x": 581,
-                "y": 1574,
+                "x": 1162,
+                "y": 1699,
                 "w": 116,
                 "h": 118
             }
         },
+        "ui_ingame_button_settings": {
+            "frame": {
+                "x": 2402,
+                "y": 1752,
+                "w": 56,
+                "h": 57
+            }
+        },
         "ui_ingame_button_share": {
             "frame": {
-                "x": 823,
-                "y": 1574,
+                "x": 1404,
+                "y": 1699,
                 "w": 116,
                 "h": 118
             }
@@ -69,38 +157,38 @@
                 "x": 725,
                 "y": 0,
                 "w": 720,
-                "h": 1272
+                "h": 1280
             }
         },
         "ingame_empty_timebar": {
             "frame": {
-                "x": 1012,
-                "y": 1352,
+                "x": 1450,
+                "y": 1141,
                 "w": 686,
                 "h": 25
             }
         },
         "ingame_opvulling_timebar": {
             "frame": {
-                "x": 1012,
-                "y": 1409,
+                "x": 1450,
+                "y": 1198,
                 "w": 682,
                 "h": 21
             }
         },
         "ui_ingame_button": {
             "frame": {
-                "x": 702,
-                "y": 1574,
+                "x": 1283,
+                "y": 1699,
                 "w": 116,
                 "h": 118
             }
         },
         "ui_ingame_highscore_backdrop": {
             "frame": {
-                "x": 1450,
-                "y": 1176,
-                "w": 451,
+                "x": 2175,
+                "y": 1252,
+                "w": 425,
                 "h": 92
             }
         },
@@ -114,18 +202,34 @@
         },
         "ui_ingame_timer_backdrop": {
             "frame": {
-                "x": 1012,
-                "y": 1294,
+                "x": 1450,
+                "y": 1083,
                 "w": 712,
                 "h": 53
             }
         },
         "ui_ingame_timer": {
             "frame": {
-                "x": 1012,
-                "y": 1382,
+                "x": 1450,
+                "y": 1171,
                 "w": 680,
                 "h": 22
+            }
+        },
+        "MainMenu_PlayButton": {
+            "frame": {
+                "x": 2175,
+                "y": 887,
+                "w": 552,
+                "h": 219
+            }
+        },
+        "MainMenu_QuitButton": {
+            "frame": {
+                "x": 2175,
+                "y": 663,
+                "w": 552,
+                "h": 219
             }
         },
         "ui_menu_background": {
@@ -138,16 +242,16 @@
         },
         "ui_menu_button_small": {
             "frame": {
-                "x": 581,
-                "y": 1435,
+                "x": 2606,
+                "y": 1111,
                 "w": 134,
                 "h": 134
             }
         },
         "ui_menu_button": {
             "frame": {
-                "x": 581,
-                "y": 1294,
+                "x": 2175,
+                "y": 1111,
                 "w": 426,
                 "h": 136
             }
@@ -155,15 +259,15 @@
         "ui_menu_logo": {
             "frame": {
                 "x": 1450,
-                "y": 1039,
-                "w": 572,
-                "h": 132
+                "y": 736,
+                "w": 720,
+                "h": 342
             }
         },
         "ui_menu_ondergrond_logo": {
             "frame": {
-                "x": 1450,
-                "y": 736,
+                "x": 2175,
+                "y": 0,
                 "w": 603,
                 "h": 298
             }
@@ -178,88 +282,88 @@
         },
         "particle_leaf_test1": {
             "frame": {
-                "x": 1703,
-                "y": 1352,
+                "x": 2739,
+                "y": 572,
                 "w": 24,
                 "h": 23
             }
         },
         "particle_leaf_test2": {
             "frame": {
-                "x": 1778,
-                "y": 1294,
+                "x": 2739,
+                "y": 547,
                 "w": 31,
                 "h": 20
             }
         },
         "ui_ingame_icon_blue": {
             "frame": {
-                "x": 964,
-                "y": 1435,
+                "x": 2549,
+                "y": 1630,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_glow_blue": {
             "frame": {
-                "x": 842,
-                "y": 1435,
+                "x": 2333,
+                "y": 1630,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_glow_red": {
             "frame": {
-                "x": 720,
-                "y": 1435,
+                "x": 2645,
+                "y": 303,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_glow_yellow": {
             "frame": {
-                "x": 2027,
-                "y": 1039,
+                "x": 2645,
+                "y": 425,
                 "w": 117,
                 "h": 117
             }
         },
         "ui_ingame_icon_helmet": {
             "frame": {
-                "x": 2058,
-                "y": 830,
+                "x": 2643,
+                "y": 1630,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_magic": {
             "frame": {
-                "x": 2058,
-                "y": 736,
+                "x": 2455,
+                "y": 1630,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_red": {
             "frame": {
-                "x": 2000,
-                "y": 1176,
+                "x": 2678,
+                "y": 1437,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_shield": {
             "frame": {
-                "x": 1906,
-                "y": 1176,
+                "x": 2605,
+                "y": 1252,
                 "w": 89,
                 "h": 89
             }
         },
         "ui_ingame_icon_yellow": {
             "frame": {
-                "x": 2058,
-                "y": 924,
+                "x": 2645,
+                "y": 547,
                 "w": 89,
                 "h": 89
             }
@@ -271,7 +375,7 @@
         "image": "~sprite.png",
         "scale": 1,
         "size": {
-            "w": 2170,
+            "w": 2778,
             "h": 1913
         }
     }
