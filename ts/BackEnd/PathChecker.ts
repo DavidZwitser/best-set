@@ -22,7 +22,7 @@ export default class PathChecker
         return false;
     }
 
-    /* Return if a patern is possible */
+    /* Returns true if a patern is possible */
     public isPatternPossible(tiles: GameTile[]): boolean
     {
         let icons: TileIcons[] = [];

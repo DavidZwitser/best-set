@@ -5,7 +5,6 @@ export default class Atlases {
 
     public static List: string[] = [
         //atlases to load
-        Atlases.Interface,
-        Atlases.Lightning
+        Atlases.Interface
     ];
 }

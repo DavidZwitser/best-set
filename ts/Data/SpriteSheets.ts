@@ -10,9 +10,6 @@ export default class SpriteSheets
     public static TileShine: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
     { name: 'spritesheetshine', frameWidth: 165, frameHeight: 165, amountOfFrames: 6};
 
-    public static Orb: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
-    { name: 'orb', frameWidth: 150, frameHeight: 150, amountOfFrames: 10};
-
     public static Swipe: {name: string, frameWidth: number, frameHeight: number, amountOfFrames: number} =
     { name: 'spritesheet_swipe', frameWidth: 77, frameHeight: 30, amountOfFrames: 16};
 
@@ -20,7 +17,6 @@ export default class SpriteSheets
         SpriteSheets.BarEnd,
         SpriteSheets.TileDestroy,
         SpriteSheets.TileShine,
-        SpriteSheets.Orb,
         SpriteSheets.Swipe
     ];
 

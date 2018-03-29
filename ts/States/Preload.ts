@@ -25,6 +25,7 @@ export default class Preload extends Phaser.State
         this.game = game;
     }
 
+    /* All the assets the game needs are loaded here */
     public preload(): void
     {
         super.preload(this.game);
@@ -62,6 +63,7 @@ export default class Preload extends Phaser.State
         });
     }
 
+    /* After preload, the text changes a click event is started to go to the game */
     public create(): void
     {
         super.create(this.game);
