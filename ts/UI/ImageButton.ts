@@ -3,10 +3,15 @@ import Atlases from '../Data/Atlases';
 import SoundManager from '../BackEnd/SoundManager';
 import Sounds from '../Data/Sounds';
 
+/** A button with an image on it */
 export default class ImageButton extends Phaser.Button
 {
+    /** The image on the button */
     private _image: Phaser.Sprite;
+    /** The factor the button get's scaled with (changes when clicking) */
     private _scaleFactor: number = 1;
+
+    /* Creating all the elements on the image button */
     constructor(
         game: Phaser.Game, x: number, y: number, key: string, callback: Function, callbackContext: any)
         {

@@ -4,6 +4,7 @@ import IGame from '../PluginManagers/IGame';
 
 import Preload from './Preload';
 
+/** For setting all the low level actions in the game */
 export default class Boot extends Phaser.State
 {
     public static Name: string = 'boot';
@@ -19,6 +20,7 @@ export default class Boot extends Phaser.State
 
     public init(): void
     {
+        /* Handling what happends when the game resizes */
         if (this.game.device.desktop) {
 
             this.scale.pageAlignHorizontally = true;
@@ -73,6 +75,8 @@ export default class Boot extends Phaser.State
             e.preventDefault();
         };
     }
+
+    /** Resizing the canvas */
     private scaleCanvasContain(): void
     {
         if (window.innerHeight / window.innerWidth > GAME_HEIGHT / GAME_WIDTH) {
@@ -84,6 +88,7 @@ export default class Boot extends Phaser.State
         }
     }
 
+    /** What happends when the game resizes on a mobile device */
     public static MobileResizeCallback(manager: Phaser.ScaleManager): void
     {
         let width: number = window.innerWidth;
@@ -108,6 +113,7 @@ export default class Boot extends Phaser.State
         manager.setUserScale(1 / scaleFactor, 1 / scaleFactor);
     }
 
+    /** Preloading all the asstes needed for the spash screen */
     public preload(): void
     {
         super.preload(this.game);

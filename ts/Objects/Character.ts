@@ -1,15 +1,17 @@
 import 'phaser-ce';
 import IGame from '../PluginManagers/IGame';
+
 export default class Character extends Phaser.Group
 {
-    //spines
-    public spine: any;
-    public shadowSpine: any;
+    /** The character as a spine object */
+    public spine: PhaserSpine.Spine;
+    /** The character's shadow as a spine object */
+    public shadowSpine: PhaserSpine.Spine;
 
-    //game
+    /** A reference to the game */
     public game: IGame;
 
-    //static animation strings preventing mistyping
+    /** The animations in the character */
     public static ANIMARTION_IDLE: string = 'idle';
     public static ANIMARTION_ATTACK: string = 'combo';
     public static ANIMARTION_LOSE: string = 'defeat';
@@ -30,7 +32,7 @@ export default class Character extends Phaser.Group
         this.setAnimation(Character.ANIMARTION_IDLE, true);
     }
 
-    /* Animation is set for the character spine */
+    /** Animation is set for the character spine */
     private setAnimation(animation: string, loop: boolean = false): void
     {
         this.shadowSpine.setAnimationByName(0, animation, loop);
@@ -42,26 +44,26 @@ export default class Character extends Phaser.Group
         }});
     }
 
-    /* Combo animation is called without looping */
+    /** Combo animation is called without looping */
     public combo(): void
     {
         this.setAnimation(Character.ANIMARTION_ATTACK, false);
     }
 
-    /* Lose animation is called without looping */
+    /** Lose animation is called without looping */
     public lose(): void
     {
         this.setAnimation(Character.ANIMARTION_LOSE, false);
     }
 
-    /* spine animation is paused */
+    /** spine animation is paused */
     public pause( pause: boolean): void
     {
         this.spine.autoUpdate = !pause;
         this.shadowSpine.autoUpdate = !pause;
     }
 
-    /* destroys the character spine and shadow spine */
+    /** destroys the character spine and shadow spine */
     public destroy(): void
     {
         super.destroy(true);

@@ -1,8 +1,10 @@
 import 'phaser-ce';
 
+/** For making a nice transition between the states */
 export default class StateTransitioner
 {
 
+    /** Animate a state in from the top or the bottom */
     private static animateIn(game: Phaser.Game, ySide: number, callback?: Function): void
     {
         game.world.setBounds(
@@ -26,11 +28,13 @@ export default class StateTransitioner
 
     }
 
+    /** Animate the new state in from the bottom */
     public static InFromBottom(game: Phaser.Game, callback?: Function): void
     {
         this.animateIn(game, -1, callback);
     }
 
+    /** Animate the next state in from the top */
     public static InFromTop(game: Phaser.Game, callback?: Function): void
     {
         this.animateIn(game, 1, callback);

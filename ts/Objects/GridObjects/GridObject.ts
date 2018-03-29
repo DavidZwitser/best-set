@@ -7,6 +7,7 @@ export enum gridElementTypes {
     tile = 'tile'
 }
 
+/** The base class for an ellement that lives in the greid */
 export default class GridObject extends Phaser.Sprite
 {
     public gridPos: {x: number, y: number};

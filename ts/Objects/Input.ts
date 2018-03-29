@@ -1,5 +1,8 @@
 import GameTile from './GridObjects/GameTile';
 
+/**
+ * Fires a input snap signal when dragging over a new tile
+ */
 export default class Input
 {
     public  game: Phaser.Game;
@@ -23,14 +26,14 @@ export default class Input
         this.game.input.onUp.add(() => this.inputUp());
     }
 
-    /* For when the input is up */
+    /** For when the input is up */
     private inputUp(): void
     {
         this._currentSnap = null;
         this.onInputUp.dispatch();
     }
 
-    /* Call this in the update so that the class will fire it's 'onDragSnap' signal when a new tile is snapped */
+    /** Call this in the update so that the class will fire it's 'onDragSnap' signal when a new tile is snapped */
     public checkInputOnTiles(checkTiles: GameTile[]): void
     {
         if (this.game.input.activePointer.isDown === false) { return; }
@@ -40,11 +43,11 @@ export default class Input
             let currentTile: GameTile = checkTiles[i];
             let currentBounds: PIXI.Rectangle = currentTile.getBounds();
 
-            /* Multiplieng the hit area of a tile so it can be easier to drag to side ways tiles */
+            /** Multiplieng the hit area of a tile so it can be easier to drag to side ways tiles */
             currentBounds.width *= this._hitAreaMultiplier;
             currentBounds.height *= this._hitAreaMultiplier;
 
-            /* Checking if the mouse is in the tile */
+            /** Checking if the mouse is in the tile */
             if (currentBounds.contains(this.game.input.x, this.game.input.y) === false) { continue; }
 
             if (this._currentSnap === currentTile) { return; }
@@ -55,6 +58,7 @@ export default class Input
 
     }
 
+    /** Removing all the elements from Input */
     public destroy(): void
     {
         this.onDragSnap.removeAll();

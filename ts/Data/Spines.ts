@@ -1,3 +1,6 @@
+/**
+ * All the spine names, for preloading and accesing later.
+ */
 export default class Spines
 {
 

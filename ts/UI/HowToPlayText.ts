@@ -21,6 +21,4 @@ export default class HowToPlayText
         return this._htpText_3;
     }
 
-
-
 }

@@ -1,3 +1,6 @@
+/**
+ * All the spritesheets, for preloading and accessing later.
+ */
 export default class SpriteSheets
 {
 

@@ -1,3 +1,6 @@
+/**
+ * All the image names, so they can be preloaded and accessed later
+ */
 export default class Images
 {
 

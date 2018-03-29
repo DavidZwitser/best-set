@@ -5,6 +5,7 @@ import BasePopUp from './BasePopUp';
 
 export default class GameOverScreen extends BasePopUp
 {
+    /** The text that shows the highscore */
     private _highScoreText: Phaser.BitmapText;
 
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
@@ -22,6 +23,7 @@ export default class GameOverScreen extends BasePopUp
         this._highScoreText.anchor.set(0.5);
     }
 
+    /** Update the highscore text */
     public updateText(newHighScore: boolean): void
     {
         if (newHighScore)
