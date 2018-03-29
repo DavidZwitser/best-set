@@ -3,7 +3,7 @@ import Atlases from '../Data/Atlases';
 
 export default class TextButton extends Phaser.Button
 {
-    private _label: Phaser.BitmapText;
+    public _label: Phaser.BitmapText;
 
     constructor(game: Phaser.Game, x: number, y: number, key: string, text: string, callback: Function, callbackContext: any)
     {
