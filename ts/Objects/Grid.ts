@@ -3,7 +3,7 @@ import GridElement, {gridElementTypes} from './GridObjects/GridObject';
 export default class Grid extends Phaser.Group
 {
 
-    /* Contains all the elements */
+    /** Contains all the elements */
     private _elements: GridElement[];
 
     private _gridBlockSize: number;
@@ -28,7 +28,7 @@ export default class Grid extends Phaser.Group
         this.resize();
     }
 
-    /* The size of the grid blocks in pixels */
+    /** The size of the grid blocks in pixels */
     public get gridBlockSize(): number
     {
         return this._gridBlockSize;
@@ -39,7 +39,7 @@ export default class Grid extends Phaser.Group
         this.resize();
     }
 
-    /* For scaling the grid elements seperetly from the grid block sizes */
+    /** For scaling the grid elements seperetly from the grid block sizes */
     public get gridElementSizeMultiplier(): number
     {
         return this._gridElementSizeMultiplier;
@@ -50,7 +50,7 @@ export default class Grid extends Phaser.Group
         this.resize();
     }
 
-    /* How many blocks there are on the X axis */
+    /** How many blocks there are on the X axis */
     public get blocksOnX(): number
     {
         return this._blocksOnX;
@@ -61,7 +61,7 @@ export default class Grid extends Phaser.Group
         this.resize();
     }
 
-    /* How many blocks there are on the Y axis */
+    /** How many blocks there are on the Y axis */
     public get blocksOnY(): number
     {
         return this._blocksOnY;
@@ -77,7 +77,7 @@ export default class Grid extends Phaser.Group
         return this._elements;
     }
 
-    /* Get one or multiple elements with the given properties */
+    /** Get one or multiple elements with the given properties */
     public get(element: GridElement = null, gridX: number = null, gridY: number = null, type: gridElementTypes = null, args: {property: string, value: any}[] = null): GridElement[] | GridElement
     {
 
@@ -85,6 +85,7 @@ export default class Grid extends Phaser.Group
 
         this.forEach((currentElement: GridElement) => {
 
+            /** Checking if it has one or multiple of the given property values */
             if (element !== null && element !== currentElement) { return false; }
             if (gridX !== null && currentElement.gridPos.x !== gridX) { return false; }
             if (gridY !== null && currentElement.gridPos.y !== gridY) { return false; }
@@ -112,7 +113,7 @@ export default class Grid extends Phaser.Group
         return null;
     }
 
-    /* Add an element to the array */
+    /** Add an element to the array */
     public add(element: GridElement, forceOverwite: boolean = true): boolean
     {
         if (element.gridPos.x > this.blocksOnX || element.gridPos.y > this.blocksOnY) { return false; }
@@ -130,7 +131,7 @@ export default class Grid extends Phaser.Group
         return true;
     }
 
-    /* Returning false in the callback will destroy the element */
+    /** Returning false in the callback will destroy the element */
     public forEach(callback: (element: GridElement, gridX?: number, gridY?: number, index?: number) => boolean): void
     {
 
@@ -149,6 +150,7 @@ export default class Grid extends Phaser.Group
 
     }
 
+    /** Give a position on the grid, and get back the position in the game */
     public gridPositionToWorldPosition(element: GridElement, gridX: number, gridY: number): {x: number, y: number}
     {
         return {
@@ -157,7 +159,7 @@ export default class Grid extends Phaser.Group
         };
     }
 
-    /* Resize the whole grid and all it's elements */
+    /** Resize the whole grid and all it's elements */
     public resize(): void
     {
         this.forEach((element: GridElement) => {
@@ -168,7 +170,7 @@ export default class Grid extends Phaser.Group
         });
     }
 
-    /* Resize a single element in the grid */
+    /** Resize a single element in the grid */
     public resizeElement(element: GridElement): void
     {
         element.scale.setTo(1);
@@ -180,12 +182,12 @@ export default class Grid extends Phaser.Group
         element.resize();
     }
 
-    /* Find and destroy an element */
+    /** Find and destroy an element */
     public destroyElement(element: GridElement): void
     {
         this.forEach( (currentElement: GridElement, x: number, y: number, index: number) => {
 
-            /* So tslint won't give any errors */
+            /** So tslint won't give any errors */
             x = y;
             y = x;
 
@@ -203,7 +205,7 @@ export default class Grid extends Phaser.Group
 
     }
 
-    /* Destroy the grid and all it's elements */
+    /** Destroy the grid and all it's elements */
     public destroy(): void
     {
         super.destroy(true);

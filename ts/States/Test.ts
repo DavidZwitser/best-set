@@ -2,6 +2,10 @@ import 'phaser-ce';
 
 import IGame from '../PluginManagers/IGame';
 import EditorEmitter from '../Editor/emitter';
+
+/**
+ * The particle editor state, where phaser particles can more easilly be made by artists
+ */
 export default class Test extends Phaser.State
 {
     public static Name: string = 'test';
@@ -41,6 +45,8 @@ export default class Test extends Phaser.State
 
         this.testParticle(false);
     }
+
+    /** Regenerate the particle emitter, so the changed value can be tested */
     public testParticle(generateCode: boolean): void
     {
         this.emitter.destroy(true);
@@ -83,11 +89,13 @@ export default class Test extends Phaser.State
 
     public update(): void
     {
+        /** Makes the emitter follow the mouse when that options has been enabled */
         if (this._followMouse) {
             this.emitter.emitX = this.game.input.activePointer.x;
             this.emitter.emitY = this.game.input.activePointer.y;
         }
     }
+
     public shutdown(): void
     {
         super.shutdown(this.game);

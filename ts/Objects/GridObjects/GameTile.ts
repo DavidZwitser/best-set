@@ -6,6 +6,7 @@ import Atlases from '../../Data/Atlases';
 import FrameNames from '../../Data/FrameNames';
 import SpriteSheets from '../../Data/SpriteSheets';
 
+/** The icons a tile can have */
 export enum TileIcons
 {
     helmet = 'helmet',
@@ -13,6 +14,7 @@ export enum TileIcons
     shield = 'shield'
 }
 
+/** The shapes (colours) a tile can have */
 export enum TileShapes
 {
     blue = 'blue',
@@ -20,6 +22,7 @@ export enum TileShapes
     yellow = 'yellow'
 }
 
+/** An element that works in the grid and has the behavour a game tile should have */
 export default class GameTile extends GridObject
 {
     private _shape: TileShapes;
@@ -56,7 +59,7 @@ export default class GameTile extends GridObject
         this.resize();
     }
 
-    /* Set the shape of a tile */
+    /** Set the shape of a tile */
     set shape(value: TileShapes)
     {
         this.frameName = FrameNames.InGameIcon + value;
@@ -68,7 +71,7 @@ export default class GameTile extends GridObject
         return this._shape;
     }
 
-    /* Set the icon of a tile */
+    /** Set the icon of a tile */
     set icon(value: TileIcons)
     {
         if (value !== null) {
@@ -82,7 +85,7 @@ export default class GameTile extends GridObject
         return this._icon;
     }
 
-    /* Hide the tile with an animation */
+    /** Hide the tile with an animation */
     public animateOut(): Phaser.Signal
     {
         this.isBeingDestroyed = true;
@@ -97,6 +100,7 @@ export default class GameTile extends GridObject
         return this._tween.onComplete;
     }
 
+    /** Play the explode animation */
     public explosion(): void
     {
         this._explosionSprite = new Phaser.Sprite(this.game, this.world.x, this.world.y, SpriteSheets.TileDestroy.name);
@@ -107,7 +111,7 @@ export default class GameTile extends GridObject
         this._explosionSprite.animations.play('explode', 24, false, true);
     }
 
-    /* Make the tile fall down in a animated fashion */
+    /** Make the tile fall down in a animated fashion */
     public animateDown(newYPos: number, speed: number = 750): Phaser.Signal
     {
         this.clearTween();
@@ -119,7 +123,7 @@ export default class GameTile extends GridObject
         return this._tween.onComplete;
     }
 
-    /* Clear the tween so it can be overwritten */
+    /** Clear the tween so it can be overwritten */
     private clearTween(): void
     {
         if (this._tween)

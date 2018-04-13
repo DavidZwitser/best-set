@@ -43,6 +43,7 @@ namespace WebPackGame
             // });
         }
 
+        /** Adds all the states and starts the first one */
         private stateCreator(): void
         {
             //Here we load all the plugins

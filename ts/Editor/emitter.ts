@@ -1,10 +1,17 @@
 import 'phaser-ce';
 import Atlases from '../Data/Atlases';
 
+/**
+ * The class that handles the emitting the paricles, the particle editor editor creates
+ */
 export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
 {
 
     public code: string;
+
+    /**
+     * The values the particle emmitter uses to emmitt it's particles
+     */
     public editorValues: {
         gravity: number,
         alphamin: number,
@@ -39,6 +46,7 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         this.editorValues;
     }
 
+    /** Create the emitter with the given value's */
     public setUpEmitter(): void
     {
         this.code =
@@ -100,6 +108,8 @@ export default class EditorEmitter extends Phaser.Particles.Arcade.Emitter
         this.code += 'return emitter;}';
         //console.log(this.code);
     }
+
+    /** Start up the emitter */
     public startEmitter(): void
     {
         if (this.editorValues.explode) {

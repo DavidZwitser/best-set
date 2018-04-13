@@ -5,6 +5,9 @@ import Sounds from '../Data/Sounds';
 import SoundManager from '../BackEnd/SoundManager';
 import SpriteSheets from '../Data/SpriteSheets';
 
+/**
+ * Draws a line over a specified array of tiles
+ */
 export default class LineDrawer
 {
     public game: Phaser.Game;
@@ -16,21 +19,21 @@ export default class LineDrawer
         this._drawSpriteSheets = [];
     }
 
-    /* Draw a path */
+    /** Draw a path */
     public drawPath(tiles: GameTile[]): void
     {
         this.clearPath();
 
         if (tiles.length <= 1) { return; }
 
-        /* if there are more lines to be drawn than there are, then new ones are made and added to the list */
+        /** if there are more lines to be drawn than there are, then new ones are made and added to the list */
         while (tiles.length - 1 > this._drawSpriteSheets.length) {
             this.addSpriteToLine();
         }
 
         for (let i: number = 1; i < tiles.length; i++)
         {
-            /* declaring all the values needed to draw the line */
+            /** declaring all the values needed to draw the line */
             let currentTile: GameTile = tiles[i];
 
             let rndSoundKey: string = tiles.length <= 2 ? Sounds.TileSelect1 : tiles.length <= 3 ? Sounds.TileSelect2 : Sounds.TileSelect3;
@@ -42,7 +45,7 @@ export default class LineDrawer
             let length: number = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
             let angle: number = Math.atan2(dy, dx) * 180 / Math.PI;
 
-            /* implementing those values */
+            /** implementing those values */
             let line: Phaser.Sprite = this._drawSpriteSheets[i - 1];
             line.visible = true;
             line.position.set(previousTile.worldPosition.x, previousTile.worldPosition.y);
@@ -53,7 +56,7 @@ export default class LineDrawer
         }
     }
 
-    /* adding a spritesheet line to the list */
+    /** adding a spritesheet line to the list */
     public addSpriteToLine(): void {
         let sprite: Phaser.Sprite = this.game.add.sprite(0, 0, SpriteSheets.Swipe.name);
         sprite.anchor.set(0, .5);
@@ -61,7 +64,7 @@ export default class LineDrawer
         this._drawSpriteSheets.push(sprite);
     }
 
-    /* Clears the path */
+    /** Clears the path */
     public clearPath(): void
     {
         for (let i: number = this._drawSpriteSheets.length; i--;)
@@ -71,7 +74,7 @@ export default class LineDrawer
         }
     }
 
-    /* called when the class is destroyed */
+    /** called when the class is destroyed */
     public destroy(): void
     {
         for (let i: number = this._drawSpriteSheets.length; i--;) {

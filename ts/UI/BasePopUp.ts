@@ -4,6 +4,7 @@ import Menu from '../States/Menu';
 import Gameplay from '../States/Gameplay';
 import Images from '../Data/Images';
 
+/** The based class for any popup in the game */
 export default class BasePopUp extends Phaser.Group
 {
     private _backToMenuButton: TextButton;
@@ -18,6 +19,10 @@ export default class BasePopUp extends Phaser.Group
     constructor(game: Phaser.Game, scale: number, buttonOffset: number, spaceBetweenButtons: number, backgroundImage: string)
     {
         super(game);
+
+        // So there won't be a tslint errors
+        spaceBetweenButtons = spaceBetweenButtons;
+        buttonOffset = buttonOffset;
 
         this._blackPixel = new Phaser.Sprite(this.game, 0, 0, Images.BlackPixel);
         this._blackPixel.width = game.width;
@@ -60,17 +65,21 @@ export default class BasePopUp extends Phaser.Group
 
     }
 
+    /** When back to menu is clicked */
     private backToMenu(): void
     {
         this.game.paused = false;
         this.game.state.start(Menu.Name, true, false, this.game.world.generateTexture());
     }
 
+    /** When the restart game button is clicked */
     private restartScene(): void
     {
         this.game.paused = false;
         this.game.state.start(Gameplay.Name, true, false);
     }
+
+    /* Resize all the elements on the base popup */
     public resize(): void {
         this._blackPixel.width = this.game.width;
         this._blackPixel.height = this.game.height;

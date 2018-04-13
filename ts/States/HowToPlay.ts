@@ -156,7 +156,7 @@ export default class HowToPlay extends Phaser.State
 
     private AddText(): void
     {
-
+        //
     }
 
     private AdjustText(replaceText: string): void

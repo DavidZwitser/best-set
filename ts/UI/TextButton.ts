@@ -3,8 +3,12 @@ import Atlases from '../Data/Atlases';
 import SoundManager from '../BackEnd/SoundManager';
 import Sounds from '../Data/Sounds';
 
+/**
+ * A button that contains a string of text
+ */
 export default class TextButton extends Phaser.Button
 {
+    /** The string of text */
     public _label: Phaser.BitmapText;
 
     constructor(game: Phaser.Game, x: number, y: number, key: string, text: string, callback: Function, callbackContext: any)

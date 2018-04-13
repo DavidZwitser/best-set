@@ -6,6 +6,7 @@ import Constants from '../Data/Constants';
 import BasePopUp from '../UI/BasePopUp';
 import ImageButton from './ImageButton';
 
+/** The popup which contains all the pause menu buttons and things */
 export default class PauseMenu extends BasePopUp
 {
 
@@ -35,17 +36,20 @@ export default class PauseMenu extends BasePopUp
 
     }
 
+    /** What happens when continue is clicked */
     private continue(): void
     {
         this.visible = false;
         this.onContinue.dispatch();
     }
 
+    /** What phappens when music toggle is clicked */
     private musicToggle(): void
     {
         Constants.PlayMusic = ! Constants.PlayMusic;
     }
 
+    /** What happens when the sfx button is clicked */
     private sfxToggle(): void
     {
         Constants.PlaySoundEffects = ! Constants.PlaySoundEffects;

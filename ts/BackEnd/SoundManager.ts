@@ -2,14 +2,19 @@ import SaveGame from './SaveData';
 
 import 'phaser-ce';
 
+/** Handles the playing of sounds */
 export default class SoundManager
 {
+    /** The instance of the sound manager used to handle the sounds */
     private static instance: SoundManager = null;
 
+    /** The manager that handles the sfx's */
     private _sound: Phaser.SoundManager;
 
+    /** The manager that handles the music */
     public music: Phaser.Sound = null;
 
+    /** All the instances of audio clips */
     private audioInstances: {
         [name: string]: Phaser.Sound
     } = {};
@@ -19,6 +24,7 @@ export default class SoundManager
         this._sound = game.sound;
     }
 
+    /** Get an instance of the game to handle sounds with */
     public static getInstance(game?: Phaser.Game): SoundManager
     {
         if (null === SoundManager.instance)
@@ -34,6 +40,7 @@ export default class SoundManager
         return SoundManager.instance;
     }
 
+    /** Play a sfx */
     public play(key: string, volume: number = 1, loop: boolean = false): Phaser.Sound
     {
         if (SaveGame.SFXMuted)
@@ -50,6 +57,7 @@ export default class SoundManager
         return this.audioInstances[key];
     }
 
+    /** Stop a sfx */
     public stop(key: string): void
     {
         if (this.audioInstances.hasOwnProperty(key))
@@ -58,6 +66,7 @@ export default class SoundManager
         }
     }
 
+    /** Start playing a background tune */
     public playMusic(key: string, volume: number = 1): void
     {
         if (SaveGame.MusicMuted)
@@ -91,6 +100,7 @@ export default class SoundManager
         console.error('doing nothing' );
     }
 
+    /* Fade music folume to a spesific new volume */
     public fadeMusicVolume(duration: number, volume: number): void
     {
         if (this.music)
@@ -99,6 +109,7 @@ export default class SoundManager
         }
     }
 
+    /** Stop the music */
     public stopMusic(): void
     {
         if (null === this.music)
@@ -112,11 +123,13 @@ export default class SoundManager
         }
     }
 
+    /** Toggle the sfx mute switch */
     public toggleSfx(): void
     {
         SaveGame.SFXMuted = !SaveGame.SFXMuted;
     }
 
+    /** Toggle the music mute switch */
     public toggleMusic(): void
     {
         SaveGame.MusicMuted = !SaveGame.MusicMuted;

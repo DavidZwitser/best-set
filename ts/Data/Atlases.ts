@@ -1,3 +1,6 @@
+/**
+ * All the keys for the atlasses, so they can be preloaded and accessed later
+ */
 export default class Atlases {
 
     public static Interface: string = 'sprite';
@@ -5,7 +8,6 @@ export default class Atlases {
 
     public static List: string[] = [
         //atlases to load
-        Atlases.Interface,
-        Atlases.Lightning
+        Atlases.Interface
     ];
 }

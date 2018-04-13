@@ -23,29 +23,40 @@ export default class Gameplay extends Phaser.State
 
     public name: string = Gameplay.Name;
 
+    /** The srite that saves the snapshot of the last state to make the transition happen */
     private _transitionBackdrop: Phaser.Sprite;
 
+    /* The class that handles the backend functionality of the ingame time */
     private _timerClass: Timer;
 
+    /** The group that contains all the elements in the game field */
     private _gameField: GameField;
 
+    /** The pause button */
     private pauseMenuButton: ImageButton;
+    /** The share button */
     private socialMenuButton: ImageButton;
 
     private _pauseMenu: PauseMenu;
 
+    /** The background for the highscore sprite */
     private _highscoreBackdropSprite: Phaser.Sprite;
+    /** The game's background */
     private _backgroundSprite: Phaser.Sprite;
 
+    /** The score currently achieved */
     public currentScore: number = 0;
 
     private _scoreText: Phaser.BitmapText;
     private _highScoreText: Phaser.BitmapText;
 
+    /** The spine character which gives feedback when making combinations */
     private _character: Character;
 
+    /** The screen that pop's up when the game goes gameover */
     private _gameOverScreen: GameOverScreen;
-    //emitters
+
+    /** The emitter that spreads leave around the screen */
     private _leafEmitter: Phaser.Particles.Arcade.Emitter;
 
     constructor()
@@ -53,6 +64,7 @@ export default class Gameplay extends Phaser.State
         super();
     }
 
+    /** Pause the game */
     public pause(paused: boolean): void
     {
         this.game.paused = paused;
@@ -62,10 +74,7 @@ export default class Gameplay extends Phaser.State
 
     public init(worldSnapshot: Phaser.RenderTexture): void
     {
-        if (!worldSnapshot) { return; }
-        this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
-        this._transitionBackdrop.anchor.set(.5, 1);
-
+        /** Pausing the game on blur and focus */
         window.addEventListener('blur', () => {
             this.pause(true);
         });
@@ -73,8 +82,13 @@ export default class Gameplay extends Phaser.State
             this.pause(false);
         });
 
+        /** Setting the last snapshot of the game as a preview, so the level transition doesn't animate in from a black screen */
+        if (!worldSnapshot) { return; }
+        this._transitionBackdrop = this.game.add.sprite(this.game.width / 2, 0, worldSnapshot);
+        this._transitionBackdrop.anchor.set(.5, 1);
     }
 
+    /** Creating all the elements in gameplay */
     public create(): void
     {
         super.create(this.game);
@@ -97,8 +111,8 @@ export default class Gameplay extends Phaser.State
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
 
-        this._pauseMenu.onContinue.add(this.disableMenu.bind(this), this);
-        this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activateMenu.bind(this), this );
+        this._pauseMenu.onContinue.add(this.hidePauseMenu.bind(this), this);
+        this.pauseMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_pause', this.activatePauseMenu.bind(this), this );
         this.game.add.existing(this.pauseMenuButton);
 
         this.socialMenuButton = new ImageButton(this.game, 0, 0, 'ui_ingame_button_share', this.activateSocial.bind(this), this );
@@ -119,10 +133,11 @@ export default class Gameplay extends Phaser.State
         this.currentScore = 0;
 
         this._pauseMenu = new PauseMenu(this.game, 0.6, 120, 125, Images.PopUpMenuBackground);
-        this._pauseMenu.onContinue.add(this.disableMenu, this);
+        this._pauseMenu.onContinue.add(this.hidePauseMenu, this);
 
         this.resize();
 
+        /** Animating in from the last state */
         if (!this._transitionBackdrop) { return; }
         StateTransition.InFromBottom(this.game, () => {
             this._transitionBackdrop.destroy(true);
@@ -131,6 +146,7 @@ export default class Gameplay extends Phaser.State
 
     }
 
+    /** Updates the score ui and local variable and making the character fire it's animation */
     private updateScoreText(scoreIncrease: number): void
     {
         this.currentScore += scoreIncrease;
@@ -138,7 +154,8 @@ export default class Gameplay extends Phaser.State
         this._character.combo();
     }
 
-    private activateMenu(): void
+    /** Show the pause menu */
+    private activatePauseMenu(): void
     {
         //pause the game
         //stop the timer from moving et cetera
@@ -148,6 +165,8 @@ export default class Gameplay extends Phaser.State
         this.pauseMenuButton.inputEnabled = false;
 
     }
+
+    /** Show gameover screen */
     private gameOverScreen(): void
     {
         this._character.lose();
@@ -167,6 +186,8 @@ export default class Gameplay extends Phaser.State
         //this.pause(true);
         this._gameOverScreen.visible = true;
     }
+
+    /** What happens when you click on the share button */
     private activateSocial(): void
     {
         window.open(
@@ -176,12 +197,14 @@ export default class Gameplay extends Phaser.State
         );
     }
 
-    private disableMenu(): void
+    /** Hide pause menu */
+    private hidePauseMenu(): void
     {
         this.pause(false);
         this.pauseMenuButton.inputEnabled = true;
     }
 
+    /** Risize and position all the elements in gameplay */
     public resize(): void
     {
 
@@ -204,7 +227,7 @@ export default class Gameplay extends Phaser.State
 
         this._gameField.resize();
 
-        /* How much the space the grid can use on the screen in pixels */
+        /** How much the space the grid can use on the screen in pixels */
         let gridHeightSpace: number =
             Math.min(
 
@@ -241,12 +264,14 @@ export default class Gameplay extends Phaser.State
         this._scoreText.x = this.game.width / 2;
         this._scoreText.y = this.game.width * 0.02;
         this._scoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
+
         this._highScoreText.x = this.game.width / 2;
         this._highScoreText.y = this.game.width * 0.08;
         this._highScoreText.scale.set(this.game.width / GAME_WIDTH, this.game.width / GAME_WIDTH);
 
     }
 
+    /** Destroying all the elements in gameplay */
     public shutdown(): void
     {
         super.shutdown(this.game);
@@ -291,6 +316,7 @@ export default class Gameplay extends Phaser.State
         window.addEventListener('focus', null);
     }
 
+    /** Creating the leave emitter */
     public createLeafEmitter(): Phaser.Particles.Arcade.Emitter
     {
         let emitter: Phaser.Particles.Arcade.Emitter = new Phaser.Particles.Arcade.Emitter(this.game, 0, 0, 50);

@@ -1,6 +1,6 @@
 import 'phaser-ce';
 
-import Test from './Test';
+// import Test from './Test';
 import TextButton from '../UI/TextButton';
 import ImageButton from '../UI/ImageButton';
 import Gameplay from './Gameplay';
@@ -18,12 +18,18 @@ export default class Menu extends Phaser.State
 
     public name: string = Menu.Name;
 
+    /** The sprite that saves the image of the last state, to make the transition happen */
     private _transitionBackdrop: Phaser.Sprite;
 
+    /** The background for the menu */
     private _backgroundSprite: Phaser.Sprite;
+    /** The sprite that contains the game title */
     private _title: Phaser.Sprite;
+    /** The container that contains the button */
     private _buttonContainers: Phaser.Group;
+    /** The container that has all the small buttons */
     private _smallButtonContainer: Phaser.Group;
+    /** The how to play popup that can be started */
     private _howToPlayMenu: HowToPlayMenu;
 
     constructor()
@@ -36,6 +42,7 @@ export default class Menu extends Phaser.State
     {
         SoundManager.getInstance(this.game);
 
+        /* Saving the image of the last state to make the transition happen */
         if (!worldSnapshot) { return; }
         this._transitionBackdrop = this.game.add.sprite(0, this.game.height, worldSnapshot);
     }
@@ -60,11 +67,12 @@ export default class Menu extends Phaser.State
         this._howToPlayMenu = new HowToPlayMenu(this.game);
         this.add.existing(this._howToPlayMenu);
 
-        /* Go to gameplay by default */
+        /** Go to gameplay by default */
         //this.state.start(Gameplay.Name);
 
         this.resize();
 
+        /* Starting the transition */
         if (!this._transitionBackdrop) { return; }
         StateTransition.InFromTop(this.game, () => {
             this._transitionBackdrop.destroy(true);
@@ -72,6 +80,7 @@ export default class Menu extends Phaser.State
         });
     }
 
+    /** Create the container that contains the buttons and those buttons */
     private createButtonContainers(): Phaser.Group
     {
         let group: Phaser.Group = new Phaser.Group(this.game);
@@ -88,6 +97,7 @@ export default class Menu extends Phaser.State
         return group;
     }
 
+    /** Create the container that holds all the small buttons and creating those buttons */
     private createSmallButtonContainers(): Phaser.Group
     {
         let group: Phaser.Group = new Phaser.Group(this.game);
@@ -100,6 +110,7 @@ export default class Menu extends Phaser.State
         return group;
     }
 
+    /* Place all the elements in the menu in their correct position */
     public resize(): void
     {
         let vmax: number = Math.max(this.game.width, this.game.height);

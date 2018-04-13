@@ -17,6 +17,7 @@ import SpriteSheets from '../../Data/SpriteSheets';
 import Sounds from '../../Data/Sounds';
 import SoundManager from '../../BackEnd/SoundManager';
 
+/** The group that contains all the elements which are in the game field */
 export default class GameField extends Phaser.Group
 {
     public grid: Grid;
@@ -27,9 +28,10 @@ export default class GameField extends Phaser.Group
     private _lineDrawer: LineDrawer;
     private _gridRegenerator: GridRegenerator;
 
-    /* The path that is being drawn */
+    /** The path that is being drawn */
     private _currentPath: GameTile[];
 
+    /** The grid that makes the tiles not fall out of the screen */
     private _gridMask: Phaser.Graphics;
 
     private _backdropSprite: Phaser.Sprite;
@@ -39,9 +41,11 @@ export default class GameField extends Phaser.Group
     public updateScore: Phaser.Signal;
     public timer: Timer;
 
+    /** The shiny animations */
     private _shineSprites: Array<Phaser.Sprite>;
     private _shineIndex: number = 0;
 
+    /** Creating and adding all the alements for the game field */
     constructor(game: Phaser.Game)
     {
         super(game);
@@ -85,33 +89,36 @@ export default class GameField extends Phaser.Group
             this.grid.mask = this._gridMask;
         });
         if (1 < 0) {
-            this.clearIconFromColor(TileShapes.blue);
+            this.clearIconFromTile(TileShapes.blue);
             this.destroyBombTiles(0, 0, true);
         }
 
     }
 
-    /* The initial setup for the grid */
+    /** The initial setup for the grid */
     private setupGrid(): void
     {
-        /* Generating the grid */
+        /** Generating the grid */
         let generatedLevel: GameTile[] = this.generateNewGrid();
 
-        /* Adding the generated grid to the actual grid */
+        /** Adding the generated grid to the actual grid */
         generatedLevel.forEach((tile: GameTile) => {
             this.grid.add(tile);
         });
 
-        /* Asigning the input signals */
+        /** Asigning the input signals */
         this._gridInput.onDragSnap.add(this.addNewTileToPath, this);
         this._gridInput.onInputUp.add(this.inputRelease, this);
 
         this.resize();
     }
 
+    /** Creating the shines, to place over the tiles when they need to shine! */
     private setupShines(): void {
+
         this._shineIndex = 0;
         this._shineSprites = [];
+
         for (let i: number = 0; i < 3; i++) {
             let shine: Phaser.Sprite = new Phaser.Sprite(this.game, 0, 0, SpriteSheets.TileShine.name);
             shine.anchor.set(.5);
@@ -120,8 +127,10 @@ export default class GameField extends Phaser.Group
             this.game.add.existing(shine);
             this._shineSprites.push(shine);
         }
+
     }
 
+    /** Parsing the logic for creating a new tile to the grid generator and returning the generated grid */
     private generateNewGrid(): GameTile[]
     {
         return this._gridSpawner.generateGrid(this.grid, (gridX: number, gridY: number, shape: TileShapes, icon: TileIcons) => {
@@ -131,16 +140,16 @@ export default class GameField extends Phaser.Group
         });
     }
 
-    /* What happens if the input finds, the mouse is draggig over a new tile */
+    /** What happens if the input finds, the mouse is draggig over a new tile */
     private addNewTileToPath(tile: GameTile): void
     {
-        /* Checking if the tile is already in the path */
+        /** Checking if the tile is already in the path */
         for (let i: number = this._currentPath.length; i--; )
         {
             if (tile === this._currentPath[i])
             {
 
-                /* Removing all the tiles after the current */
+                /** Removing all the tiles after the current */
                 this._currentPath.splice( i + 1, this._currentPath.length - i);
 
                 this.newPathCreated(this._currentPath);
@@ -150,7 +159,7 @@ export default class GameField extends Phaser.Group
 
         this._currentPath.push(tile);
 
-        /* Checking if the patern is possible */
+        /** Checking if the patern is possible */
         if (
             this._currentPath.length > 1 &&
             (this._pathChecker.isPatternPossible(this._currentPath) === false ||
@@ -161,22 +170,26 @@ export default class GameField extends Phaser.Group
             return;
         }
 
-        /* tile will shine since it can be connected */
+        /** tile will shine since it can be connected */
         this.shineOnTile(tile);
 
-        /* A new path is created */
+        /** A new path is created */
         this.newPathCreated(this._currentPath);
     }
 
+    /** Place the shine on a tile */
     private shineOnTile(tile: GameTile): void {
+
         this._shineIndex = (this._shineIndex + 1 ) % this._shineSprites.length;
         let shine: Phaser.Sprite = this._shineSprites[this._shineIndex];
+
         shine.scale.set(tile.scale.x * .55);
         shine.position.set(tile.worldPosition.x, tile.worldPosition.y);
         shine.animations.play('shine', 24, false);
+
     }
 
-    /* What happens when the path input is released */
+    /** What happens when the path input is released */
     private inputRelease(): void
     {
 
@@ -188,10 +201,10 @@ export default class GameField extends Phaser.Group
             return;
         }
 
-        /* So the user can not exploid the delay between destroying and regenerating */
+        /** So the user can not exploid the delay between destroying and regenerating */
         if (this._currentPath[0].isBeingDestroyed === true) { return; }
 
-        /* Animating out the tiles in the grid */
+        /** Animating out the tiles in the grid */
         this._currentPath[0].animateOut().addOnce(this.regenerateGrid, this);
 
         for (let i: number = this._currentPath.length - 1; i > 0; i-- )
@@ -203,16 +216,19 @@ export default class GameField extends Phaser.Group
         SoundManager.getInstance(this.game).play(Sounds.TilesBreak);
     }
 
-    /* Replanish the grid with new tiles */
+    /** Replanish the grid with new tiles */
     private regenerateGrid(): void
     {
+        /** Destroy the ellements selected in the path */
         for (let i: number = this._currentPath.length; i--; )
         {
             this.grid.destroyElement(this._currentPath[i]);
         }
 
+        /** Move the blocks that can be moved down, down */
         this._gridRegenerator.moveNeededBlocksDown(this.grid);
 
+        /** Moving in the new elements after a delay */
         setTimeout( () => {
             this._gridRegenerator.moveInNewElements(this.grid, this.generateNewGrid());
         }, 650);
@@ -220,20 +236,21 @@ export default class GameField extends Phaser.Group
         this.cancelPath();
     }
 
-    /* What happens when the path creaton get's canceled */
+    /** What happens when the path path get's canceled */
     private cancelPath(): void
     {
         this._currentPath.length = 0;
         this._lineDrawer.clearPath();
     }
 
-    /* What happends when a new path is created */
+    /** What happends when a new path is created */
     private newPathCreated(path: GameTile[]): void
     {
         this._lineDrawer.drawPath(path);
     }
 
-    private clearIconFromColor(color: TileShapes): void
+    /** Remove all the icons from the tiles */
+    private clearIconFromTile(color: TileShapes): void
     {
         this.grid.forEach((elem: GridObject) => {
             if (elem.gridElementType === gridElementTypes.tile) {
@@ -245,6 +262,7 @@ export default class GameField extends Phaser.Group
         });
     }
 
+    /** Destroy all a row or cross of tiles */
     private destroyBombTiles(xPos: number, yPos: number, cross: boolean = false): void
     {
         this._currentPath.length = 0;
@@ -269,6 +287,7 @@ export default class GameField extends Phaser.Group
 
     public update(): void
     {
+        /** Updating input class */
         this._gridInput.checkInputOnTiles(<GameTile[]>this.grid.get(null, null, null, gridElementTypes.tile));
     }
 
@@ -322,14 +341,14 @@ export default class GameField extends Phaser.Group
 
         this._gridRegenerator = null;
 
-        /* Visualising grid stuff */
+        /** Visualising grid stuff */
         if (this._gridMask) { this._gridMask.destroy(true); }
         this._gridMask = null;
 
         if (this._backdropSprite) { this._backdropSprite.destroy(true); }
         this._backdropSprite = null;
 
-        /* Timer stuff */
+        /** Timer stuff */
         if (this._timerBbackdropSprite) { this._timerBbackdropSprite.destroy(true); }
         this._timerBbackdropSprite = null;
 

@@ -1,10 +1,13 @@
 import 'phaser-ce';
 import GameTile, { TileIcons, TileShapes } from '../Objects/GridObjects/GameTile';
 
+/**
+ * Give it a tile array and it'll return if it is a correct or incorrect path!
+ */
 export default class PathChecker
 {
 
-    /* Returns if a tile is a neighbour of the current tile */
+    /** Returns if a tile is a neighbour of the current tile */
     public isNeighbour(currentTile: GameTile, possibleTile: GameTile, neighbourRange: number = 1): boolean
     {
         let minX: number = currentTile.gridPos.x - neighbourRange;
@@ -22,7 +25,7 @@ export default class PathChecker
         return false;
     }
 
-    /* Return if a patern is possible */
+    /** Returns true if a patern is possible */
     public isPatternPossible(tiles: GameTile[]): boolean
     {
         let icons: TileIcons[] = [];
@@ -34,7 +37,7 @@ export default class PathChecker
             if (tiles[i].shape) { shapes.push(tiles[i].shape); }
         }
 
-        /* If a path is all opposite or all the same, return true */
+        /** If a path is all opposite or all the same, return true */
         let isCorrect: boolean =
                 !((!this.everyValueIsTheSame(icons) && !this.everyValueIsDifferent(icons)) ||
                 (!this.everyValueIsTheSame(shapes) && !this.everyValueIsDifferent(shapes)));
@@ -42,7 +45,7 @@ export default class PathChecker
         return isCorrect;
     }
 
-    /* Returns true if every value is the same */
+    /** Returns true if every value is the same */
     private everyValueIsTheSame(arr: any): boolean
     {
         let _value: any = arr[0];
@@ -58,7 +61,7 @@ export default class PathChecker
         return true;
     }
 
-    /* Returns true if every value is different */
+    /** Returns true if every value is different */
     private everyValueIsDifferent(arr: any): boolean
     {
         let _counts: any = [];
