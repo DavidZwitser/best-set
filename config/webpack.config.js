@@ -78,7 +78,7 @@ module.exports = {
     },
     output: {
         filename: 'game.js',
-        path: path.join(basePath, 'builds/dev/'),
+        path: path.join(basePath, 'docs'),
         publicPath: "../assets/"
     },
     watch: true,
@@ -108,7 +108,7 @@ module.exports = {
                 './atlas_assets/**/*.png'
             ],
             server: {
-                baseDir: ['./builds/dev']
+                baseDir: ['./dist']
             }
         }, {
             reload: true
@@ -128,27 +128,27 @@ module.exports = {
         new CopyWebpackPlugin([
             {
                 from: path.join(basePath, 'node_modules/phaser-ce/build/custom/p2.js'),
-                to: path.join(basePath, 'builds/dev/vendor/p2.js')
+                to: path.join(basePath, 'docs/vendor/p2.js')
             },
             {
                 from: path.join(basePath, 'node_modules/phaser-ce/build/custom/pixi.js'),
-                to: path.join(basePath, 'builds/dev/vendor/pixi.js')
+                to: path.join(basePath, 'docs/vendor/pixi.js')
             },
             {
                 from: path.join(basePath, 'node_modules/phaser-ce/build/custom/phaser-split.js'),
-                to: path.join(basePath, 'builds/dev/vendor/phaser.js')
+                to: path.join(basePath, 'docs/vendor/phaser.js')
             },
             {
                 from: path.join(basePath, 'node_modules/@orange-games/phaser-spine/build/phaser-spine.js'),
-                to: path.join(basePath, 'builds/dev/vendor/phaserspine.js')
+                to: path.join(basePath, 'docs/vendor/phaserspine.js')
             },
             {
                 from: path.join(basePath, 'assets'),
-                to: path.join(basePath, 'builds/dev/assets')
+                to: path.join(basePath, 'docs/assets')
             },
             {
                 from: path.join(basePath, 'template/index.html'),
-                to: path.join(basePath, 'builds/dev/index.html')
+                to: path.join(basePath, 'docs/index.html')
             }
         ]),
         new ForkTsCheckerNotifierWebpackPlugin({alwaysNotify: true}),
@@ -163,11 +163,11 @@ module.exports = {
                 glob: '**/*.png'
             },
             target: {
-                image: path.resolve(__dirname, '../builds/dev/assets/atlases/sprite.png'),
+                image: path.resolve(__dirname, '../dist/assets/atlases/sprite.png'),
                 css: [
                     //optional if we want a css file referencing the atlas
-                    //path.resolve(__dirname, '../builds/dev/assets/atlases/sprite.css'),
-                    [path.resolve(__dirname, '../builds/dev/assets/atlases/sprite.json'), {
+                    //path.resolve(__dirname, '../dist/assets/atlases/sprite.css'),
+                    [path.resolve(__dirname, '../dist/assets/atlases/sprite.json'), {
                         format: 'json_texture'
                     }]
                 ]

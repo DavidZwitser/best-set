@@ -322,8 +322,8 @@
         },
         "ui_ingame_icon_blue": {
             "frame": {
-                "x": 2451,
-                "y": 1800,
+                "x": 2645,
+                "y": 547,
                 "w": 89,
                 "h": 89
             }
@@ -338,45 +338,21 @@
         },
         "ui_ingame_icon_glow_red": {
             "frame": {
-                "x": 1320,
-                "y": 1699,
-                "w": 117,
-                "h": 117
-            }
-        },
-        "ui_ingame_icon_glow_yellow": {
-            "frame": {
                 "x": 2645,
                 "y": 425,
                 "w": 117,
                 "h": 117
             }
         },
+        "ui_ingame_icon_glow_yellow": {
+            "frame": {
+                "x": 1320,
+                "y": 1699,
+                "w": 117,
+                "h": 117
+            }
+        },
         "ui_ingame_icon_helmet": {
-            "frame": {
-                "x": 2645,
-                "y": 547,
-                "w": 89,
-                "h": 89
-            }
-        },
-        "ui_ingame_icon_magic": {
-            "frame": {
-                "x": 2678,
-                "y": 1607,
-                "w": 89,
-                "h": 89
-            }
-        },
-        "ui_ingame_icon_red": {
-            "frame": {
-                "x": 2605,
-                "y": 1422,
-                "w": 89,
-                "h": 89
-            }
-        },
-        "ui_ingame_icon_shield": {
             "frame": {
                 "x": 2672,
                 "y": 1111,
@@ -384,9 +360,33 @@
                 "h": 89
             }
         },
-        "ui_ingame_icon_yellow": {
+        "ui_ingame_icon_magic": {
+            "frame": {
+                "x": 2605,
+                "y": 1422,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_red": {
+            "frame": {
+                "x": 2678,
+                "y": 1607,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_shield": {
             "frame": {
                 "x": 2357,
+                "y": 1800,
+                "w": 89,
+                "h": 89
+            }
+        },
+        "ui_ingame_icon_yellow": {
+            "frame": {
+                "x": 2451,
                 "y": 1800,
                 "w": 89,
                 "h": 89
